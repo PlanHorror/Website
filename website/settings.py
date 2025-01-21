@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from dotenv import load_dotenv
 from urllib.parse import urlparse
-
+from django.utils.translation import gettext_lazy as _
 load_dotenv()
 
 # Replace the DATABASES section of your settings.py with this
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'members',
     'app',
+    'rosetta',
 ]
 
 AUTH_USER_MODEL = 'members.CustomUser'
@@ -56,6 +57,7 @@ AUTH_USER_MODEL = 'members.CustomUser'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -68,7 +70,7 @@ ROOT_URLCONF = 'website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,3 +141,12 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Set the languages that your website supports
+
+LANGUAGES = (
+    ('vi', _('Vietnamese')),
+    ('en', _('English')),
+    ('ja', _('Japanese')),
+)
+LANGUAGE_CODE = 'en'
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]

@@ -18,9 +18,9 @@ class Label(models.Model):
 class Project(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.TextField()
-    label = models.ManyToManyField(Label, blank=True, null=True)
+    label = models.ManyToManyField(Label, blank=True)
     content = models.TextField()
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='pj-images/')
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.title
@@ -42,7 +42,7 @@ class NewsContent(models.Model):
 # NewsImage model is created to store the images of the news
 class NewsImage(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='news-images/')
     num = models.IntegerField()
     def __str__(self):
         return self.image
@@ -72,7 +72,7 @@ class CourseContent(models.Model):
 # CourseImage model is created to store the images of the course
 class CourseImage(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='cs-images/')
     num = models.IntegerField()
     def __str__(self):
         return self.image
