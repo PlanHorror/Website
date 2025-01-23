@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from parler.models import TranslatableModel, TranslatedFields
+from django.utils.translation import gettext_lazy as _
 # Create your models here.
 # CustomUser model is created by extending AbstractUser model
 class CustomUser(AbstractUser):
@@ -8,34 +10,42 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 # Label model is created to store the labels created by the user
-class Label(models.Model):
-    name = models.TextField(unique=True)
+class Label(TranslatableModel):
+    translation = TranslatedFields(
+        name = models.TextField(_('Name'), unique=True)
+    )
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.name
 # Project model is created to store the projects created by the user
-class Project(models.Model):
+class Project(TranslatableModel):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    title = models.TextField()
-    label = models.ManyToManyField(Label, blank=True)
-    content = models.TextField()
+    label = models.ManyToManyField(Label, blank=True, null=True)
+    translation = TranslatedFields(
+        title = models.TextField(_('Title')),
+        content = models.TextField(_('Content'))
+    )
     image = models.ImageField(upload_to='pj-images/')
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.title
 # News model is created to store the news created by the user
-class News(models.Model):
+class News(TranslatableModel):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    title = models.TextField()
-    label = models.ManyToManyField(Label)   
+    label = models.ManyToManyField(Label)
+    translation = TranslatedFields(
+        title = models.TextField(),  
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.title
 # NewsContent model is created to store the content of the news
-class NewsContent(models.Model):
+class NewsContent(TranslatableModel):
     news = models.ForeignKey(News, on_delete=models.CASCADE)
-    content = models.TextField()
+    translation = TranslatedFields(
+        content = models.TextField()
+    )
     num = models.IntegerField()
     def __str__(self):
         return self.content
@@ -45,7 +55,7 @@ class NewsImage(models.Model):
     image = models.ImageField(upload_to='news-images/')
     num = models.IntegerField()
     def __str__(self):
-        return self.image
+        return self.image.name
 # Comment model is created to store the comments created by the user
 class Comment(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -55,24 +65,20 @@ class Comment(models.Model):
     def __str__(self):
         return self.content
 # Course model is created to store the courses created by the user
-class Course(models.Model):
+class Course(TranslatableModel):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    title = models.TextField()
-    label = models.ManyToManyField(Label)
+    translation = TranslatedFields(
+        title = models.TextField()
+    )
+    module = models.ManyToManyField('Module', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.title
-# CourseContent model is created to store the content of the course
-class CourseContent(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    content = models.TextField()
-    num = models.IntegerField()
+class Module(TranslatableModel):
+    translation = TranslatedFields(
+        module = models.TextField(unique=True)
+    )
+    created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return self.content
-# CourseImage model is created to store the images of the course
-class CourseImage(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='cs-images/')
-    num = models.IntegerField()
-    def __str__(self):
-        return self.image
+        return self.module

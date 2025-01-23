@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'members',
     'app',
     'rosetta',
+    'parler',
 ]
 
 AUTH_USER_MODEL = 'members.CustomUser'
@@ -136,7 +137,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -150,3 +154,15 @@ LANGUAGES = (
 )
 LANGUAGE_CODE = 'en'
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en'},
+        {'code': 'vi'},
+        {'code': 'ja'},
+    ),
+    'default': {
+        'fallback': 'en',
+        'hide_untranslated': False,
+    }
+}
+# Add this at the end of your settings.py

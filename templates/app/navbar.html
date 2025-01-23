@@ -1,0 +1,137 @@
+<style>
+  /* Navbar Responsive Styles */
+  .gradient-bg {
+    background: linear-gradient(90deg, #ffd700, #ff4500);
+  }
+
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  .nav-link {
+    color: rgb(190, 190, 190);
+    font-size: 1.1rem;
+  }
+
+  .nav-link:hover {
+    text-decoration: none;
+    text-shadow: 0 0 2px white;
+  }
+
+  .nav-link:after {
+    content: "";
+    display: block;
+    width: 0%;
+    height: 2px;
+    background: white;
+    transition: width 0.3s;
+  }
+
+  .nav-link:hover:after {
+    width: 100%;
+  }
+
+  .btn-orange {
+    background: linear-gradient(90deg, #ffb700, #ff4500);
+    color: white;
+    border: none;
+  }
+
+  .btn-orange:hover {
+    background: linear-gradient(90deg, #ffcf40, #ff5733);
+  }
+
+  .navbar-toggler {
+    border: none;
+  }
+
+  .dropdown-menu {
+    min-width: 10rem;
+  }
+
+  /* Responsive Breakpoints */
+  @media (max-width: 768px) {
+    .navbar-nav {
+      text-align: center;
+    }
+
+    .navbar-collapse {
+      justify-content: center;
+    }
+
+    .dropdown-menu {
+      text-align: left;
+    }
+  }
+</style>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light gradient-bg">
+    <a class="navbar-brand text-white fw-bold ms-3" href="#">
+      <img
+        src="{{MEDIA_URL}}/media/logo.png"
+        alt="Logo"
+        width="50"
+        height="50"
+        class="d-inline-block" />
+      School Club
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'about' %}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'projects' %}"
+            >Projects</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'news' %}">News</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'courses' %}">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'collaboration' %}"
+            >Collaboration</a
+          >
+        </li>
+      </ul>
+      <div class="dropdown pe-3">
+        <a
+          href="#"
+          class="text-white ms-3"
+          role="button"
+          id="dropdownMenuLink"
+          data-bs-toggle="dropdown">
+          <i class="bi bi-gear fs-4"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li class="dropdown-header">Languages</li>
+          <li><a class="dropdown-item" href="#">Vietnamese</a></li>
+          <li><a class="dropdown-item" href="#">English</a></li>
+          <li><a class="dropdown-item" href="#">Japanese</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li class="dropdown-header">Theme</li>
+          <li>
+            <a class="dropdown-item" href="#" onclick="setTheme('dark')"
+              >Dark</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" onclick="setTheme('light')"
+              >Light</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
