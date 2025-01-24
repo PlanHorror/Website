@@ -1,34 +1,71 @@
 {% extends 'app/base.html' %} {% load i18n %} {% block content %}
 <style>
   .content-wrapper {
-    display: flex;
     padding: 20px;
+    display: flex;
+    justify-content: center;
     gap: 20px;
-    max-height: 75vh;
   }
 
   .news-section {
-    flex: 3;
     overflow-y: auto;
     max-height: 80vh;
+    max-width: 70%;
+    /* float: right; */
+    padding-right: 20px;
   }
 
   .news-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    height: 100%;
+    gap: 50px;
   }
 
-  @media (min-width: 600px) {
+  @media only screen and (min-width: 701px) {
     .news-container {
       grid-template-columns: repeat(2, 1fr);
     }
+    .news-section {
+      float: right;
+    }
+    .filters-section {
+      display: flex;
+      gap: 10px;
+      float: right;
+      flex-direction: column;
+      max-width: 30%;
+      position: sticky;
+      overflow-y: auto;
+      top: 0;
+      max-height: 70vh;
+      order: 1;
+    }
+    .content-wrapper {
+      max-height: 75vh;
+    }
   }
 
-  @media (max-width: 599px) {
+  @media only screen and (max-width: 700px) {
+    .content-wrapper {
+      display: block;
+    }
     .news-container {
       grid-template-columns: 1fr;
+      justify-self: center;
+    }
+    .news-section {
+      max-height: none;
+      width: 100%;
+    }
+    .news-card {
+      max-height: none !important;
+      font-size: 0.9rem;
+    }
+    .filters-section {
+      padding-bottom: 20px;
+    }
+    .filter-box {
+      margin-bottom: 10px;
     }
   }
 
@@ -36,68 +73,52 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 1px solid #ddd;
-    border-radius: 8px;
     overflow: hidden;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    height: 70%;
-    width: 80%;
+    background-color: #ffffff;
+    width: 100%;
+    border-bottom: 3px solid #ddd;
   }
 
   .news-image {
     width: 100%;
-    height: 80%;
+    height: 70%;
+    border-radius: 8px;
     object-fit: cover;
   }
 
   .news-content {
+    height: fit-content;
     padding: 10px;
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
     flex-grow: 1;
   }
 
   .news-title {
-    font-size: 1.2rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-bottom: 5px;
   }
 
   .news-labels {
+    font-size: 1rem;
+    color: #ff5e00;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .label-time {
+    display: flex;
+  }
+
+  .news-time {
     font-size: 0.9rem;
     color: #555;
-    margin-bottom: 10px;
   }
-
   .news-footer {
     display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: #888;
-  }
-
-  .filters-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    position: sticky;
-    top: 0;
-  }
-
-  .filter-box {
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-
-  .filter-title {
-    font-weight: bold;
-    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #555;
   }
 
   .checkbox-list {
@@ -108,55 +129,83 @@
 </style>
 
 <div class="content-wrapper">
-  <!-- News Section -->
-  <div class="news-section">
-    <div class="news-container">
-      {% for news in ns %}
-      <div class="news-card">
-        <img
-          src="{{MEDIA_URL}}/media/{{ news.image }}"
-          alt="{{ news.title }}"
-          class="news-image" />
-        <div class="news-content">
-          <div class="news-title">{{ news.title }}</div>
-          <div class="news-labels">
-            <!-- prettier-ignore -->
-            {% for label in news.label.all|slice:":2" %}
-              {{ label }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-            {% if news.label.all|length > 2 %}
-              ... ({{ news.label.all|length }} labels total)
-            {% endif %}
-          </div>
-          <div class="news-footer">
-            <span>{{ news.created_at }}</span>
-            <span>{{ news.author }}</span>
-          </div>
+  <!-- Filters Section -->
+  <div class="filters-section">
+    <div class="filter-box bg-white shadow-sm p-2 rounded border">
+      <div class="fw-bold small mb-1">Category</div>
+      <div class="checkbox-list d-inline-block">
+        <label class="me-2"><input type="checkbox" /> All</label>
+        <label class="me-2"><input type="checkbox" /> IoT</label>
+        <label class="me-2"><input type="checkbox" /> AI</label>
+        <label class="me-2"><input type="checkbox" /> Software</label>
+        <label class="me-2"
+          ><input type="checkbox" /> Something so long .......</label
+        >
+      </div>
+    </div>
+    <div
+      class="filter-box d-flex align-items-center p-2 bg-white shadow-sm rounded border">
+      <!-- Sort Options -->
+      <div class="me-3 sort">
+        <div class="fw-bold small mb-1">Sort By</div>
+        <div class="btn-group btn-group-sm" role="group">
+          <button class="btn btn-primary" type="button">Time</button>
+          <button class="btn btn-outline-primary" type="button">AZ</button>
         </div>
       </div>
 
-      {% endfor %}
-    </div>
-  </div>
-
-  <!-- Filters Section -->
-  <div class="filters-section">
-    <div class="filter-box">
-      <div class="filter-title">Category</div>
-      <div class="checkbox-list">
-        <label><input type="checkbox" /> All</label>
-        <label><input type="checkbox" /> IoT</label>
-        <label><input type="checkbox" /> AI</label>
-        <label><input type="checkbox" /> Software</label>
+      <!-- Search Input -->
+      <div class="flex-grow-1 search">
+        <div class="fw-bold small mb-1">Search</div>
+        <div class="input-group input-group-sm">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search news..." />
+          <button class="btn btn-primary" type="button">Go</button>
+        </div>
       </div>
     </div>
 
-    <div class="filter-box">
-      <div class="filter-title">Contact</div>
+    <div class="filter-box bg-white shadow-sm p-2 rounded border">
+      <div class="fw-bold small mb-1">Contact</div>
       <p>
         If you're interested, please contact at
         <a href="{% url 'collaboration' %}">Collaboration</a>
       </p>
+    </div>
+  </div>
+  <!-- News Section -->
+  <div class="news-section">
+    <div class="news-container">
+      {% for news in ns %}
+      <a
+        class="text-decoration-none text-dark news-card"
+        href="{% url 'new' news.title|slugify news.pk %}">
+        {% if news.image %}
+        <img
+          src="{{MEDIA_URL}}{{ news.image.url }}"
+          alt="{{ news.title }}"
+          class="news-image" />
+        {% else %}
+        <img
+          src="{{MEDIA_URL}}/media/news-default.png"
+          alt="{{ news.title }}"
+          class="news-image" />
+        {% endif %}
+        <div class="news-content">
+          <div class="label-time">
+            <div class="news-labels">
+              <!-- prettier-ignore -->
+              {{ news.label.first.name }}
+            </div>
+            <div class="news-time">| {{ news.created_at|date:"F j, Y" }}</div>
+          </div>
+          <div class="news-title">{{ news.title }}</div>
+          <div class="news-footer">By {{ news.author.username }}</div>
+        </div>
+      </a>
+      {% endfor %}
     </div>
   </div>
 </div>

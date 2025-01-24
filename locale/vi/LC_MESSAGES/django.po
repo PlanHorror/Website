@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-22 19:50+0700\n"
-"PO-Revision-Date: 2025-01-22 19:48+0000\n"
+"POT-Creation-Date: 2025-01-24 22:47+0700\n"
+"PO-Revision-Date: 2025-01-24 22:54+0000\n"
 "Last-Translator:   <admin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,6 +18,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
+
+#: .\app\views.py:27 .\app\views.py:30
+msgid "Invalid username or password"
+msgstr ""
 
 #: .\members\models.py:15
 msgid "Name"
@@ -31,22 +35,66 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: .\templates\app\base.html:5
-msgid "Alpaca"
-msgstr ""
+#: .\templates\app\navbar.html:28
+msgid "about"
+msgstr "Về chúng tôi"
 
-#: .\templates\app\tem\index.html:111
+#: .\templates\app\navbar.html:33
+msgid "project"
+msgstr "Dự án"
+
+#: .\templates\app\navbar.html:38
+msgid "new"
+msgstr "Tin tức mới"
+
+#: .\templates\app\navbar.html:43
+msgid "course"
+msgstr "Khóa học"
+
+#: .\templates\app\navbar.html:48
+msgid "collab"
+msgstr "Cộng tác"
+
+#: .\templates\app\navbar.html:65
+msgid "lang"
+msgstr "Ngôn ngữ"
+
+#: .\templates\app\navbar.html:70
+msgid "theme"
+msgstr "Màu nền"
+
+#: .\templates\app\navbar.html:81
+msgid "account"
+msgstr "Tài khoản"
+
+#: .\templates\app\navbar.html:85
+msgid "profile"
+msgstr "Hồ sơ"
+
+#: .\templates\app\navbar.html:90
+msgid "logout"
+msgstr "Đăng xuất"
+
+#: .\templates\app\navbar.html:96
+msgid "login"
+msgstr "Đăng nhập"
+
+#: .\templates\app\navbar.html:101
+msgid "register"
+msgstr "Đăng ký"
+
+#: .\templates\app\tem\index.html:110
 msgid "Name Clb"
 msgstr "Tên Clb"
 
 #: .\website\settings.py:151
 msgid "Vietnamese"
-msgstr ""
+msgstr "Tiếng Việt"
 
 #: .\website\settings.py:152
 msgid "English"
-msgstr ""
+msgstr "Tiếng Anh"
 
 #: .\website\settings.py:153
 msgid "Japanese"
-msgstr ""
+msgstr "Tiếng Nhật"

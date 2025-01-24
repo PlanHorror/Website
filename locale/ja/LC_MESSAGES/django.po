@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-22 19:50+0700\n"
+"POT-Creation-Date: 2025-01-24 22:47+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\app\views.py:27 .\app\views.py:30
+msgid "Invalid username or password"
+msgstr ""
 
 #: .\members\models.py:15
 msgid "Name"
@@ -30,11 +34,55 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: .\templates\app\base.html:5
-msgid "Alpaca"
+#: .\templates\app\navbar.html:28
+msgid "about"
 msgstr ""
 
-#: .\templates\app\tem\index.html:111
+#: .\templates\app\navbar.html:33
+msgid "project"
+msgstr ""
+
+#: .\templates\app\navbar.html:38
+msgid "new"
+msgstr ""
+
+#: .\templates\app\navbar.html:43
+msgid "course"
+msgstr ""
+
+#: .\templates\app\navbar.html:48
+msgid "collab"
+msgstr ""
+
+#: .\templates\app\navbar.html:65
+msgid "lang"
+msgstr ""
+
+#: .\templates\app\navbar.html:70
+msgid "theme"
+msgstr ""
+
+#: .\templates\app\navbar.html:81
+msgid "account"
+msgstr ""
+
+#: .\templates\app\navbar.html:85
+msgid "profile"
+msgstr ""
+
+#: .\templates\app\navbar.html:90
+msgid "logout"
+msgstr ""
+
+#: .\templates\app\navbar.html:96
+msgid "login"
+msgstr ""
+
+#: .\templates\app\navbar.html:101
+msgid "register"
+msgstr ""
+
+#: .\templates\app\tem\index.html:110
 msgid "Name Clb"
 msgstr ""
 

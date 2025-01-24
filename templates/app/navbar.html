@@ -1,137 +1,149 @@
+{% load i18n %}
+<header class="fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-light gradient-bg fixed">
+    <div class="container-fluid">
+      <a class="navbar-brand text-white fw-bold" href="/">
+        <img
+          src="{{MEDIA_URL}}/media/logo.png"
+          alt="Logo"
+          width="50"
+          height="50"
+          class="d-inline-block" />
+        Algorka
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'about' %}"
+              >{% trans 'about' %}</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'projects' %}"
+              >{% trans 'project' %}</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'news' %}"
+              >{% trans 'new' %}</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'courses' %}"
+              >{% trans 'course' %}</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'collaboration' %}"
+              >{% trans 'collab' %}</a
+            >
+          </li>
+        </ul>
+        <div class="dropdown">
+          <a
+            href="#"
+            class="text-white ms-3"
+            role="button"
+            id="dropdownMenuLink"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="bi bi-gear fs-4"></i>
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="dropdownMenuLink">
+            <li class="dropdown-header">{% trans 'lang' %}</li>
+            <li><a class="dropdown-item" href="#">Vietnamese</a></li>
+            <li><a class="dropdown-item" href="#">English</a></li>
+            <li><a class="dropdown-item" href="#">Japanese</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li class="dropdown-header">{% trans 'theme' %}</li>
+            <li>
+              <a class="dropdown-item" href="#" onclick="setTheme('dark')"
+                >Dark</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="#" onclick="setTheme('light')"
+                >Light</a
+              >
+            </li>
+            <li class="dropdown-header">{% trans 'account' %}</li>
+            {% if user.is_authenticated %}
+            <li>
+              <a class="dropdown-item" href="{% url 'profile' %}"
+                >{% trans 'profile' %}</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'logout' %}"
+                >{% trans 'logout' %}</a
+              >
+            </li>
+            {% else %}
+            <li>
+              <a class="dropdown-item" href="{% url 'login' %}"
+                >{% trans 'login' %}</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'register' %}"
+                >{% trans 'register' %}</a
+              >
+            </li>
+            {% endif %} {{ customuser.is_authenticated }}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
 <style>
-  /* Navbar Responsive Styles */
   .gradient-bg {
-    background: linear-gradient(90deg, #ffd700, #ff4500);
+    background: linear-gradient(90deg, #ffd700, #ff4500) !important;
   }
-
-  .navbar-brand {
-    font-size: 1.5rem;
+  .dropdown-header {
+    font-weight: bold;
+    font-size: 0.9rem;
   }
-
+  .dropdown-menu {
+    min-width: 12rem;
+  }
   .nav-link {
     color: rgb(190, 190, 190);
     font-size: 1.1rem;
+    position: relative;
+    transition: color 0.3s ease;
   }
 
   .nav-link:hover {
-    text-decoration: none;
-    text-shadow: 0 0 2px white;
+    color: white; /* Ensures color changes on hover */
   }
 
   .nav-link:after {
     content: "";
-    display: block;
-    width: 0%;
-    height: 2px;
+    position: absolute;
+    bottom: 0; /* Adjust this value to control the gap */
+    left: 0;
+    width: 0;
+    height: 2px; /* Thickness of the underline */
     background: white;
-    transition: width 0.3s;
+    transition: width 0.3s ease;
   }
 
   .nav-link:hover:after {
     width: 100%;
   }
-
-  .btn-orange {
-    background: linear-gradient(90deg, #ffb700, #ff4500);
-    color: white;
-    border: none;
-  }
-
-  .btn-orange:hover {
-    background: linear-gradient(90deg, #ffcf40, #ff5733);
-  }
-
-  .navbar-toggler {
-    border: none;
-  }
-
-  .dropdown-menu {
-    min-width: 10rem;
-  }
-
-  /* Responsive Breakpoints */
-  @media (max-width: 768px) {
-    .navbar-nav {
-      text-align: center;
-    }
-
-    .navbar-collapse {
-      justify-content: center;
-    }
-
-    .dropdown-menu {
-      text-align: left;
-    }
-  }
 </style>
-<header>
-  <nav class="navbar navbar-expand-lg navbar-light gradient-bg">
-    <a class="navbar-brand text-white fw-bold ms-3" href="#">
-      <img
-        src="{{MEDIA_URL}}/media/logo.png"
-        alt="Logo"
-        width="50"
-        height="50"
-        class="d-inline-block" />
-      School Club
-    </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link text-white" href="{% url 'about' %}">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="{% url 'projects' %}"
-            >Projects</a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="{% url 'news' %}">News</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="{% url 'courses' %}">Courses</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="{% url 'collaboration' %}"
-            >Collaboration</a
-          >
-        </li>
-      </ul>
-      <div class="dropdown pe-3">
-        <a
-          href="#"
-          class="text-white ms-3"
-          role="button"
-          id="dropdownMenuLink"
-          data-bs-toggle="dropdown">
-          <i class="bi bi-gear fs-4"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li class="dropdown-header">Languages</li>
-          <li><a class="dropdown-item" href="#">Vietnamese</a></li>
-          <li><a class="dropdown-item" href="#">English</a></li>
-          <li><a class="dropdown-item" href="#">Japanese</a></li>
-          <li><hr class="dropdown-divider" /></li>
-          <li class="dropdown-header">Theme</li>
-          <li>
-            <a class="dropdown-item" href="#" onclick="setTheme('dark')"
-              >Dark</a
-            >
-          </li>
-          <li>
-            <a class="dropdown-item" href="#" onclick="setTheme('light')"
-              >Light</a
-            >
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</header>
+<!-- A div for clear navbar size -->
+<div style="height: 120px"></div>

@@ -1,0 +1,37 @@
+<!-- prettier-ignore -->
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% block content %}
+<div class="container my-4">
+  <!-- News Article -->
+  <div class="news-article bg-white shadow-sm rounded p-4">
+    <!-- Title -->
+    <h1 class="news-title fw-bold mb-3">{{ n.title }}</h1>
+
+    <!-- Author and Date -->
+    <div class="news-meta text-muted mb-4">
+      <span class="me-2">
+        <i class="bi bi-person-fill"></i> {{ n.author.username }}
+      </span>
+      <span> <i class="bi bi-calendar3"></i> {{ n.created_at }} </span>
+    </div>
+
+    <!-- News Content -->
+    <div class="news-content">
+      {% for item in n.combine %} {% if item.type == 'image' %}
+      <!-- Image -->
+      <div class="mb-4">
+        <img
+          src="{{ MEDIA_URL }}{{ item.image.url }}"
+          alt="{{ n.title }}"
+          class="news-image img-fluid rounded" />
+      </div>
+      {% else %}
+      <!-- Text Content -->
+      <p class="mb-3">{{ item.content }}</p>
+      {% endif %} {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
