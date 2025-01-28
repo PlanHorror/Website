@@ -1,137 +1,40 @@
 {% extends 'app/base.html' %} {% block content %} {% load i18n %}
-<style>
-  /* Mid Page Styles */
-  .mid-page {
-    padding: 2rem;
-    max-height: 75vh;
-  }
-
-  .mid-page .upper-part {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
-
-  .mid-page .upper-part .image {
-    flex: 1;
-    text-align: center;
-  }
-
-  .mid-page .upper-part .image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-  }
-
-  .mid-page .upper-part .info {
-    flex: 1;
-    text-align: center;
-    padding: 1rem;
-  }
-
-  .mid-page .upper-part .info h1 {
-    font-size: 2rem;
-    color: #ffb700;
-  }
-
-  .mid-page .upper-part .info p {
-    margin: 0.5rem 0;
-  }
-
-  .mid-page .upper-part .info a {
-    color: #ff4500;
-    text-decoration: none;
-  }
-  .mid-page .upper-part .info a:hover {
-    text-decoration: underline;
-  }
-
-  .mid-page .lower-part {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    text-align: center;
-  }
-
-  .mid-page .link-card {
-    background-color: #f9f9f9;
-    border: 1px dashed #ff4500;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-
-  .mid-page .link-card a {
-    color: #ffb700;
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-decoration: none;
-  }
-
-  .mid-page .link-card a:hover {
-    text-shadow: 0 0 5px #ffb700;
-  }
-
-  .mid-page .link-card p {
-    color: #ffb700;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-  }
-  @media (max-width: 768px) {
-    .mid-page .lower-part {
-      grid-template-columns: 1fr;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .mid-page .link-card {
-      padding: 1rem;
-    }
-    .mid-page .link-card a {
-      font-size: 1.1rem;
-    }
-    .mid-page .link-card p {
-      font-size: 0.8rem;
-    }
-    .mid-page .upper-part {
-      flex-direction: column;
-    }
-  }
-</style>
-
-<div class="mid-page">
-  <!-- Upper Part -->
-  <div class="upper-part">
-    <div class="image">
-      <img src="{{MEDIA_URL}}/media/trailer.png" alt="Trailer Image" />
+<section class="hero">
+  <div class="container hero_container">
+    <div class="hero_video">
+      <video autoplay muted loop>
+        <source src="./images/bomber.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     </div>
-    <div class="info">
-      <h1>{% trans 'Name Clb' %}</h1>
-      <p>"Quote gì đấy"</p>
-      <p>Find more about us -> <a href="{% url 'about' %}">About</a></p>
+    <div class="hero_content">
+      <h1>Algorka</h1>
+      <p>They call us dreamers, but we are the ones who don't sleep.</p>
+      <a href="about.html" class="btn">Find more about us</a>
     </div>
   </div>
+</section>
 
-  <!-- Lower Part -->
-  <div class="lower-part">
-    <div class="link-card">
-      <a href="{% url 'projects' %}">Link Projects</a>
-      <p>1 sentence description</p>
+<!-- Four Option Boxes -->
+<section class="options">
+  <div class="options_container">
+    <div class="option_box">
+      <a href="projects.html">Projects</a>
+      <p>Explore our latest projects and innovations.</p>
     </div>
-    <div class="link-card">
-      <a href="{% url 'courses' %}">Link Courses</a>
-      <p>1 sentence description</p>
+    <div class="option_box">
+      <a href="courses.html">Courses</a>
+      <p>Learn new skills with our curated courses.</p>
     </div>
-    <div class="link-card">
-      <a href="{% url 'news' %}">Link News</a>
-      <p>1 sentence description</p>
+    <div class="option_box">
+      <a href="news.html">News</a>
+      <p>Stay updated with our latest news.</p>
     </div>
-    <div class="link-card">
-      <a href="{% url 'collaboration' %}">Link Collaboration</a>
-      <p>1 sentence description</p>
+    <div class="option_box">
+      <a href="contact.html">Contact</a>
+      <p>Get in touch with us for more information.</p>
     </div>
   </div>
-</div>
+</section>
 
 {% endblock %}

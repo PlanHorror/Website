@@ -1,172 +1,105 @@
 <!-- prettier-ignore -->
 {% extends 'app/base.html' %} 
 {% block content %}
+{% if search %}
 <style>
-  .content-wrapper {
-    display: flex;
-    padding: 20px;
-    gap: 20px;
-  }
-
-  .projects-section {
-    flex: 3;
-    overflow-y: auto;
-    max-height: 80vh;
-    max-width: 70vw;
-  }
-
-  .projects-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-  }
-
-  @media (min-width: 600px) {
-    .projects-container {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 599px) {
-    .projects-container {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .projects-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    height: 400px; /* Ensures uniform size for all cards */
-  }
-
-  .projects-image {
-    width: 100%;
-    height: 50%;
-    object-fit: cover;
-  }
-
-  .projects-content {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
-  }
-
-  .projects-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-
-  .projects-labels {
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 10px;
-  }
-
-  .projects-footer {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: #888;
-  }
-
-  .filters-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    position: sticky;
-    top: 0;
-  }
-
-  .checkbox-list {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  .menu {
+    display: none !important;
   }
 </style>
+{% endif %}
+<section class="search_bar">
+  <div class="container search_bar-container">
+    <div class="search_input">
+      <i class="uil uil-search"></i>
+      <input id="search" type="search" name="search" placeholder="Search" />
+    </div>
+    <button type="submit" class="sbtn" onclick="searchPosts()">Go</button>
+  </div>
+</section>
 
-<div class="content-wrapper">
-  <!-- Projects Section -->
-  <div class="projects-section">
-    <div class="projects-container">
-      {% for project in projects %}
-      <div class="projects-card">
-        <img
-          src="{{ project.image.url }}"
-          alt="{{ project.title }}"
-          class="projects-image" />
-        <div class="projects-content">
-          <div class="projects-title">{{ project.title }}</div>
-          <div class="projects-labels">
-            <!-- prettier-ignore -->
-            {% for label in project.label.all|slice:":2" %}
-              {{ label }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-            {% if project.label.all|length > 2 %}
-              ... ({{ project.label.all|length }} labels total)
-            {% endif %}
-          </div>
-          <div class="projects-footer">
-            <span>Created: {{ project.created_at }}</span>
-            <span>Author: {{ project.author }}</span>
-          </div>
-        </div>
-      </div>
+<!-- Dropdown Menu Outside Search Bar -->
+<section class="topic_menu">
+  <div class="container menu">
+    <label for="topic-menu" class="topic_label">Filter by Topic:</label>
+    <select name="topic" id="topic-menu" onchange="filterByTopic()">
+      <option disabled selected value>Select</option>
+      {% for label in labels %}
+      <option value="{{ label.pk }}">{{ label.name }}</option>
       {% endfor %}
-    </div>
-  </div>
+    </select>
 
-  <!-- Filters Section -->
-  <div class="filters-section">
-    <div class="filter-box bg-white shadow-sm p-2 rounded border">
-      <div class="fw-bold small mb-1">Category</div>
-      <div class="checkbox-list d-inline-block">
-        <label class="me-2"><input type="checkbox" /> All</label>
-        <label class="me-2"><input type="checkbox" /> IoT</label>
-        <label class="me-2"><input type="checkbox" /> AI</label>
-        <label class="me-2"><input type="checkbox" /> Software</label>
+    <label for="sort-select" class="sort_label">Sort by:</label>
+    <select name="sort" id="sort-select" onchange="sortPosts()">
+      <!-- <option disabled selected value>Select</option>
+      <option value="time">Time</option>
+      <option value="title">Title</option> -->
+      {% if sort == "time" %}
+      <option disabled value>Select</option>
+      <option value="time" selected>Time</option>
+      <option value="title">Title</option>
+      {% elif sort == "title" %}
+      <option disabled value>Select</option>
+      <option value="time">Time</option>
+      <option value="title" selected>Title</option>
+      {% else %}
+      <option disabled selected value>Select</option>
+      <option value="time">Time</option>
+      <option value="title">Title</option>
+      {% endif %}
+    </select>
+  </div>
+</section>
+
+<!-- ======================= END OF SEARCH ======================= -->
+<!-- ============================================================= -->
+
+<section class="posts">
+  <div class="container posts_container">
+    {% for p in pr %}
+    <article class="post">
+      <div class="post_thumbnail">
+        <img src="{{MEDIA_URL}}{{ p.image.url }}" />
       </div>
-    </div>
-    <div
-      class="d-flex align-items-center p-2 bg-white shadow-sm rounded border">
-      <!-- Sort Options -->
-      <div class="me-3">
-        <div class="fw-bold small mb-1">Sort By</div>
-        <div class="btn-group btn-group-sm" role="group">
-          <button class="btn btn-primary" type="button">Time</button>
-          <button class="btn btn-outline-primary" type="button">A-Z</button>
+      <div class="post_info">
+        {% for label in p.label.all|slice:":3" %}
+        <a href="" class="category_button" style="margin-bottom: 3px"
+          >{{ label.name }}</a
+        >
+        {% endfor %}
+        <h3 class="post_title">
+          <a href="{% url 'project' p.title|slugify p.pk %}">{{ p.title }}</a>
+        </h3>
+        <p class="post_body">
+          <!-- prettier-ignore -->
+          {{ p.content|slice:":226" }}{% if p.content|length > 226 %} ...{% endif %}
+        </p>
+        <div class="post_author">
+          <div class="post_author-avatar">
+            <img src="{{MEDIA_URL}}{{ p.author.profile.avatar.url }}" alt="" />
+          </div>
+          <div class="post_author-info">
+            <h5>Code: PL002</h5>
+            <small>{{ p.created_at|date:"F j, Y - H:i:s" }} </small>
+          </div>
         </div>
       </div>
-
-      <!-- Search Input -->
-      <div class="flex-grow-1">
-        <div class="fw-bold small mb-1">Search</div>
-        <div class="input-group input-group-sm">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search news..." />
-          <button class="btn btn-primary" type="button">Go</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="filter-box bg-white shadow-sm p-2 rounded border">
-      <div class="fw-bold small mb-1">Contact</div>
-      <p>
-        If you're interested, please contact at
-        <a href="{% url 'collaboration' %}">Collaboration</a>
-      </p>
-    </div>
+    </article>
+    {% endfor %}
   </div>
-</div>
+</section>
+
+<!-- ======================= END OF POSTS ======================= -->
+<!-- ============================================================ -->
+
+<section class="catergory_buttons">
+  <div class="container category_buttons-container">
+    <a href="" class="category_button">Ghibli</a>
+    <a href="" class="category_button">Anime</a>
+    <a href="" class="category_button">Dummy</a>
+    <a href="" class="category_button">Super</a>
+    <a href="" class="category_button">Power</a>
+    <a href="" class="category_button">Princess</a>
+  </div>
+</section>
 {% endblock %}

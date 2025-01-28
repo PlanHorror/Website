@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from members.models import *
+from django.db.models import Q
 from django.utils.translation import gettext as _, get_language, activate
 from django.shortcuts import redirect
 # Import login_required decorator, login, logout, authenticate functions
@@ -13,6 +14,9 @@ def index(request):
     # print('Template root directory:', request.templates.dirs)
     return render(request, 'app/tem/index.html')
 def login(request):
+    if request.user.is_authenticated:
+        messages.error(request, _('You are already logged in'))
+        return redirect('index')
     form = LoginForm()
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -81,11 +85,31 @@ def course(request):
     courses = Course.objects.all()
     return render(request, 'app/tem/course.html', {'cr': courses})
 def projects(request):
-    projects = Project.objects.all()
-    return render(request, 'app/tem/projects.html', {'pr': projects})
-def project_detail(request, project_id):
+    sort = request.GET.get('sort', None)
+    print(sort)
+    label = request.GET.get('label', None)
+    print(label)
+    search = request.GET.get('search', None)
+    print(search)
+    default_sort = sort
+    default_label = label
+    project = Project.objects.all()
+    if sort:
+        if sort == 'time':
+            project = Project.objects.all().order_by('-created_at')
+        elif sort == 'title':
+            project = Project.objects.all().order_by('translation__title')
+    if label:
+        this_label = Label.objects.get(id=label)
+        project = Project.objects.filter(label=this_label)
+    if search:
+        project = Project.objects.filter(Q(translation__title__icontains=search) | Q(translation__content__icontains=search))
+    labels = Label.objects.all()
+    
+    return render(request, 'app/tem/projects.html', {'pr': project, 'labels': labels, 'sort': default_sort, 'label': default_label, 'search': search})
+def project(request, title, project_id):
     project = Project.objects.get(id=project_id)
-    return render(request, 'app/tem/project_detail.html', {'p': project})
+    return render(request, 'app/tem/project.html', {'p': project})
 def collaboration(request):
     return render(request, 'app/tem/collab.html')
 def profile(request):
