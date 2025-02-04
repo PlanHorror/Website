@@ -8,6 +8,11 @@
   }
 </style>
 {% endif %}
+<script>
+  $(document).ready(function () {
+    $("#topic-menu").select2();
+  });
+</script>
 <section class="search_bar">
   <div class="container search_bar-container">
     <div class="search_input">
@@ -22,7 +27,12 @@
 <section class="topic_menu">
   <div class="container menu">
     <label for="topic-menu" class="topic_label">Filter by Topic:</label>
-    <select name="topic" id="topic-menu" onchange="filterByTopic()">
+    <select
+      class="topic-select"
+      name="topic"
+      id="topic-menu"
+      onchange=""
+      multiple="multiple">
       <option disabled selected value>Select</option>
       {% for label in labels %}
       <option value="{{ label.pk }}">{{ label.name }}</option>
@@ -76,10 +86,10 @@
         </p>
         <div class="post_author">
           <div class="post_author-avatar">
-            <img src="{{MEDIA_URL}}{{ p.author.profile.avatar.url }}" alt="" />
+            <img src="{{MEDIA_URL}}{{ p.author.avatar.url }}" alt="" />
           </div>
           <div class="post_author-info">
-            <h5>Code: PL002</h5>
+            <h5>Author: {{p.author.username}}</h5>
             <small>{{ p.created_at|date:"F j, Y - H:i:s" }} </small>
           </div>
         </div>

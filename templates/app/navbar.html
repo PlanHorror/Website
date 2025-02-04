@@ -2,28 +2,33 @@
 <header class="fixed-top">
   <nav>
     <div class="container nav_container">
-      <a href="{% url 'about' %}" class="nav_logo">algorka</a>
+      <a href="{% url 'index' %}" class="nav_logo">algorka</a>
+      <div class="language_select">
+        <select id="language-dropdown">
+          <option value="en" selected>Eng</option>
+          <option value="vi">T.Việt</option>
+          <option value="ja">日本語</option>
+        </select>
+      </div>
       <ul class="nav_item">
-        <li><a href="{% url 'about' %}">About </a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
         <li><a href="{% url 'projects' %}">Projects</a></li>
         <li><a href="{% url 'news' %}">News</a></li>
         <li><a href="{% url 'courses' %}">Courses</a></li>
         <li><a href="{% url 'collaboration' %}">Contact</a></li>
+
         <li class="nav_profile">
-          <div class="avatar">
-            <img src="./images/original.jpg" alt="" />
+          <div class="settings_icon">
+            <i class="uil uil-setting"></i>
           </div>
           <ul>
-            <li class="setting_dropdown">
-              <a>Setting</a>
-              <ul class="language_options">
-                <li><a href="?lang=en">English</a></li>
-                <li><a href="?lang=vi">Vietnamese</a></li>
-                <li><a href="?lang=ja">Japanese</a></li>
-              </ul>
-            </li>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="logout.html">Logout</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'profile' %}">Profile</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
           </ul>
         </li>
       </ul>

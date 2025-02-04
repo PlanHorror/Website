@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 # CustomUser model is created by extending AbstractUser model
 class CustomUser(AbstractUser):
     is_member = models.BooleanField(default=False)
+    avatar = models.ImageField(upload_to='user-avatars/', default='user-avatars/default.jpg')
     email = models.EmailField(unique=True, blank=False)
     def __str__(self):
         return "User id: " + str(self.pk) + " - Username: " + self.username + " - Email: " + self.email
@@ -75,6 +76,7 @@ class Course(TranslatableModel):
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return "Course id: " + str(self.pk) + " - Title: " + self.title + "- Author: " + self.author.username
+# Module model is created to store the modules created by the user, modules are the labels of the courses
 class Module(TranslatableModel):
     translation = TranslatedFields(
         module = models.TextField(unique=True)
