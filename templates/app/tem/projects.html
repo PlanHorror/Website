@@ -17,46 +17,19 @@
   <div class="container search_bar-container">
     <div class="search_input">
       <i class="uil uil-search"></i>
-      <input id="search" type="search" name="search" placeholder="Search" />
+      <input type="search" name="search" placeholder="Search" />
     </div>
-    <button type="submit" class="sbtn" onclick="searchPosts()">Go</button>
+    <button type="submit" class="btn">Go</button>
   </div>
 </section>
 
 <!-- Dropdown Menu Outside Search Bar -->
 <section class="topic_menu">
   <div class="container menu">
-    <label for="topic-menu" class="topic_label">Filter by Topic:</label>
-    <select
-      class="topic-select"
-      name="topic"
-      id="topic-menu"
-      onchange=""
-      multiple="multiple">
-      <option disabled selected value>Select</option>
-      {% for label in labels %}
-      <option value="{{ label.pk }}">{{ label.name }}</option>
-      {% endfor %}
-    </select>
-
     <label for="sort-select" class="sort_label">Sort by:</label>
     <select name="sort" id="sort-select" onchange="sortPosts()">
-      <!-- <option disabled selected value>Select</option>
-      <option value="time">Time</option>
-      <option value="title">Title</option> -->
-      {% if sort == "time" %}
-      <option disabled value>Select</option>
-      <option value="time" selected>Time</option>
-      <option value="title">Title</option>
-      {% elif sort == "title" %}
-      <option disabled value>Select</option>
-      <option value="time">Time</option>
-      <option value="title" selected>Title</option>
-      {% else %}
-      <option disabled selected value>Select</option>
-      <option value="time">Time</option>
-      <option value="title">Title</option>
-      {% endif %}
+      <option value="time">Newest</option>
+      <option value="title">Oldest</option>
     </select>
   </div>
 </section>
@@ -102,14 +75,24 @@
 <!-- ======================= END OF POSTS ======================= -->
 <!-- ============================================================ -->
 
-<section class="catergory_buttons">
-  <div class="container category_buttons-container">
-    <a href="" class="category_button">Ghibli</a>
-    <a href="" class="category_button">Anime</a>
-    <a href="" class="category_button">Dummy</a>
-    <a href="" class="category_button">Super</a>
-    <a href="" class="category_button">Power</a>
-    <a href="" class="category_button">Princess</a>
-  </div>
-</section>
+<div class="pagination">
+  {% if pr.has_previous %}
+  <button id="prev-page" class="btn" onclick="window.location.href = '?page={{pr.number|add:-1}}' ">Previous</button>
+  {% else %}
+  <button id="prev-page" class="btn" disabled>Previous</button>
+  {% endif %}
+  <span>Page </span>
+  <select id="page-select" onchange="window.location.href = '?page=' + this.value">
+    {% for i in pr.paginator.page_range %}
+    <option value="{{ i }}" {% if i == pr.number %} selected {% endif %}>{{ i }}</option>
+    {% endfor %}
+  </select>
+  <span> of <span id="total-pages"> {{ pr.paginator.page_range|length }} </span></span>
+  {% if pr.has_next %}
+  <button id="next-page" class="btn" onclick="window.location.href = '?page={{pr.number|add:1}}' ">Next</button>
+  {% else %}
+  <button id="next-page" class="btn" disabled>Next</button>
+  {% endif %}
+
+</div>
 {% endblock %}

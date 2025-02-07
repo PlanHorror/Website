@@ -364,6 +364,60 @@ header h1 {
   gap: 1rem;
 }
 
+/* ====================================== PAGINATION ====================================== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.pagination button {
+  background: var(--color-gray-900);
+  color: var(--color-white);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: var(--card-border-radius-2);
+  cursor: pointer;
+  transition: var(--transition);
+  width: 90px;
+}
+
+.pagination button:hover {
+  background: var(--color-primary-light);
+}
+
+.pagination button:disabled {
+  background: lightsalmon;
+  cursor: not-allowed;
+}
+
+#page-info {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+#page-select {
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: 0.5rem;
+  border: none;
+  border-radius: var(--card-border-radius-2);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+  font-weight: bold;
+}
+
+#page-select option {
+  background: var(--color-gray-700);
+  color: var(--color-white);
+  font-size: 1rem;
+}
+
 /* ====================================== FOOTER ====================================== */
 footer {
   background: var(--color-primary);
@@ -461,9 +515,7 @@ footer {
   font-size: 1rem;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  /* Stronger shadow for visibility */
   z-index: 999;
-  /* Ensure it appears above all other elements */
 }
 
 .sort_label {
@@ -471,13 +523,51 @@ footer {
   color: var(--color-primary);
 }
 
-/* Apply font style across the page to match the original design */
 body,
 input,
 select,
 button {
   font-family: 'Montserrat', sans-serif;
-  /* Ensure consistency with original design */
+}
+
+/* Style the search bar */
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Label styling */
+.search-label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+/* Custom Select2 container */
+.projects-page .select2-container {
+  width: 100% !important;
+}
+
+.projects-page .select2-selection--multiple {
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--card-border-radius-2);
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: var(--color-primary);
+  min-height: 45px;
+  box-sizing: border-box;
+  margin-top: 4rem;
+}
+
+.projects-page .select2-container--default .select2-selection--multiple {
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-bg);
+  border-radius: 4px;
+  cursor: text;
 }
 
 /* ====================================== SINGLE POST ====================================== */
@@ -487,7 +577,7 @@ button {
 
 .singlepost_container {
   width: var(--form-width);
-  background: var(--color-gray-900);
+  background: rgb(212 58 2 / 81%);
   padding: 1rem 2rem 3rem;
 }
 
@@ -619,7 +709,7 @@ button {
   color: var(--color-primary);
 }
 /* ======================================CONTACT PAGE====================================== */
-.contact_page {
+.form_page {
   max-width: 800px;
   margin: 5rem auto;
   padding: 2rem;
@@ -630,20 +720,20 @@ button {
   margin-top: 10rem;
 }
 
-.contact_page h1 {
+.form_page h1 {
   font-size: 2rem;
   color: var(--color-primary);
   margin-bottom: 1rem;
 }
 
-.contact_page p {
+.form_page p {
   font-size: 1rem;
   color: var(--color-gray-900);
   margin-bottom: 2rem;
 }
 
 /*  CONTACT FORM  */
-.contact_form {
+.general_form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -661,8 +751,8 @@ button {
   color: var(--color-primary);
 }
 
-.contact_form input,
-.contact_form textarea {
+.general_form input,
+.general_form textarea {
   font-family: 'Montserrat', sans-serif;
   width: 100%;
   padding: 0.8rem;
@@ -673,19 +763,53 @@ button {
   font-size: 1rem;
 }
 
-.contact_form textarea {
+.general_form textarea {
   resize: vertical;
   min-height: 120px;
 }
 
-.contact_form input:focus,
-.contact_form textarea:focus {
+.general_form input:focus,
+.general_form textarea:focus {
   border-color: var(--color-primary-variant);
   outline: none;
 }
 
+.general_form .select2-container .select2-selection--multiple {
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--card-border-radius-2);
+  padding: 0.8rem;
+  font-size: 1rem;
+  color: var(--color-primary);
+  min-height: 45px;
+  display: flex;
+  align-items: center;
+}
+
+.general_form .select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: var(--color-gray-700);
+  color: var(--color-white);
+  border-radius: var(--card-border-radius-2);
+  padding: 0.3rem 0.5rem;
+  font-size: 0.9rem;
+  margin-right: 0.3rem;
+}
+
+.general_form .select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: var(--color-primary-variant);
+  color: var(--color-white);
+}
+
+.general_form .select2-container--default .select2-results__option[aria-selected="true"] {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  padding: 0.8rem;
+  border-radius: var(--card-border-radius-2);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+}
 /* ================= BUTTON STYLING ================== */
-.contact_form .btn {
+.general_form .btn {
   padding: 0.8rem;
   background-color: var(--color-gray-700);
   color: var(--color-white);
@@ -697,14 +821,14 @@ button {
   border-radius: var(--card-border-radius-2);
 }
 
-.contact_form .btn:hover {
+.general_form .btn:hover {
   background-color: var(--color-primary-variant);
 }
 
-.contact_form input,
-.contact_form textarea,
-.contact_form select,
-.contact_form .btn {
+.general_form input,
+.general_form textarea,
+.general_form select,
+.general_form .btn {
   width: 100%;
   padding: 0.8rem;
   font-family: 'Montserrat', sans-serif;
@@ -731,7 +855,7 @@ button {
   place-content: center;
 }
 
-/* ====================================== GENERAL FORM ====================================== */
+/* ====================================== SIGNIN/ SIGNUP ====================================== */
 .form_section {
   display: grid;
   place-items: center;
@@ -822,6 +946,7 @@ input, textarea, select {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+
 /* ====================================== DASHBOARD ====================================== */
 .dashboard {
   margin-top: 6rem;
@@ -835,9 +960,13 @@ input, textarea, select {
   display: grid;
   grid-template-columns: 14rem auto;
   gap: 1rem;
-  background: var(--color-gray-900);
+  background: var(--color-primary-light);
   padding: 2rem;
   margin-bottom: 5rem;
+  list-style: none;
+  ul {
+      list-style-type: none;
+  }
 }
 
 .dashboard aside a {
@@ -846,9 +975,6 @@ input, textarea, select {
   gap: 1rem;
   align-items: center;
   padding: 1.6rem;
-  ul {
-          list-style-type: none;
-      }
 }
 
 .dashboard aside ul li:not(:last-child) a {
@@ -959,7 +1085,6 @@ input, textarea, select {
   .language_select {
     margin: 0 1rem;
     order: 2;
-    /* Ensure it stays visible even when the menu is collapsed */
 }
   
 
@@ -1067,11 +1192,11 @@ input, textarea, select {
       
   }
   /* ========= CONTACT========= */
-  .contact-page {
+  .form-contain-page {
       background-color: var(--color-white);
   }
 
-  .contact_page {
+  .form_page {
       background-color: var(--color-white);
       padding-bottom: 4rem;
       padding-left: 0;
@@ -1082,15 +1207,15 @@ input, textarea, select {
   }
 
   @media  screen and (max-height: 550px) {
-      .contact_page {
+      .form_page {
           padding: 0;
           margin: 0;
       }
   
-      .contact_form input,
-      .contact_form textarea {
+      .general_form input,
+      .general_form textarea,
+      .general_form ::selection {
           font-size: 0.9rem;
-  
       }
       
   }
@@ -1295,14 +1420,10 @@ input, textarea, select {
 display: flex;
   gap: 7rem;
   align-items: flex-start;
-  /* Align items to the top */
   justify-content: flex-start;
-  /* Align everything to the left */
   max-width: 1200px;
   margin: 0;
-  /* Remove horizontal auto-centering */
   padding: 0 0rem;
-  /* Add minimal padding for spacing */
   margin-top: 2rem;
 }
 
@@ -1310,7 +1431,6 @@ display: flex;
   width: 100%;
   max-width: 560px;
   height: auto;
-  /* border-radius: var(--card-border-radius-3); */
 }
 
 .hero_video iframe {
@@ -1354,7 +1474,6 @@ display: flex;
 .options {
   margin-top: 0rem;
   padding-top: 0rem;
-  /* Remove padding to make boxes snug */
   background-color: var(--color-bg);
 }
 
@@ -1362,11 +1481,8 @@ display: flex;
   margin-top: 0rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  /* Two columns */
   gap: 0;
-  /* Remove gaps between the boxes */
   max-width: 100%;
-  /* Full width */
 }
 
 .option_box {
@@ -1374,23 +1490,17 @@ display: flex;
   background-color: rgb(212, 58, 2);
   color: var(--color-white);
   padding: 2rem;
-  /* Adjust padding inside the box */
   height: 100px;
-  /* Set a fixed height for the boxes */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* Center content vertically */
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  /* Smooth hover effect */
 }
 
 .option_box:hover {
   background-color: rgba(255, 68, 0, 0.655);
-  /* Change background color on hover */
   color: black;
-  /* Change text color on hover */
 }
 
 .option_box a {
@@ -1402,7 +1512,6 @@ display: flex;
 
 .option_box:hover a {
   color: var(--color-bg);
-  /* Change link color on hover */
 }
 
 .option_box p {
@@ -1415,15 +1524,12 @@ display: flex;
 @media (max-width: 768px) {
   .options_container {
       grid-template-columns: 1fr;
-      /* Single column on small screens */
   }
 
   .hero_container {
       margin-top: 0rem;
       flex-direction: column;
-      /* Stack items vertically */
       gap: 2rem;
-      /* Add space between items */
   }
 
   header h1 {
@@ -1581,4 +1687,88 @@ display: flex;
 .preview-icon:hover::after {
   opacity: 1;
   visibility: visible;
+}
+/* Message range */
+/* 🔥 Make messages fixed below navbar */
+.messages {
+  position: fixed;
+  top: 75px; /* Adjust based on navbar height */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%; /* Responsive width */
+  max-width: 600px; /* Prevents stretching on large screens */
+  z-index: 1050; /* Ensures it stays above everything */
+}
+
+/* General Message Styles */
+.messages div {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  position: relative;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Common Icon Style */
+.messages i {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+/* Close Button */
+.messages .btn-close {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* 🔴 Error Messages */
+.error-messages {
+  background-color: #f8d7da;
+  color: #842029;
+  border-left: 5px solid #dc3545;
+}
+
+.error-messages i {
+  color: #dc3545;
+}
+
+/* 🟠 Warning Messages */
+.warning-messages {
+  background-color: #fff3cd;
+  color: #856404;
+  border-left: 5px solid #ffc107;
+}
+
+.warning-messages i {
+  color: #ffc107;
+}
+
+/* 🔵 Info Messages */
+.info-messages {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border-left: 5px solid #17a2b8;
+}
+
+.info-messages i {
+  color: #17a2b8;
+}
+
+/* 🟢 Success Messages */
+.success-messages {
+  background-color: #d4edda;
+  color: #155724;
+  border-left: 5px solid #28a745;
+}
+
+.success-messages i {
+  color: #28a745;
 }

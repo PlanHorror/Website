@@ -2,5 +2,86 @@
 {% extends 'app/base.html' %} 
 {% block content %} 
 {% load i18n %}
-<p>Course</p>
+<section class="search_bar">
+  <div class="container search_bar-container">
+    <div class="search_input">
+      <i class="uil uil-search"></i>
+      <input type="search" name="search" placeholder="Search" />
+    </div>
+    <button type="submit" class="btn">Go</button>
+  </div>
+</section>
+
+<section class="topic_menu">
+  <div class="container">
+    <label for="topic-menu" class="topic_label">Filter:</label>
+    <select name="topic" id="topic-menu" onchange="filterByModule()">
+      <option value="all">All you need is here (All)</option>
+      <option value="AI">Artificial Intelligence (AI)</option>
+      <option value="IOT">Internet of Things (IoT)</option>
+      <option value="St">Software Technology (ST)</option>
+      <option value="FT">Finance Technology (FT)</option>
+      <option value="FT">IT Fundamentals (FUN)</option>
+    </select>
+
+    <label for="sort-select" class="sort_label">Sort:</label>
+    <select name="sort" id="sort-select" onchange="sortPosts()">
+      <option value="time">Newest</option>
+      <option value="title">Oldest</option>
+    </select>
+  </div>
+</section>
+
+<main>
+  <section class="courses_section">
+    <div class="container">
+      <h2>Most Recent</h2>
+      <div class="courses_content">
+        <div class="recent_courses">
+          <article class="course">
+            <h3>
+              Title 1
+              <span
+                class="preview-icon"
+                data-preview="This is a preview of the course content."
+                >ⓘ</span
+              >
+            </h3>
+            <small>Date: 30/02/2025</small>
+          </article>
+          <article class="course">
+            <h3>Title 2</h3>
+            <!-- <h3>Title 2 <span class="preview-icon">ℹ</span></h3> -->
+            <small>Date: 30/02/2025</small>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="pagination">
+    {% if cr.has_previous %}  
+    <button id="prev-page" class="btn" onclick="window.location.href = '?page={{pr.number|add:-1}}' ">Previous</button>
+    {% else %} 
+    <button id="prev-page" class="btn" disabled>Previous</button>
+    {% endif %}
+    <span>Page </span>
+    <select id="page-select" onchange="window.location.href = '?page=' + this.value">
+      {% if cr.paginator.num_pages > 0 %}
+      {% for i in cr.paginator.page_range %}
+      <option value="{{ i }}" {% if i == cr.number %} selected {% endif %}>{{ i }}</option>
+      {% endfor %}
+      {% else %}
+      <option value="0" selected>0</option>
+      {% endif %}
+    </select>
+    <span> of <span id="total-pages"> {{ cr.paginator.page_range|length }} </span></span>
+    {% if cr.has_next %}
+    <button id="next-page" class="btn" onclick="window.location.href = '?page={{pr.number|add:1}}' ">Next</button>
+    {% else %}
+    <button id="next-page" class="btn" disabled>Next</button>
+    {% endif %}
+
+  </div>
+</main>
 {% endblock %}

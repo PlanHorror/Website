@@ -1,7 +1,15 @@
 const navItems = document.querySelector(".nav_item");
 const openNavBtn = document.querySelector("#open_nav-btn");
 const closeNavBtn = document.querySelector("#close_nav-btn");
+document.addEventListener("DOMContentLoaded", () => {
+  const messagesElement = document.querySelector(".messages");
 
+  if (messagesElement) {
+    setTimeout(() => {
+      messagesElement.style.display = "none";
+    }, 3000);
+  }
+});
 // open nav dropdown
 const openNav = () => {
   navItems.style.display = "flex";
@@ -37,8 +45,8 @@ const hideSidebar = () => {
   hideSidebarbtn.style.display = "none";
 };
 
-showSidebarbtn.addEventListener("click", showSidebar);
-hideSidebarbtn.addEventListener("click", hideSidebar);
+// showSidebarbtn.addEventListener("click", showSidebar);
+// hideSidebarbtn.addEventListener("click", hideSidebar);
 
 // new
 const settingsDropdown = document.querySelector(".nav_profile ul li a");
@@ -51,44 +59,3 @@ settingsDropdown.addEventListener("click", () => {
     languageOptions.style.display = "block";
   }
 });
-
-//
-
-// Sorting Posts
-function sortPosts() {
-  const sortSelect = document.getElementById("sort-select");
-  const sortBy = sortSelect.value;
-  console.log(sortBy);
-  // Take loader by class
-  const loader = document.querySelector(".loader");
-  // Show the loader in full screen
-  loader.style.display = "flex";
-
-  // Redirect to the sorted page
-  window.location.href = `?sort=${sortBy}`;
-}
-
-function filterByTopic() {
-  const topicSelect = document.getElementById("topic-menu");
-  const topic = topicSelect.value;
-  console.log(topic);
-  // Take loader by class
-  const loader = document.querySelector(".loader");
-  // Show the loader in full screen
-  loader.style.display = "flex";
-
-  // Redirect to the sorted page
-  window.location.href = `?label=${topic}`;
-}
-function searchPosts() {
-  const searchInput = document.getElementById("search");
-  const searchValue = searchInput.value;
-  console.log(searchValue);
-  // Take loader by class
-  const loader = document.querySelector(".loader");
-  // Show the loader in full screen
-  loader.style.display = "flex";
-
-  // Redirect to the sorted page
-  window.location.href = `?search=${searchValue}`;
-}

@@ -2,46 +2,29 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<div class="container d-flex justify-content-center align-items-center p-4">
-  <div
-    class="card shadow-lg p-4"
-    style="max-width: 400px; width: 100%; border-radius: 10px">
-    <h2 class="text-center text-orange mb-4">Login</h2>
-    <form method="POST">
+<section class="form_page">
+  <div class="container">
+    <h2>Sign In</h2>
+    <form action="" method="POST" class="general_form">
       {% csrf_token %}
-      <div class="mb-3">
-        <label for="login-username" class="form-label">Username</label>
-        <input
-          type="text"
-          id="login-username"
-          name="username"
-          class="form-control"
-          placeholder="Enter your username"
-          required />
+      <div class="form_control">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" name="username" />
       </div>
-      <div class="mb-3">
-        <label for="login-password" class="form-label">Password</label>
-        <input
-          type="password"
-          id="login-password"
-          name="password"
-          class="form-control"
-          placeholder="Enter your password"
-          required />
+      <div class="form_control">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" name="password" />
       </div>
-      <button type="submit" class="btn btn-orange w-100">Login</button>
+      <button type="submit" class="btn">Sign In</button>
+      <p class="text-center mt-3">
+        Don't have an account?
+        <a href="{% url 'register' %}" class="text-orange">Sign up</a>.
+      </p>
     </form>
-    <p class="text-center mt-3">
-      Don't have an account?
-      <a href="{% url 'register' %}" class="text-orange">Register here</a>.
-    </p>
   </div>
-</div>
+</section>
 
 <style>
-  .text-orange {
-    color: #f57c00;
-  }
   .btn-orange {
     background-color: #f57c00;
     color: #fff;

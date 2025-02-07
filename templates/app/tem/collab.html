@@ -1,5 +1,64 @@
 <!-- prettier-ignore -->
 {% extends 'app/base.html' %} 
 {% block content %}
-<h1>Collab</h1>
+<section class="form_page">
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p>
+      Have feedback, want to collaborate on a project, or interested in our
+      news?
+    </p>
+
+    <form action="" method="post" class="general_form">
+      <div class="form_control">
+        <label for="phone">Phone Number</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="Enter your phone number" />
+      </div>
+
+      <div class="form_control">
+        <label for="interest">What are you interested in?</label>
+        <select id="interest" name="interest" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="project">Project</option>
+          <option value="news">News</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="form_control">
+        <label for="title">Title of News/Project</label>
+        <select id="title" name="title[]" multiple>
+          <option value="news1">News 1</option>
+          <option value="news2">News 2</option>
+          <option value="project1">Project 1</option>
+          <option value="project2">Project 2</option>
+        </select>
+      </div>
+
+      <div class="form_control">
+        <label for="message">Your Message</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          placeholder="Write your feedback, collaboration request, or intention to join a project here..."
+          required></textarea>
+      </div>
+
+      <button type="submit" class="btn">Submit Feedback</button>
+    </form>
+  </div>
+</section>
+<script>
+  $(document).ready(function () {
+    $("#title").select2({
+      placeholder: "Enter the title",
+      allowClear: true,
+    });
+  });
+</script>
 {% endblock %}

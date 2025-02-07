@@ -3,16 +3,38 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<div class="container d-flex justify-content-center align-items-center vh-100">
-  <div
-    class="card shadow-lg p-4"
-    style="max-width: 400px; width: 100%; border-radius: 10px">
-    <h2 class="text-center text-orange mb-4">Register</h2>
-    <form method="POST">
+<section class="form_page">
+  <div class="container">
+    <h1 class="">Register</h1>
+    <form method="POST" class="general_form">
       {% csrf_token %}
+      <!-- First name input -->
+      <div class="form_control">
+        <label for="{{ form.first_name.id_for_label }}" class="form-label"
+          >First Name</label
+        >
+        <!-- prettier-ignore -->
+
+        {{ form.first_name }}
+        {% for error in form.first_name.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+      </div>
+      <!-- Last name Input -->
+      <div class="form_control">
+        <label for="{{ form.last_name.id_for_label }}" class="form-label"
+          >Last Name</label
+        >
+        <!-- prettier-ignore -->
+
+        {{ form.last_name }}
+        {% for error in form.last_name.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+      </div>
 
       <!-- Username Input -->
-      <div class="mb-3">
+      <div class="form_control">
         <label for="{{ form.username.id_for_label }}" class="form-label"
           >Username</label
         >
@@ -25,7 +47,7 @@
       </div>
 
       <!-- Email Input -->
-      <div class="mb-3">
+      <div class="form_control">
         <label for="{{ form.email.id_for_label }}" class="form-label"
           >Email</label
         >
@@ -38,7 +60,7 @@
       </div>
 
       <!-- Password Input -->
-      <div class="mb-3">
+      <div class="form_control">
         <label for="{{ form.password.id_for_label }}" class="form-label"
           >Password</label
         >
@@ -51,7 +73,7 @@
       </div>
 
       <!-- Confirm Password Input -->
-      <div class="mb-3">
+      <div class="form_control">
         <label for="{{ form.password2.id_for_label }}" class="form-label"
           >Confirm Password</label
         >
@@ -62,34 +84,79 @@
         <div class="invalid-feedback">{{ error }}</div>
         {% endfor %}
       </div>
+      <!-- Avatar -->
+      <div class="form_control custom-file-upload">
+        <label class=""> Upload Avatar</label>
+        <label for="{{ form.avatar.id_for_label }}" class="form-label"
+          ><i class="uil uil-upload"></i> Upload Avatar</label
+        >
+        <!-- prettier-ignore -->
 
-      <button type="submit" class="btn btn-orange w-100">Register</button>
+        {{ form.avatar }}
+        {% for error in form.avatar.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+      </div>
+      <!-- Submit Button -->
+      <button type="submit" class="btn">Register</button>
     </form>
     <p class="text-center mt-3">
       Already have an account?
       <a href="{% url 'login' %}" class="text-orange">Login here</a>.
     </p>
   </div>
-</div>
+</section>
 
 <style>
-  .text-orange {
-    color: #f57c00;
-  }
-  .btn-orange {
-    background-color: #f57c00;
-    color: #fff;
-  }
-  .btn-orange:hover {
-    background-color: #e65100;
-  }
-
   .invalid-feedback {
     display: block;
+    color: #dc3545;
   }
 
-  .form-control.is-invalid {
-    border-color: #dc3545;
+  .is-invalid {
+    /* border-color: #dc3545; */
+    border: 2px solid #dc3545 !important;
+  }
+  .custom-file-input {
+    border: 2px dashed #ffa500; /* Orange border */
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .custom-file-upload {
+    display: inline-block;
+    position: relative;
+  }
+
+  .custom-file-upload .form-label {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    background-color: var(--color-primary-light);
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 2.5;
+  }
+
+  .custom-file-upload label:hover {
+    background-color: #ffec8c; /* Slightly darker gray */
+  }
+
+  .custom-file-upload input {
+    display: none; /* Hide the actual file input */
   }
 </style>
+<script>
+  const fileInput = document.querySelector(".custom-file-upload input");
+  const fileLabel = document.querySelector(".custom-file-upload .form-label");
+
+  fileInput.addEventListener("change", () => {
+    fileLabel.textContent = fileInput.files[0].name;
+  });
+</script>
 {% endblock %}

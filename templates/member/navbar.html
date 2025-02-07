@@ -1,0 +1,109 @@
+<nav
+  class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top fixed-lg-top">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="#">algorka</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto w-100 text-center">
+        <li class="nav-item w-100">
+          <a class="nav-link" href="#"
+            ><i class="bi bi-speedometer2"></i> Dashboard</a
+          >
+        </li>
+        <li class="nav-item w-100">
+          <a class="nav-link" href="#"><i class="bi bi-kanban"></i> Projects</a>
+        </li>
+        <li class="nav-item w-100">
+          <a class="nav-link" href="#"><i class="bi bi-newspaper"></i> News</a>
+        </li>
+        <li class="nav-item w-100">
+          <a class="nav-link" href="#"><i class="bi bi-book"></i> Courses</a>
+        </li>
+        <li class="nav-item w-100">
+          <a class="nav-link" href="#"
+            ><i class="bi bi-chat-dots"></i> Contact</a
+          >
+        </li>
+        <li class="nav-item w-100 hide ">
+          <a class="nav-link" href="#"
+            ><i class="bi bi-person"></i></i> Profile</a
+          >
+        </li>
+        <li class="nav-item w-100 hide">
+          <a class="nav-link" href="#"
+            ><i class="bi bi-box-arrow-right"></i> Logout</a
+          >
+        </li>
+      </ul>
+      <ul class="navbar-nav settingDropdown">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="settingDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="bi bi-gear"></i>
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="settingDropdown">
+            <li>
+              <a class="dropdown-item" href="#"
+                ><i class="bi bi-person"></i> Profile</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="#"
+                ><i class="bi bi-box-arrow-right"></i> Logout</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<style>
+  @media (max-width: 992px) {
+    .navbar {
+      position: static !important;
+    }
+    .navbar-nav {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .navbar-nav .nav-item {
+      flex-grow: 1;
+      text-align: center;
+    }
+    .navbar-nav .nav-link {
+      display: block;
+      width: 100%;
+    }
+    .settingDropdown {
+      display: none;
+    }
+    .hide {
+      display: block !important;
+    }
+  }
+  .nav-link:hover {
+    background-color: #343a40;
+    color: white;
+  }
+  .hide {
+    display: none;
+  }
+</style>

@@ -1,0 +1,84 @@
+{% extends 'member/base.html' %} {% block content %}
+<div class="login-container">
+  <form class="login-form">
+    <h3 class="text-center">Login</h3>
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        placeholder="Enter username" />
+    </div>
+    <div class="mb-3 password-wrapper">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Enter password" />
+      <i class="bi bi-eye-slash toggle-password" onclick="togglePassword()"></i>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Login</button>
+  </form>
+</div>
+<style>
+  @media screen and (max-width: 992px) {
+    .login-container {
+      margin-top: 50px;
+    }
+    .login-form {
+      max-width: 400px !important;
+    }
+  }
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .login-form {
+    max-width: 40%;
+    width: 100%;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .btn-primary {
+    background-color: rgb(212, 58, 2);
+    border-color: rgb(212, 58, 2);
+  }
+  .btn-primary:hover {
+    background-color: rgb(180, 50, 0);
+    border-color: rgb(180, 50, 0);
+  }
+  .password-wrapper {
+    position: relative;
+  }
+  .password-wrapper .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 73%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  #password {
+    padding-right: 30px;
+  }
+</style>
+<script>
+  function togglePassword() {
+    let passwordInput = document.getElementById("password");
+    let toggleIcon = document.querySelector(".toggle-password");
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      toggleIcon.classList.remove("bi-eye-slash");
+      toggleIcon.classList.add("bi-eye");
+    } else {
+      passwordInput.type = "password";
+      toggleIcon.classList.remove("bi-eye");
+      toggleIcon.classList.add("bi-eye-slash");
+    }
+  }
+</script>
+{% endblock %}
