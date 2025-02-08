@@ -1,39 +1,83 @@
 {% load i18n %}
-<header class="fixed-top">
-  <nav>
-    <div class="container nav_container">
-      <a href="{% url 'index' %}" class="nav_logo">algorka</a>
+
+<nav>
+  <div class="container nav_container">
+    <a href="{% url 'index' %}" class="nav_logo">algorka</a>
+    <div class="nav_main">
       <div class="language_select">
-        <select id="language-dropdown">
-          <option value="en" selected>Eng</option>
-          <option value="vi">T.Việt</option>
+        <div class="custom-dropdown">
+          <div class="custom-selected">
+            <img
+              id="selected-flag"
+              src="{{MEDIA_URL}}/media/uk_flag.png"
+              alt="UK Flag" />
+            <span>English</span>
+          </div>
+          <ul class="custom-options">
+            <li data-value="en" data-flag="{{MEDIA_URL}}/media/uk_flag.png">
+              <img src="{{MEDIA_URL}}/media/uk_flag.png" alt="UK Flag" />
+              English
+            </li>
+            <li data-value="vi" data-flag="{{MEDIA_URL}}/media/vn_flag.png">
+              <img src="{{MEDIA_URL}}/media/vn_flag.png" alt="Vietnam Flag" />
+              Tiếng Việt
+            </li>
+            <li data-value="ja" data-flag="{{MEDIA_URL}}/media/jp_flag.png">
+              <img src="{{MEDIA_URL}}/media/jp_flag.png" alt="Japan Flag" />
+              日本語
+            </li>
+          </ul>
+        </div>
+        <select id="language-dropdown" name="language" hidden>
+          <option value="en" selected>English</option>
+          <option value="vi">Tiếng Việt</option>
           <option value="ja">日本語</option>
         </select>
       </div>
+
       <ul class="nav_item">
         <li><a href="{% url 'about' %}">About</a></li>
         <li><a href="{% url 'projects' %}">Projects</a></li>
-        <li><a href="{% url 'news' %}">News</a></li>
+        <!-- <li><a href="news.html">News</a></li> -->
         <li><a href="{% url 'courses' %}">Courses</a></li>
         <li><a href="{% url 'collaboration' %}">Contact</a></li>
+
+        <!-- <div class="avatar">
+            <img src="./images/original.jpg" alt="" />
+          </div> -->
 
         <li class="nav_profile">
           <div class="settings_icon">
             <i class="uil uil-setting"></i>
           </div>
           <ul>
-            {% if user.is_authenticated %}
-            <li><a href="{% url 'profile' %}">Profile</a></li>
-            <li><a href="{% url 'logout' %}">Logout</a></li>
-            {% else %}
-            <li><a href="{% url 'login' %}">Login</a></li>
-            <li><a href="{% url 'register' %}">Register</a></li>
-            {% endif %}
+            <li>
+              <a href="{% url 'login' %}" class="login-item">
+                <span class="login-text">
+                  <img
+                    src="{{MEDIA_URL}}/media/login.png"
+                    alt="Login Icon"
+                    class="login_icon" />
+                  Login
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'register' %}" class="register-item">
+                <span class="register-text">
+                  <img
+                    src="{{MEDIA_URL}}/media/register.png"
+                    alt="Register Icon"
+                    class="register_icon" />
+                  Register
+                </span>
+              </a>
+            </li>
           </ul>
         </li>
       </ul>
       <button id="open_nav-btn"><i class="uil uil-bars"></i></button>
       <button id="close_nav-btn"><i class="uil uil-multiply"></i></button>
     </div>
-  </nav>
-</header>
+  </div>
+</nav>

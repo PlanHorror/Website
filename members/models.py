@@ -10,8 +10,17 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True, blank=False)
     def __str__(self):
         return "User id: " + str(self.pk) + " - Username: " + self.username + " - Email: " + self.email
-# Label model is created to store the labels created by the user
-class Label(TranslatableModel):
+# Label model is created for projects to store the labels created by the user
+class ProjectLabel(TranslatableModel):
+    translation = TranslatedFields(
+        name = models.TextField(_('Name'), unique=True)
+    )
+    created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return "Label id: " + str(self.pk) + " - Name: " + self.name + " - Created by: " + self.created_by.username
+# Label model is created for news to store the labels created by the user
+class NewsLabel(TranslatableModel):
     translation = TranslatedFields(
         name = models.TextField(_('Name'), unique=True)
     )
@@ -22,7 +31,7 @@ class Label(TranslatableModel):
 # Project model is created to store the projects created by the user
 class Project(TranslatableModel):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    label = models.ManyToManyField(Label, blank=True, null=True)
+    label = models.ManyToManyField("ProjectLabel", blank=True, related_name='plabel')
     translation = TranslatedFields(
         title = models.TextField(_('Title')),
         content = models.TextField(_('Content'))
@@ -34,7 +43,7 @@ class Project(TranslatableModel):
 # News model is created to store the news created by the user
 class News(TranslatableModel):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    label = models.ManyToManyField(Label)
+    label = models.ManyToManyField("NewsLabel", blank=True, related_name='nlabel')
     translation = TranslatedFields(
         title = models.TextField(),  
     )
@@ -72,7 +81,7 @@ class Course(TranslatableModel):
         title = models.TextField()
     )
     url = models.URLField()
-    module = models.ManyToManyField('Module', blank=True, null=True)
+    module = models.ManyToManyField('Module', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return "Course id: " + str(self.pk) + " - Title: " + self.title + "- Author: " + self.author.username
@@ -85,3 +94,14 @@ class Module(TranslatableModel):
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return "Module id: " + str(self.pk) + " - Module: " + self.module + " - Created by: " + self.created_by.username
+class Contact(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=15)
+    c_type = models.CharField(max_length=20, choices=[('project', 'Project'), ('news', 'News'), ('course', 'Course'), ('other', 'Other')])
+    project_obj = models.ManyToManyField(Project, blank=True)
+    news_obj = models.ManyToManyField(News, blank=True)
+    course_obj = models.ManyToManyField(Course, blank=True)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return "Contact id: " + str(self.pk) + " - Name: " + self.user.username + " - Type: " + self.c_type 

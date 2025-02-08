@@ -9,14 +9,15 @@
       news?
     </p>
 
-    <form action="" method="post" class="general_form">
+    <form method="post" class="general_form">
+      {% csrf_token %}
       <div class="form_control">
         <label for="phone">Phone Number</label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          placeholder="Enter your phone number" />
+        <!-- prettier-ignore -->
+        {{ form.phone_number }}
+        <small id="messageHelp" class="form-text text-muted">
+          Phone number must be in the format: +1234567890
+        </small>
       </div>
 
       <div class="form_control">
@@ -31,22 +32,13 @@
 
       <div class="form_control">
         <label for="title">Title of News/Project</label>
-        <select id="title" name="title[]" multiple>
-          <option value="news1">News 1</option>
-          <option value="news2">News 2</option>
-          <option value="project1">Project 1</option>
-          <option value="project2">Project 2</option>
-        </select>
+        <select id="title" name="title" multiple disabled></select>
       </div>
 
       <div class="form_control">
         <label for="message">Your Message</label>
-        <textarea
-          id="message"
-          name="message"
-          rows="5"
-          placeholder="Write your feedback, collaboration request, or intention to join a project here..."
-          required></textarea>
+        <!-- prettier-ignore -->
+        {{ form.message }}
       </div>
 
       <button type="submit" class="btn">Submit Feedback</button>
@@ -54,6 +46,38 @@
   </div>
 </section>
 <script>
+  const lang = "{{ request.LANGUAGE_CODE }}";
+  console.log(lang);
+  $("#interest").on("change", function () {
+    if ($(this).val() === "other") {
+      $("#title").prop("disabled", true);
+    } else {
+      $("#title").prop("disabled", false);
+    }
+    if ($(this).val() === "project") {
+      // Clear the select options
+      $("#title").html("");
+      (async () => {
+        await $.get(`/get_projects/?lang=${lang}`, (data) => {
+          data.projects.forEach((e) => {
+            $("#title").append(`<option value="${e[1]}">${e[0]}</option>`);
+          });
+        });
+      })();
+    } else if ($(this).val() === "news") {
+      // Clear the select options
+      $("#title").html("");
+      (async () => {
+        await $.get(`/get_news/?lang=${lang}`, (data) => {
+          data.news.forEach((e) => {
+            $("#title").append(`<option value="${e[1]}">${e[0]}</option>`);
+          });
+        });
+      })();
+    } else {
+      $("#title").html("");
+    }
+  });
   $(document).ready(function () {
     $("#title").select2({
       placeholder: "Enter the title",

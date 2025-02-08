@@ -17,5 +17,9 @@ urlpatterns = [
     path('collaboration/', views.collaboration, name='collaboration'),
     path('logout/', views.logout, name='logout'),
     path('profile/', views.profile, name='profile'),
+    # Path for JSON response
+    path('get_projects/', views.get_projects, name='get_projects'),
+    path('get_news/', views.get_news, name='get_news'),
+    path('get_courses/', views.get_courses, name='get_courses'),
     
 ] 

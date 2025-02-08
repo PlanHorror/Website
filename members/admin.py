@@ -5,12 +5,14 @@ from parler.admin import TranslatableAdmin
 admin.site.register(CustomUser)
 admin.site.register(Project, TranslatableAdmin)
 admin.site.register(Comment)
-admin.site.register(Label, TranslatableAdmin)
+admin.site.register(ProjectLabel, TranslatableAdmin)
+admin.site.register(NewsLabel, TranslatableAdmin)
 admin.site.register(News, TranslatableAdmin)
 admin.site.register(NewsContent, TranslatableAdmin)
 admin.site.register(NewsImage)
 admin.site.register(Course, TranslatableAdmin)
 admin.site.register(Module, TranslatableAdmin)
+admin.site.register(Contact)
 
 
 # Make CustomUser at Authentication and Authorization in the admin site

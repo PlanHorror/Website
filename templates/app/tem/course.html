@@ -54,6 +54,18 @@
             <!-- <h3>Title 2 <span class="preview-icon">ℹ</span></h3> -->
             <small>Date: 30/02/2025</small>
           </article>
+          {% for course in cr %}  
+          <article class="course">
+            <div class="course-info">
+            <h3>{{ course.title }}</h3>
+            <small>Date: {{ course.created_at }}</small>
+            </div>
+            <!-- Part in right -->
+            <div class="author">
+              <img src="{{ course.author.avatar.url }}" alt="Author Avatar" class="post_author-avatar" style=" margin-left: 60%;" />
+              <span style="color: white;">Author: {{ course.author.username }}</span>
+          </article>
+          {% endfor %}
         </div>
       </div>
     </div>
@@ -61,7 +73,10 @@
 
   <div class="pagination">
     {% if cr.has_previous %}  
-    <button id="prev-page" class="btn" onclick="window.location.href = '?page={{pr.number|add:-1}}' ">Previous</button>
+    <form id="prev-page" action="?page={{cr.number|add:-1}}" method="get">
+      <button class="btn" type="submit">Previous</button>
+    </form>
+    <!-- <button id="prev-page" class="btn" >Previous</button> -->
     {% else %} 
     <button id="prev-page" class="btn" disabled>Previous</button>
     {% endif %}
