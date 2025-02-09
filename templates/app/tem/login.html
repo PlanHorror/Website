@@ -1,24 +1,26 @@
 <!-- prettier-ignore -->
 {% extends 'app/base.html' %}
-
 {% block content %}
+{% load i18n %}
 <section class="form_page">
   <div class="container">
-    <h2>Sign In</h2>
+    <h2>{% trans 'Sign In' %}</h2>
     <form action="" method="POST" class="general_form">
       {% csrf_token %}
       <div class="form_control">
-        <label for="username" class="form-label">Username</label>
+        <label for="username" class="form-label">{% trans 'Username' %}</label>
         <input type="text" name="username" />
       </div>
       <div class="form_control">
-        <label for="password" class="form-label">Password</label>
+        <label for="password" class="form-label">{% trans 'Password' %}</label>
         <input type="password" name="password" />
       </div>
-      <button type="submit" class="btn">Sign In</button>
+      <button type="submit" class="btn">{% trans 'Sign In' %}</button>
       <p class="text-center mt-3">
-        Don't have an account?
-        <a href="{% url 'register' %}" class="text-orange">Sign up</a>.
+        {% trans "Don't have an account?" %}
+        <a href="{% url 'register' %}" class="text-orange"
+          >{% trans "Sign up" %}</a
+        >.
       </p>
     </form>
   </div>

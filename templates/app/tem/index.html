@@ -9,8 +9,10 @@
     </div>
     <div class="hero_content">
       <h1>Algorka</h1>
-      <p>They call us dreamers, but we are the ones who don't sleep.</p>
-      <a href="about.html" class="btn">Find more about us</a>
+      <p>{% trans 'slogan' %}</p>
+      <a href="{% url 'index' %}#about-us" class="btn"
+        >{% trans 'about_description' %}</a
+      >
     </div>
   </div>
 </section>
@@ -18,23 +20,99 @@
 <!-- Four Option Boxes -->
 <section class="options">
   <div class="options_container">
+    <a href="{% url 'projects' %}"
+      ><div class="option_box">
+        {% trans 'projects' %}
+        <p>{% trans 'projects_description' %}</p>
+      </div></a
+    >
     <div class="option_box">
-      <a href="projects.html">Projects</a>
-      <p>Explore our latest projects and innovations.</p>
+      <a href="{% url 'courses' %}">{% trans 'courses' %}</a>
+      <p>{% trans 'courses_description' %}</p>
     </div>
     <div class="option_box">
-      <a href="courses.html">Courses</a>
-      <p>Learn new skills with our curated courses.</p>
+      <a href="{% url 'news' %}">{% trans 'news' %}</a>
+      <p>{% trans 'news_description' %}</p>
     </div>
     <div class="option_box">
-      <a href="news.html">News</a>
-      <p>Stay updated with our latest news.</p>
-    </div>
-    <div class="option_box">
-      <a href="contact.html">Contact</a>
-      <p>Get in touch with us for more information.</p>
+      <a href="{% url 'collaboration' %}">{% trans 'contact' %}</a>
+      <p>{% trans 'contact_description' %}</p>
     </div>
   </div>
 </section>
+<header>
+  <h1>{% trans 'Welcome to Algorka Tech Club' %}</h1>
+</header>
 
+<main id="about-us">
+  <!-- Added About Us Section -->
+  <section id="about-us">
+    <div class="about-container">
+      <h2>{% trans 'about' %}</h2>
+      <p>
+        {% trans 'Welcome to' %} <strong>Algorka</strong> ,
+        <!-- prettier-ignore -->{% trans 'where innovation meets inspiration!' %}
+      </p>
+      <!-- prettier-ignore -->
+      <p>
+        {% trans " We are a passionate community of tech enthusiasts, innovators, and problem-solvers who come together to explore the cutting edge of technology. Whether you're a coder, designer, builder, or simply curious about tech, our club offers a platform to learn, grow, and make a difference." %}
+      </p>
+
+      <h3>{% trans 'Our Mission' %}</h3>
+      <!-- prettier-ignore -->
+      <p>
+        {% trans "Our mission is to foster creativity, collaboration, and technological excellence by empowering our members to innovate, experiment, and thrive in the rapidly evolving world of technology." %}
+      </p>
+
+      <h3>{% trans 'What We Do' %}</h3>
+      <ul>
+        <!-- prettier-ignore -->
+        <li>
+          <strong>{% trans 'Workshops & Hackathons:' %}</strong> {% trans 'Hands-on events to master new skills and tackle real-world challenges.' %}
+        </li>
+        <!-- prettier-ignore -->
+        <li>
+          <strong>{% trans 'Tech Talks & Seminars:' %}</strong> {% trans 'Stay updated with the latest trends and innovations in the tech industry.' %}
+        </li>
+        <!-- prettier-ignore -->
+        <li>
+          <strong>{% trans 'Projects & Collaborations:' %}</strong> {% trans 'Work on exciting team projects to build cutting-edge solutions and practical experience.' %}
+        </li>
+        <!-- prettier-ignore -->
+        <li>
+          <strong>{% trans 'Competitions:' %}</strong> {% trans 'Showcase your skills in local, national, and international tech competitions.' %}
+        </li>
+        <!-- prettier-ignore -->
+        <li>
+          <strong>{% trans 'Mentorship & Networking:' %}</strong> {% trans 'Learn from experienced professionals and connect with like-minded peers.' %}
+        </li>
+      </ul>
+
+      <h3>{% trans 'Why Join Us?' %}</h3>
+      <!-- prettier-ignore -->
+      <p>{% trans 'By joining' %} <strong>Algorka</strong>, {% trans 'you’ll gain:' %}</p>
+      <ul>
+        <!-- prettier-ignore -->
+        <li>{% trans 'A platform to sharpen your technical and creative skills.' %}</li>
+        <!-- prettier-ignore -->
+        <li>{% trans 'Access to a supportive community of peers and mentors.' %}</li>
+        <!-- prettier-ignore -->
+        <li>{% trans 'Opportunities to showcase your talent and gain recognition.' %}</li>
+        <!-- prettier-ignore -->
+        <li>{% trans 'Resources and guidance to turn your ideas into reality.' %}</li>
+      </ul>
+
+      <h3>{% trans 'Get Involved' %}</h3>
+      <!-- prettier-ignore -->
+      <p>
+        {% trans 'Ready to join the tech revolution? We welcome members from all skill levels and backgrounds.' %}
+      </p>
+      <!-- prettier-ignore -->
+      <p>
+        {% trans 'Follow us on' %} <a href="#social-media">[social media links]</a> {% trans 'or reach out at' %} <a href="mailto:algorka@techclub.com">algorka@techclub.com</a> {% trans 'to learn more and get started.' %}
+      </p>
+      <p>{% trans 'Together, let’s shape the future of technology! 🚀' %}</p>
+    </div>
+  </section>
+</main>
 {% endblock %}

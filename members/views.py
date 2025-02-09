@@ -4,6 +4,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages, auth
 from django.shortcuts import redirect
 from .models import *
+from django.template import Library
+register = Library()
 # Create your views here.
 @login_required(login_url='members/login')
 def index(request):

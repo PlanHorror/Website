@@ -1,46 +1,72 @@
 {% load i18n %}
-
+<!-- Load function -->
+{% load custom_tag %}
 <nav>
   <div class="container nav_container">
     <a href="{% url 'index' %}" class="nav_logo">algorka</a>
     <div class="nav_main">
       <div class="language_select">
         <div class="custom-dropdown">
+          {% get_current_language as LANGUAGE_CODE %}
+          {% if LANGUAGE_CODE == 'vi' %}
+          <div class="custom-selected">
+            <img
+              id="selected-flag"
+              src="{{MEDIA_URL}}/media/vn_flag.png"
+              alt="Vietnam Flag" />
+            <span>{% trans 'vi' %}</span>
+          {% elif LANGUAGE_CODE == 'ja' %}
+          <div class="custom-selected">
+            <img
+              id="selected-flag"
+              src="{{MEDIA_URL}}/media/jp_flag.png"
+              alt="Japan Flag" />
+            <span>{% trans 'ja' %}</span>
+          {% else %}
           <div class="custom-selected">
             <img
               id="selected-flag"
               src="{{MEDIA_URL}}/media/uk_flag.png"
               alt="UK Flag" />
-            <span>English</span>
+            <span>{% trans 'en' %}</span>
+          {% endif %}
+
           </div>
           <ul class="custom-options">
-            <li data-value="en" data-flag="{{MEDIA_URL}}/media/uk_flag.png">
-              <img src="{{MEDIA_URL}}/media/uk_flag.png" alt="UK Flag" />
-              English
-            </li>
-            <li data-value="vi" data-flag="{{MEDIA_URL}}/media/vn_flag.png">
-              <img src="{{MEDIA_URL}}/media/vn_flag.png" alt="Vietnam Flag" />
-              Tiếng Việt
-            </li>
-            <li data-value="ja" data-flag="{{MEDIA_URL}}/media/jp_flag.png">
-              <img src="{{MEDIA_URL}}/media/jp_flag.png" alt="Japan Flag" />
-              日本語
-            </li>
+            <a href="{% translate_urls 'en' %}" class="language_item">
+              <li data-value="en" data-flag="{{MEDIA_URL}}/media/uk_flag.png">
+                <img src="{{MEDIA_URL}}/media/uk_flag.png" alt="UK Flag" />
+                {% trans 'en' %}
+              </li></a
+            >
+            <a href="{% translate_urls 'vi' %}" class="language_item">
+              <li data-value="vi" data-flag="{{MEDIA_URL}}/media/vn_flag.png">
+                <img src="{{MEDIA_URL}}/media/vn_flag.png" alt="Vietnam Flag" />
+                {% trans 'vi' %}
+              </li></a
+            >
+            <a href="{% translate_urls 'ja' %}" class="language_item">
+              <li data-value="ja" data-flag="{{MEDIA_URL}}/media/jp_flag.png">
+                <img src="{{MEDIA_URL}}/media/jp_flag.png" alt="Japan Flag" />
+                {% trans 'ja' %}
+              </li></a
+            >
           </ul>
         </div>
+
         <select id="language-dropdown" name="language" hidden>
-          <option value="en" selected>English</option>
-          <option value="vi">Tiếng Việt</option>
-          <option value="ja">日本語</option>
+          <option value="en" selected>{% trans 'en' %}</option>
+          <option value="vi">{% trans 'vi' %}</option>
+          <option value="ja">{% trans 'ja' %}</option>
         </select>
       </div>
 
       <ul class="nav_item">
-        <li><a href="{% url 'about' %}">About</a></li>
-        <li><a href="{% url 'projects' %}">Projects</a></li>
+        <li><a href="{% url 'index' %}#about-us">{% trans 'about' %}</a></li>
+        <li><a href="{% url 'projects' %}">{% trans 'projects' %}</a></li>
         <!-- <li><a href="news.html">News</a></li> -->
-        <li><a href="{% url 'courses' %}">Courses</a></li>
-        <li><a href="{% url 'collaboration' %}">Contact</a></li>
+        <li><a href="{% url 'courses' %}">{% trans 'courses' %}</a></li>
+        <li><a href="{% url 'collaboration' %}">{% trans 'contact' %}</a></li>
 
         <!-- <div class="avatar">
             <img src="./images/original.jpg" alt="" />
@@ -51,6 +77,30 @@
             <i class="uil uil-setting"></i>
           </div>
           <ul>
+            {% if user.is_authenticated %}
+            <li>
+              <a href="{% url 'profile' %}" class="profile-item">
+                <span class="profile-text">
+                  <img
+                    src="{{MEDIA_URL}}/media/profile.png"
+                    alt="Profile Icon"
+                    class="profile_icon" />
+                    {% trans 'profile' %}
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'logout' %}" class="logout-item">
+                <span class="logout-text">
+                  <img
+                    src="{{MEDIA_URL}}/media/logout.png"
+                    alt="Logout Icon"
+                    class="logout_icon" />
+                    {% trans 'logout' %}
+                </span>
+              </a>
+            </li>
+            {% else %}
             <li>
               <a href="{% url 'login' %}" class="login-item">
                 <span class="login-text">
@@ -58,7 +108,7 @@
                     src="{{MEDIA_URL}}/media/login.png"
                     alt="Login Icon"
                     class="login_icon" />
-                  Login
+                    {% trans 'login' %}
                 </span>
               </a>
             </li>
@@ -69,12 +119,13 @@
                     src="{{MEDIA_URL}}/media/register.png"
                     alt="Register Icon"
                     class="register_icon" />
-                  Register
+                    {% trans 'register' %}
                 </span>
               </a>
             </li>
           </ul>
         </li>
+        {% endif %}
       </ul>
       <button id="open_nav-btn"><i class="uil uil-bars"></i></button>
       <button id="close_nav-btn"><i class="uil uil-multiply"></i></button>

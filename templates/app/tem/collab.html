@@ -1,47 +1,50 @@
 <!-- prettier-ignore -->
 {% extends 'app/base.html' %} 
 {% block content %}
+{% load i18n %}
 <section class="form_page">
   <div class="container">
-    <h1>Contact Us</h1>
+    <h1>{% trans 'Contact Us' %}</h1>
+    <!-- prettier-ignore -->
     <p>
-      Have feedback, want to collaborate on a project, or interested in our
-      news?
+      {% trans 'Have feedback, want to collaborate on a project, or interested in our news?' %}
     </p>
 
     <form method="post" class="general_form">
       {% csrf_token %}
       <div class="form_control">
-        <label for="phone">Phone Number</label>
+        <label for="phone">{% trans 'Phone Number' %}</label>
         <!-- prettier-ignore -->
         {{ form.phone_number }}
         <small id="messageHelp" class="form-text text-muted">
-          Phone number must be in the format: +1234567890
+          {% trans 'Phone number must be in the format: +1234567890' %}
         </small>
       </div>
 
       <div class="form_control">
-        <label for="interest">What are you interested in?</label>
+        <label for="interest">{% trans 'What are you interested in?' %}</label>
         <select id="interest" name="interest" required>
-          <option value="" disabled selected>Select an option</option>
-          <option value="project">Project</option>
-          <option value="news">News</option>
-          <option value="other">Other</option>
+          <option value="" disabled selected>
+            {% trans 'Select an option' %}
+          </option>
+          <option value="project">{% trans 'Project' %}</option>
+          <option value="news">{% trans 'News' %}</option>
+          <option value="other">{% trans 'Other' %}</option>
         </select>
       </div>
 
       <div class="form_control">
-        <label for="title">Title of News/Project</label>
+        <label for="title">{% trans 'Title of News/Project' %}</label>
         <select id="title" name="title" multiple disabled></select>
       </div>
 
       <div class="form_control">
-        <label for="message">Your Message</label>
+        <label for="message">{% trans 'Your Message' %}</label>
         <!-- prettier-ignore -->
         {{ form.message }}
       </div>
 
-      <button type="submit" class="btn">Submit Feedback</button>
+      <button type="submit" class="btn">{% trans 'Submit Feedback' %}</button>
     </form>
   </div>
 </section>

@@ -1,17 +1,16 @@
 <!-- prettier-ignore -->
-
 {% extends 'app/base.html' %}
-
 {% block content %}
+{% load i18n %}
 <section class="form_page">
   <div class="container">
-    <h1 class="">Register</h1>
+    <h1 class="">{% trans 'Register' %}</h1>
     <form method="POST" class="general_form" enctype="multipart/form-data">
       {% csrf_token %}
       <!-- First name input -->
       <div class="form_control">
         <label for="{{ form.first_name.id_for_label }}" class="form-label"
-          >First Name</label
+          >{% trans 'First Name' %}</label
         >
         <!-- prettier-ignore -->
 
@@ -23,7 +22,7 @@
       <!-- Last name Input -->
       <div class="form_control">
         <label for="{{ form.last_name.id_for_label }}" class="form-label"
-          >Last Name</label
+          >{% trans 'Last Name' %}</label
         >
         <!-- prettier-ignore -->
 
@@ -36,7 +35,7 @@
       <!-- Username Input -->
       <div class="form_control">
         <label for="{{ form.username.id_for_label }}" class="form-label"
-          >Username</label
+          >{% trans 'Username' %}</label
         >
         <!-- prettier-ignore -->
 
@@ -49,7 +48,7 @@
       <!-- Email Input -->
       <div class="form_control">
         <label for="{{ form.email.id_for_label }}" class="form-label"
-          >Email</label
+          >{% trans 'Email' %}</label
         >
         <!-- prettier-ignore -->
 
@@ -62,7 +61,7 @@
       <!-- Password Input -->
       <div class="form_control">
         <label for="{{ form.password.id_for_label }}" class="form-label"
-          >Password</label
+          >{% trans 'Password' %}</label
         >
         <!-- prettier-ignore -->
 
@@ -75,7 +74,7 @@
       <!-- Confirm Password Input -->
       <div class="form_control">
         <label for="{{ form.password2.id_for_label }}" class="form-label"
-          >Confirm Password</label
+          >{% trans 'Confirm Password' %}</label
         >
         <!-- prettier-ignore -->
 
@@ -86,9 +85,9 @@
       </div>
       <!-- Avatar -->
       <div class="form_control custom-file-upload">
-        <label class=""> Upload Avatar</label>
+        <label class=""> {% trans 'Upload Avatar' %}</label>
         <label for="{{ form.avatar.id_for_label }}" class="form-label"
-          ><i class="uil uil-upload"></i> Upload Avatar</label
+          ><i class="uil uil-upload"></i> {% trans 'Upload Avatar' %}</label
         >
         <!-- prettier-ignore -->
 
@@ -98,11 +97,13 @@
         {% endfor %}
       </div>
       <!-- Submit Button -->
-      <button type="submit" class="btn">Register</button>
+      <button type="submit" class="btn">{% trans 'Register' %}</button>
     </form>
     <p class="text-center mt-3">
-      Already have an account?
-      <a href="{% url 'login' %}" class="text-orange">Login here</a>.
+      {% trans 'Already have an account?' %}
+      <a href="{% url 'login' %}" class="text-orange"
+        >{% trans 'Login here' %}</a
+      >.
     </p>
   </div>
 </section>

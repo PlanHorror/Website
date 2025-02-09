@@ -10,6 +10,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages, auth
 from django.http import JsonResponse
 from .forms import *
+from django.utils import translation
 # Create your views here.
 def index(request):
     # Create 16 Course objects
@@ -99,7 +100,24 @@ def new(request, title ,news_id):
     news.combine = combine
     return render(request, 'app/tem/new.html', {'n': news})
 def course(request):
+    sort = request.GET.get('sort', None)
+    search = request.GET.get('search', None)
+    module = request.GET.get('module', None)
     courses = Course.objects.all()
+    modules = Module.objects.all()
+    if search and module:
+        courses = Course.objects.filter(Q(translation__title__icontains=search) & Q(module=module)).distinct()
+        module = int(module)
+    else:
+        if search:
+            courses = Course.objects.filter(Q(translation__title__icontains=search)).distinct()
+        if module:
+            module = int(module)
+            courses = courses.filter(module=module)
+    if sort == 'time2':
+        courses = courses.order_by('created_at')
+    else:
+        courses = courses.order_by('-created_at')
     paginator = Paginator(courses, 4)
     page = request.GET.get('page') or 1
     try:
@@ -111,7 +129,7 @@ def course(request):
         page = 1
         messages.error(request, _('Page invalid'))
     courses = paginator.get_page(page)
-    return render(request, 'app/tem/course.html', {'cr': courses})
+    return render(request, 'app/tem/course.html', {'cr': courses, 'sort': sort, 'search': search, 'module': module, 'modules': modules})
 def projects(request):
     sort = request.GET.get('sort', None)
     search = request.GET.get('search', None)

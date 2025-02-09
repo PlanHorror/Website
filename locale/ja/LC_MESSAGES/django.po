@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-24 22:47+0700\n"
+"POT-Creation-Date: 2025-02-09 23:46+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,82 +18,451 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: .\app\views.py:27 .\app\views.py:30
+#: .\app\views.py:34 .\app\views.py:50
+msgid "You are already logged in"
+msgstr ""
+
+#: .\app\views.py:42
+msgid "Login successfully"
+msgstr ""
+
+#: .\app\views.py:45
 msgid "Invalid username or password"
 msgstr ""
 
-#: .\members\models.py:15
+#: .\app\views.py:58
+msgid "Register successfully"
+msgstr ""
+
+#: .\app\views.py:66
+msgid "Logout successfully"
+msgstr ""
+
+#: .\app\views.py:78 .\app\views.py:182
+msgid "Send message successfully"
+msgstr ""
+
+#: .\app\views.py:127 .\app\views.py:151
+msgid "Page not found"
+msgstr ""
+
+#: .\app\views.py:130 .\app\views.py:154
+msgid "Page invalid"
+msgstr ""
+
+#: .\app\views.py:189
+msgid "You must login to view this page"
+msgstr ""
+
+#: .\members\models.py:16 .\members\models.py:25
 msgid "Name"
 msgstr ""
 
-#: .\members\models.py:26
+#: .\members\models.py:36
 msgid "Title"
 msgstr ""
 
-#: .\members\models.py:27
+#: .\members\models.py:37
 msgid "Content"
 msgstr ""
 
-#: .\templates\app\navbar.html:28
+#: .\templates\app\navbar.html:17 .\templates\app\navbar.html:45
+#: .\templates\app\navbar.html:59
+msgid "vi"
+msgstr ""
+
+#: .\templates\app\navbar.html:24 .\templates\app\navbar.html:51
+#: .\templates\app\navbar.html:60
+msgid "ja"
+msgstr ""
+
+#: .\templates\app\navbar.html:31 .\templates\app\navbar.html:39
+#: .\templates\app\navbar.html:58
+msgid "en"
+msgstr ""
+
+#: .\templates\app\navbar.html:65 .\templates\app\tem\index.html:51
 msgid "about"
 msgstr ""
 
-#: .\templates\app\navbar.html:33
-msgid "project"
+#: .\templates\app\navbar.html:66 .\templates\app\tem\index.html:25
+msgid "projects"
 msgstr ""
 
-#: .\templates\app\navbar.html:38
-msgid "new"
+#: .\templates\app\navbar.html:68 .\templates\app\tem\index.html:30
+msgid "courses"
 msgstr ""
 
-#: .\templates\app\navbar.html:43
-msgid "course"
+#: .\templates\app\navbar.html:69 .\templates\app\tem\index.html:38
+msgid "contact"
 msgstr ""
 
-#: .\templates\app\navbar.html:48
-msgid "collab"
-msgstr ""
-
-#: .\templates\app\navbar.html:65
-msgid "lang"
-msgstr ""
-
-#: .\templates\app\navbar.html:70
-msgid "theme"
-msgstr ""
-
-#: .\templates\app\navbar.html:81
-msgid "account"
-msgstr ""
-
-#: .\templates\app\navbar.html:85
+#: .\templates\app\navbar.html:88
 msgid "profile"
 msgstr ""
 
-#: .\templates\app\navbar.html:90
+#: .\templates\app\navbar.html:99
 msgid "logout"
 msgstr ""
 
-#: .\templates\app\navbar.html:96
+#: .\templates\app\navbar.html:111
 msgid "login"
 msgstr ""
 
-#: .\templates\app\navbar.html:101
+#: .\templates\app\navbar.html:122
 msgid "register"
 msgstr ""
 
-#: .\templates\app\tem\index.html:110
-msgid "Name Clb"
+#: .\templates\app\tem\collab.html:7
+msgid "Contact Us"
 msgstr ""
 
-#: .\website\settings.py:151
-msgid "Vietnamese"
+#: .\templates\app\tem\collab.html:10
+msgid ""
+"Have feedback, want to collaborate on a project, or interested in our news?"
+msgstr ""
+
+#: .\templates\app\tem\collab.html:16
+msgid "Phone Number"
+msgstr ""
+
+#: .\templates\app\tem\collab.html:20
+msgid "Phone number must be in the format: +1234567890"
+msgstr ""
+
+#: .\templates\app\tem\collab.html:25
+msgid "What are you interested in?"
+msgstr ""
+
+#: .\templates\app\tem\collab.html:28
+msgid "Select an option"
+msgstr ""
+
+#: .\templates\app\tem\collab.html:30
+msgid "Project"
+msgstr ""
+
+#: .\templates\app\tem\collab.html:31
+msgid "News"
+msgstr ""
+
+#: .\templates\app\tem\collab.html:32
+msgid "Other"
+msgstr ""
+
+#: .\templates\app\tem\collab.html:37
+msgid "Title of News/Project"
+msgstr ""
+
+#: .\templates\app\tem\collab.html:42
+msgid "Your Message"
+msgstr ""
+
+#: .\templates\app\tem\collab.html:47
+msgid "Submit Feedback"
+msgstr ""
+
+#: .\templates\app\tem\course.html:11 .\templates\app\tem\course.html:13
+#: .\templates\app\tem\projects.html:12 .\templates\app\tem\projects.html:14
+msgid "Search"
+msgstr ""
+
+#: .\templates\app\tem\course.html:22
+msgid "Go"
+msgstr ""
+
+#: .\templates\app\tem\course.html:30
+msgid "Filter:"
+msgstr ""
+
+#: .\templates\app\tem\course.html:39
+msgid "All"
+msgstr ""
+
+#: .\templates\app\tem\course.html:50 .\templates\app\tem\projects.html:25
+msgid "Sort:"
+msgstr ""
+
+#: .\templates\app\tem\course.html:61 .\templates\app\tem\course.html:64
+#: .\templates\app\tem\course.html:65 .\templates\app\tem\projects.html:32
+#: .\templates\app\tem\projects.html:35 .\templates\app\tem\projects.html:38
+msgid "Newest"
+msgstr ""
+
+#: .\templates\app\tem\course.html:62 .\templates\app\tem\course.html:67
+#: .\templates\app\tem\course.html:68 .\templates\app\tem\projects.html:33
+#: .\templates\app\tem\projects.html:36 .\templates\app\tem\projects.html:39
+msgid "Oldest"
+msgstr ""
+
+#: .\templates\app\tem\course.html:79
+msgid "Most Recent"
+msgstr ""
+
+#: .\templates\app\tem\course.html:84
+msgid "No courses found"
+msgstr ""
+
+#: .\templates\app\tem\course.html:92
+msgid "Date:"
+msgstr ""
+
+#: .\templates\app\tem\course.html:97 .\templates\app\tem\projects.html:80
+msgid "Author:"
+msgstr ""
+
+#: .\templates\app\tem\course.html:118 .\templates\app\tem\course.html:121
+#: .\templates\app\tem\projects.html:102 .\templates\app\tem\projects.html:105
+msgid "Previous"
+msgstr ""
+
+#: .\templates\app\tem\course.html:123 .\templates\app\tem\projects.html:108
+msgid "Page"
+msgstr ""
+
+#: .\templates\app\tem\course.html:146 .\templates\app\tem\projects.html:122
+msgid "of"
+msgstr ""
+
+#: .\templates\app\tem\course.html:159 .\templates\app\tem\course.html:162
+#: .\templates\app\tem\projects.html:131 .\templates\app\tem\projects.html:134
+msgid "Next"
+msgstr ""
+
+#: .\templates\app\tem\index.html:12
+msgid "slogan"
+msgstr ""
+
+#: .\templates\app\tem\index.html:14
+msgid "about_description"
+msgstr ""
+
+#: .\templates\app\tem\index.html:26
+msgid "projects_description"
+msgstr ""
+
+#: .\templates\app\tem\index.html:31
+msgid "courses_description"
+msgstr ""
+
+#: .\templates\app\tem\index.html:34
+msgid "news"
+msgstr ""
+
+#: .\templates\app\tem\index.html:35
+msgid "news_description"
+msgstr ""
+
+#: .\templates\app\tem\index.html:39
+msgid "contact_description"
+msgstr ""
+
+#: .\templates\app\tem\index.html:44
+msgid "Welcome to Algorka Tech Club"
+msgstr ""
+
+#: .\templates\app\tem\index.html:53
+msgid "Welcome to"
+msgstr ""
+
+#: .\templates\app\tem\index.html:54
+msgid "where innovation meets inspiration!"
+msgstr ""
+
+#: .\templates\app\tem\index.html:58
+msgid ""
+" We are a passionate community of tech enthusiasts, innovators, and problem-"
+"solvers who come together to explore the cutting edge of technology. Whether "
+"you're a coder, designer, builder, or simply curious about tech, our club "
+"offers a platform to learn, grow, and make a difference."
+msgstr ""
+
+#: .\templates\app\tem\index.html:61
+msgid "Our Mission"
+msgstr ""
+
+#: .\templates\app\tem\index.html:64
+msgid ""
+"Our mission is to foster creativity, collaboration, and technological "
+"excellence by empowering our members to innovate, experiment, and thrive in "
+"the rapidly evolving world of technology."
+msgstr ""
+
+#: .\templates\app\tem\index.html:67
+msgid "What We Do"
+msgstr ""
+
+#: .\templates\app\tem\index.html:71
+msgid "Workshops & Hackathons:"
+msgstr ""
+
+#: .\templates\app\tem\index.html:71
+msgid "Hands-on events to master new skills and tackle real-world challenges."
+msgstr ""
+
+#: .\templates\app\tem\index.html:75
+msgid "Tech Talks & Seminars:"
+msgstr ""
+
+#: .\templates\app\tem\index.html:75
+msgid ""
+"Stay updated with the latest trends and innovations in the tech industry."
+msgstr ""
+
+#: .\templates\app\tem\index.html:79
+msgid "Projects & Collaborations:"
+msgstr ""
+
+#: .\templates\app\tem\index.html:79
+msgid ""
+"Work on exciting team projects to build cutting-edge solutions and practical "
+"experience."
+msgstr ""
+
+#: .\templates\app\tem\index.html:83
+msgid "Competitions:"
+msgstr ""
+
+#: .\templates\app\tem\index.html:83
+msgid ""
+"Showcase your skills in local, national, and international tech competitions."
+msgstr ""
+
+#: .\templates\app\tem\index.html:87
+msgid "Mentorship & Networking:"
+msgstr ""
+
+#: .\templates\app\tem\index.html:87
+msgid ""
+"Learn from experienced professionals and connect with like-minded peers."
+msgstr ""
+
+#: .\templates\app\tem\index.html:91
+msgid "Why Join Us?"
+msgstr ""
+
+#: .\templates\app\tem\index.html:93
+msgid "By joining"
+msgstr ""
+
+#: .\templates\app\tem\index.html:93
+msgid "you’ll gain:"
+msgstr ""
+
+#: .\templates\app\tem\index.html:96
+msgid "A platform to sharpen your technical and creative skills."
+msgstr ""
+
+#: .\templates\app\tem\index.html:98
+msgid "Access to a supportive community of peers and mentors."
+msgstr ""
+
+#: .\templates\app\tem\index.html:100
+msgid "Opportunities to showcase your talent and gain recognition."
+msgstr ""
+
+#: .\templates\app\tem\index.html:102
+msgid "Resources and guidance to turn your ideas into reality."
+msgstr ""
+
+#: .\templates\app\tem\index.html:105
+msgid "Get Involved"
+msgstr ""
+
+#: .\templates\app\tem\index.html:108
+msgid ""
+"Ready to join the tech revolution? We welcome members from all skill levels "
+"and backgrounds."
+msgstr ""
+
+#: .\templates\app\tem\index.html:112
+msgid "Follow us on"
+msgstr ""
+
+#: .\templates\app\tem\index.html:112
+msgid "or reach out at"
+msgstr ""
+
+#: .\templates\app\tem\index.html:112
+msgid "to learn more and get started."
+msgstr ""
+
+#: .\templates\app\tem\index.html:114
+msgid "Together, let’s shape the future of technology! 🚀"
+msgstr ""
+
+#: .\templates\app\tem\login.html:7 .\templates\app\tem\login.html:18
+msgid "Sign In"
+msgstr ""
+
+#: .\templates\app\tem\login.html:11 .\templates\app\tem\register.html:38
+msgid "Username"
+msgstr ""
+
+#: .\templates\app\tem\login.html:15 .\templates\app\tem\register.html:64
+msgid "Password"
+msgstr ""
+
+#: .\templates\app\tem\login.html:20
+msgid "Don't have an account?"
+msgstr ""
+
+#: .\templates\app\tem\login.html:22
+msgid "Sign up"
+msgstr ""
+
+#: .\templates\app\tem\new.html:7 .\templates\app\tem\news.html:6
+msgid "This is the news page. It will be developed in the future."
+msgstr ""
+
+#: .\templates\app\tem\project.html:13
+msgid "By:"
+msgstr ""
+
+#: .\templates\app\tem\projects.html:51
+msgid "No projects found"
+msgstr ""
+
+#: .\templates\app\tem\register.html:7 .\templates\app\tem\register.html:100
+msgid "Register"
+msgstr ""
+
+#: .\templates\app\tem\register.html:13
+msgid "First Name"
+msgstr ""
+
+#: .\templates\app\tem\register.html:25
+msgid "Last Name"
+msgstr ""
+
+#: .\templates\app\tem\register.html:51
+msgid "Email"
+msgstr ""
+
+#: .\templates\app\tem\register.html:77
+msgid "Confirm Password"
+msgstr ""
+
+#: .\templates\app\tem\register.html:88 .\templates\app\tem\register.html:90
+msgid "Upload Avatar"
+msgstr ""
+
+#: .\templates\app\tem\register.html:103
+msgid "Already have an account?"
+msgstr ""
+
+#: .\templates\app\tem\register.html:105
+msgid "Login here"
 msgstr ""
 
 #: .\website\settings.py:152
-msgid "English"
+msgid "Vietnamese"
 msgstr ""
 
 #: .\website\settings.py:153
+msgid "English"
+msgstr ""
+
+#: .\website\settings.py:154
 msgid "Japanese"
 msgstr ""

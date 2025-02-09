@@ -2,69 +2,101 @@
 {% extends 'app/base.html' %} 
 {% block content %} 
 {% load i18n %}
+<form action="" method="get">
 <section class="search_bar">
   <div class="container search_bar-container">
     <div class="search_input">
       <i class="uil uil-search"></i>
-      <input type="search" name="search" placeholder="Search" />
+      {% if search %}
+      <input type="search" name="search" placeholder="{% trans 'Search' %}" value="{{ search }}" />
+      {% else %}
+      <input type="search" name="search" placeholder="{% trans 'Search' %}" />
+      {% endif %}
+      {% if module %}
+      <input type="hidden" name="module" value="{{ module }}" />
+      {% endif %}
+      {% if sort %}
+      <input type="hidden" name="sort" value="{{ sort }}" />
+      {% endif %}
     </div>
-    <button type="submit" class="btn">Go</button>
+    <button type="submit" class="btn">{% trans 'Go' %}</button>
+    
   </div>
 </section>
+</form>
 
 <section class="topic_menu">
   <div class="container">
-    <label for="topic-menu" class="topic_label">Filter:</label>
-    <select name="topic" id="topic-menu" onchange="filterByModule()">
-      <option value="all">All you need is here (All)</option>
-      <option value="AI">Artificial Intelligence (AI)</option>
-      <option value="IOT">Internet of Things (IoT)</option>
-      <option value="St">Software Technology (ST)</option>
-      <option value="FT">Finance Technology (FT)</option>
-      <option value="FT">IT Fundamentals (FUN)</option>
-    </select>
+    <label for="topic-menu" class="topic_label">{% trans 'Filter:' %}</label>      
+    <form method="get">
+      {% if search %}
+      <input type="hidden" name="search" value="{{ search }}" />
+      {% endif %}
+      {% if sort %}
+      <input type="hidden" name="sort" value="{{ sort }}" />
+      {% endif %}
+      <select name="module" id="topic-menu" onchange="this.form.submit()">
+        <option value="" selected>{% trans 'All' %}</option>
+        {% for m in modules %}
+        {% if m.id == module %}
+        <option value="{{ m.id }}" selected>{{ m.module }}</option>
+        {% else %}
+        <option value="{{ m.id }}">{{ m.module }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+      <button type="submit" id="module-sub" style="display: none;"></button>
+    </form>
+    <label for="sort-select" class="sort_label">{% trans 'Sort:' %}</label>
+    <form method="get">
+      {% if search %}
+      <input type="hidden" name="search" value="{{ search }}" />
+      {% endif %}
+      {% if module %}
+      <input type="hidden" name="module" value="{{ module }}" />
+      {% endif %}
 
-    <label for="sort-select" class="sort_label">Sort:</label>
-    <select name="sort" id="sort-select" onchange="sortPosts()">
-      <option value="time">Newest</option>
-      <option value="title">Oldest</option>
+    <select name="sort" id="sort-select" onchange=" this.form.submit()">
+      {% if sort == 'time1' %}
+      <option value="time1" selected>{% trans 'Newest' %}</option>
+      <option value="time2">{% trans 'Oldest' %}</option>
+      {% elif sort == 'time2' %}
+      <option value="time1">{% trans 'Newest' %}</option>
+      <option value="time2" selected>{% trans 'Newest' %}</option>
+      {% else %}
+      <option value="time1">{% trans 'Oldest' %}</option>
+      <option value="time2">{% trans 'Oldest' %}</option>
+      {% endif %}
     </select>
+    <button type="submit" style="display: none" class="sort"></button>
+    </form>
   </div>
 </section>
 
 <main>
   <section class="courses_section">
     <div class="container">
-      <h2>Most Recent</h2>
+      <h2>{% trans 'Most Recent' %}</h2>
       <div class="courses_content">
         <div class="recent_courses">
-          <article class="course">
-            <h3>
-              Title 1
-              <span
-                class="preview-icon"
-                data-preview="This is a preview of the course content."
-                >ⓘ</span
-              >
-            </h3>
-            <small>Date: 30/02/2025</small>
-          </article>
-          <article class="course">
-            <h3>Title 2</h3>
-            <!-- <h3>Title 2 <span class="preview-icon">ℹ</span></h3> -->
-            <small>Date: 30/02/2025</small>
-          </article>
+          {% if cr|length == 0 %}
+          <section class="no-data">
+            <p>{% trans 'No courses found' %}/p>
+          </section>
+          {% endif %}
           {% for course in cr %}  
-          <article class="course">
-            <div class="course-info">
-            <h3>{{ course.title }}</h3>
-            <small>Date: {{ course.created_at }}</small>
-            </div>
-            <!-- Part in right -->
-            <div class="author">
-              <img src="{{ course.author.avatar.url }}" alt="Author Avatar" class="post_author-avatar" style=" margin-left: 60%;" />
-              <span style="color: white;">Author: {{ course.author.username }}</span>
-          </article>
+          <a href="http://docs.com">
+            <article class="course">
+              <div class="course-info">
+              <h3>{{ course.title }}</h3>
+              <small>{% trans 'Date:' %} {{ course.created_at|date:"d/m/Y H:i:s" }}</small>
+              </div>
+              <!-- Part in right -->
+              <div class="author">
+                <img src="{{ course.author.avatar.url }}" alt="Author Avatar" class="post_author-avatar" style=" margin-left: 60%;" />
+                <span style="color: white;">{% trans 'Author:' %} {{ course.author.username }}</span>
+            </article>
+          </a>
           {% endfor %}
         </div>
       </div>
@@ -73,28 +105,61 @@
 
   <div class="pagination">
     {% if cr.has_previous %}  
-    <form id="prev-page" action="?page={{cr.number|add:-1}}" method="get">
-      <button class="btn" type="submit">Previous</button>
-    </form>
-    <!-- <button id="prev-page" class="btn" >Previous</button> -->
-    {% else %} 
-    <button id="prev-page" class="btn" disabled>Previous</button>
-    {% endif %}
-    <span>Page </span>
-    <select id="page-select" onchange="window.location.href = '?page=' + this.value">
-      {% if cr.paginator.num_pages > 0 %}
-      {% for i in cr.paginator.page_range %}
-      <option value="{{ i }}" {% if i == cr.number %} selected {% endif %}>{{ i }}</option>
-      {% endfor %}
-      {% else %}
-      <option value="0" selected>0</option>
+    <form id="prev-page" method="get">
+      {% if search %}
+      <input type="hidden" name="search" value="{{ search }}" />
       {% endif %}
-    </select>
-    <span> of <span id="total-pages"> {{ cr.paginator.page_range|length }} </span></span>
+      {% if module %}
+      <input type="hidden" name="module" value="{{ module }}" />
+      {% endif %}
+      {% if sort %}
+      <input type="hidden" name="sort" value="{{ sort }}" />
+      {% endif %}
+      <button class="btn" type="submit" name="page" value="{{cr.number|add:-1}}">{% trans 'Previous' %}</button>
+    </form>
+    {% else %} 
+    <button id="prev-page" class="btn" disabled>{% trans 'Previous' %}</button>
+    {% endif %}
+    <span>{% trans 'Page' %} </span>
+    <form method="get" class="page-form">
+      {% if search %}
+      <input type="hidden" name="search" value="{{ search }}" />
+      {% endif %}
+      {% if module %}
+      <input type="hidden" name="module" value="{{ module }}" />
+      {% endif %}
+      {% if sort %}
+      <input type="hidden" name="sort" value="{{ sort }}" />
+      {% endif %}
+      {% if module %}
+      <input type="hidden" name="module" value="{{ module }}" />
+      {% endif %}
+      <select id="page-select" name="page" onchange="this.form.submit()">
+        {% if cr.paginator.num_pages > 0 %}
+        {% for i in cr.paginator.page_range %}
+        <option value="{{ i }}" {% if i == cr.number %} selected {% endif %}>{{ i }}</option>
+        {% endfor %}
+        {% else %}
+        <option value="0" selected>0</option>
+        {% endif %}
+      </select>
+      <span> {% trans 'of' %} <span id="total-pages"> {{ cr.paginator.page_range|length }} </span></span>
+    </form>
     {% if cr.has_next %}
-    <button id="next-page" class="btn" onclick="window.location.href = '?page={{pr.number|add:1}}' ">Next</button>
+    <form id="prev-page" method="get">
+      {% if search %}
+      <input type="hidden" name="search" value="{{ search }}" />
+      {% endif %}
+      {% if sort %}
+      <input type="hidden" name="sort" value="{{ sort }}" />
+      {% endif %}
+      {% if module %}
+      <input type="hidden" name="module" value="{{ module }}" />
+      {% endif %}
+      <button class="btn" type="submit" name="page" value="{{cr.number|add:1}}">{% trans 'Next' %}</button>
+    </form>
     {% else %}
-    <button id="next-page" class="btn" disabled>Next</button>
+    <button id="next-page" class="btn" disabled>{% trans 'Next' %}</button>
     {% endif %}
 
   </div>

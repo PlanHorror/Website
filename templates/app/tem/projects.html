@@ -1,24 +1,17 @@
 <!-- prettier-ignore -->
 {% extends 'app/base.html' %} 
 {% block content %}
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const sortSelect = document.getElementById('sort-select');
-    const sort = document.querySelector('.sort');
-    sortSelect.addEventListener('change', () => {
-      sort.click();
-    });
-  });
-</script><form method="get">
+{% load i18n %}
+<form method="get">
 <section class="search_bar">
   <div class="container search_bar-container">
     
     <div class="search_input">
       <i class="uil uil-search"></i>
       {% if search %}
-      <input type="search" name="search" placeholder="Search" value="{{ search }}" />
+      <input type="search" name="search" placeholder="{% trans 'Search' %}" value="{{ search }}" />
       {% else %}
-      <input type="search" name="search" placeholder="Search" />
+      <input type="search" name="search" placeholder="{% trans 'Search' %}" />
       {% endif %}
     </div>
     <button type="submit" class="btn">Go</button>
@@ -29,21 +22,21 @@
 <!-- Dropdown Menu Outside Search Bar -->
 <section class="topic_menu">
   <div class="container menu">
-    <label for="sort-select" class="sort_label">Sort by:</label>
+    <label for="sort-select" class="sort_label">{% trans 'Sort:' %}</label>
     <form  method="get">
       {% if search %}
       <input type="hidden" name="search" value="{{ search }}" />
       {% endif %}
-    <select name="sort" id="sort-select">
+    <select name="sort" id="sort-select" onchange=" this.form.submit()">
       {% if sort == 'time1' %}
-      <option value="time1" selected>Newest</option>
-      <option value="time2">Oldest</option>
+      <option value="time1" selected>{% trans 'Newest' %}</option>
+      <option value="time2">{% trans 'Oldest' %}</option>
       {% elif sort == 'time2' %}
-      <option value="time1">Newest</option>
-      <option value="time2" selected>Oldest</option>
+      <option value="time1">{% trans 'Newest' %}</option>
+      <option value="time2" selected>{% trans 'Oldest' %}</option>
       {% else %}
-      <option value="time1">Newest</option>
-      <option value="time2">Oldest</option>
+      <option value="time1">{% trans 'Newest' %}</option>
+      <option value="time2">{% trans 'Oldest' %}</option>
       {% endif %}
     </select>
     <button type="submit" style="display: none" class="sort"></button>
@@ -55,7 +48,7 @@
 <!-- ============================================================= -->
     {% if pr|length == 0 %}
     <section class="no-data">
-      <p>No projects found</p>
+      <p>{% trans 'No projects found' %}</p>
     </section>
     {% endif %}
 <section class="posts">
@@ -84,7 +77,7 @@
             <img src="{{MEDIA_URL}}{{ p.author.avatar.url }}" alt="" />
           </div>
           <div class="post_author-info">
-            <h5>Author: {{p.author.username}}</h5>
+            <h5>{% trans 'Author:' %} {{p.author.username}}</h5>
             <small>{{ p.created_at|date:"F j, Y - H:i:s" }} </small>
           </div>
         </div>
@@ -106,18 +99,27 @@
     {% if sort %}
     <input type="hidden" name="sort" value="{{ sort }}" />
     {% endif %}
-    <button class="btn" type="submit" name="page" value="{{pr.number|add:-1}}">Previous</button>
+    <button class="btn" type="submit" name="page" value="{{pr.number|add:-1}}">{% trans 'Previous' %}</button>
   </form>
   {% else %}
-  <button id="prev-page" class="btn" disabled>Previous</button>
+  <button id="prev-page" class="btn" disabled>{% trans 'Previous' %}</button>
   {% endif %}
-  <span>Page </span>
-  <select id="page-select" onchange="window.location.href = '?page=' + this.value">
-    {% for i in pr.paginator.page_range %}
-    <option value="{{ i }}" {% if i == pr.number %} selected {% endif %}>{{ i }}</option>
-    {% endfor %}
-  </select>
-  <span> of <span id="total-pages"> {{ pr.paginator.page_range|length }} </span></span>
+  <form class="page-form" method="get">
+    <span>{% trans 'Page' %} </span>
+    {% if search %}
+    <input type="hidden" name="search" value="{{ search }}" />
+    {% endif %}
+    {% if sort %}
+    <input type="hidden" name="sort" value="{{ sort }}" />
+    {% endif %}
+    <select id="page-select" name="page" onchange="this.form.submit()">
+      {% for i in pr.paginator.page_range %}
+      <option value="{{ i }}" {% if i == pr.number %} selected {% endif %}>{{ i }}</option>
+      {% endfor %}
+    </select>
+
+  </form>
+  <span> {% trans 'of' %} <span id="total-pages"> {{ pr.paginator.page_range|length }} </span></span>
   {% if pr.has_next %}
   <form id="prev-page" method="get">
     {% if search %}
@@ -126,10 +128,10 @@
     {% if sort %}
     <input type="hidden" name="sort" value="{{ sort }}" />
     {% endif %}
-    <button class="btn" type="submit" name="page" value="{{pr.number|add:1}}">Previous</button>
+    <button class="btn" type="submit" name="page" value="{{pr.number|add:1}}">{% trans 'Next' %}</button>
   </form>
   {% else %}
-  <button id="next-page" class="btn" disabled>Next</button>
+  <button id="next-page" class="btn" disabled>{% trans 'Next' %}</button>
   {% endif %}
 
 </div>
