@@ -67,16 +67,6 @@ def logout(request):
     return redirect('index')
 def about(request):
     return render(request, 'app/tem/about.html')
-@login_required(login_url='login')
-def contact(request):
-    if request.method == 'POST':
-        name = request.POST['name']
-        email = request.POST['email']
-        phone = request.POST['phone']
-        message = request.POST['message']
-        Contact.objects.create(name=name, email=email, phone=phone, message=message)
-        messages.success(request, _('Send message successfully'))
-    return render(request, 'app/tem/contact.html')
 def news(request):
     # news = News.objects.all()
     # # Select image have num min of each news
@@ -160,6 +150,7 @@ def projects(request):
 def project(request, title, project_id):
     project = Project.objects.get(id=project_id)
     return render(request, 'app/tem/project.html', {'p': project})
+@login_required(login_url='login')
 def collaboration(request):
     form = ContactForm()
     if request.method == 'POST':

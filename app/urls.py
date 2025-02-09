@@ -7,7 +7,6 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
     path('about/', views.about, name='about'),
-    path('contact/', views.contact, name='contact'),
     path('news/', views.news, name='news'),
     path('news/<slug:title>-<int:news_id>/', views.new, name='new'),
     path('courses/', views.course, name='courses'),
