@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-09 23:46+0700\n"
-"PO-Revision-Date: 2025-02-09 22:53+0000\n"
+"PO-Revision-Date: 2025-02-10 09:55+0000\n"
 "Last-Translator:   <admin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -115,7 +115,6 @@ msgid "register"
 msgstr "Đăng ký"
 
 #: .\templates\app\tem\collab.html:7
-#, fuzzy
 #| msgid "contact"
 msgid "Contact Us"
 msgstr "Liên hệ"
@@ -123,23 +122,25 @@ msgstr "Liên hệ"
 #: .\templates\app\tem\collab.html:10
 msgid ""
 "Have feedback, want to collaborate on a project, or interested in our news?"
-msgstr ""
+msgstr "Quan tâm tới các dự án của chúng tôi"
 
 #: .\templates\app\tem\collab.html:16
 msgid "Phone Number"
-msgstr ""
+msgstr "Số điện thoại"
 
 #: .\templates\app\tem\collab.html:20
 msgid "Phone number must be in the format: +1234567890"
 msgstr ""
+"Số điện thoại phải có định dạng: \n"
+"+1234567890"
 
 #: .\templates\app\tem\collab.html:25
 msgid "What are you interested in?"
-msgstr ""
+msgstr "Bạn quan tâm đến điều gì?"
 
 #: .\templates\app\tem\collab.html:28
 msgid "Select an option"
-msgstr ""
+msgstr "Lựa chọn"
 
 #: .\templates\app\tem\collab.html:30
 #, fuzzy
@@ -149,98 +150,97 @@ msgstr "Dự án"
 
 #: .\templates\app\tem\collab.html:31
 msgid "News"
-msgstr ""
+msgstr "Tin tức"
 
 #: .\templates\app\tem\collab.html:32
 msgid "Other"
-msgstr ""
+msgstr "Khác"
 
 #: .\templates\app\tem\collab.html:37
 msgid "Title of News/Project"
-msgstr ""
+msgstr "Tiêu đề của bài báo/dự án"
 
 #: .\templates\app\tem\collab.html:42
 msgid "Your Message"
-msgstr ""
+msgstr "Lời nhắn gửi của bạn "
 
 #: .\templates\app\tem\collab.html:47
 msgid "Submit Feedback"
-msgstr ""
+msgstr "Gửi"
 
 #: .\templates\app\tem\course.html:11 .\templates\app\tem\course.html:13
 #: .\templates\app\tem\projects.html:12 .\templates\app\tem\projects.html:14
 msgid "Search"
-msgstr ""
+msgstr "Tìm kiếm"
 
 #: .\templates\app\tem\course.html:22
 msgid "Go"
-msgstr ""
+msgstr "Tìm"
 
 #: .\templates\app\tem\course.html:30
 msgid "Filter:"
-msgstr ""
+msgstr "Bộ lọc:"
 
 #: .\templates\app\tem\course.html:39
 msgid "All"
-msgstr ""
+msgstr "Tất cả"
 
 #: .\templates\app\tem\course.html:50 .\templates\app\tem\projects.html:25
 msgid "Sort:"
-msgstr ""
+msgstr "Sắp xếp:"
 
 #: .\templates\app\tem\course.html:61 .\templates\app\tem\course.html:64
 #: .\templates\app\tem\course.html:65 .\templates\app\tem\projects.html:32
 #: .\templates\app\tem\projects.html:35 .\templates\app\tem\projects.html:38
 msgid "Newest"
-msgstr ""
+msgstr "Mới nhất"
 
 #: .\templates\app\tem\course.html:62 .\templates\app\tem\course.html:67
 #: .\templates\app\tem\course.html:68 .\templates\app\tem\projects.html:33
 #: .\templates\app\tem\projects.html:36 .\templates\app\tem\projects.html:39
 msgid "Oldest"
-msgstr ""
+msgstr "Cũ nhất"
 
 #: .\templates\app\tem\course.html:79
 msgid "Most Recent"
-msgstr ""
+msgstr "Nổi bật"
 
 #: .\templates\app\tem\course.html:84
-#, fuzzy
 #| msgid "courses"
 msgid "No courses found"
-msgstr "Khóa học"
+msgstr "Không có khóa học nào được tìm thấy"
 
 #: .\templates\app\tem\course.html:92
 msgid "Date:"
-msgstr ""
+msgstr "Thời gian:"
 
 #: .\templates\app\tem\course.html:97 .\templates\app\tem\projects.html:80
 msgid "Author:"
-msgstr ""
+msgstr "Tác giả:"
 
 #: .\templates\app\tem\course.html:118 .\templates\app\tem\course.html:121
 #: .\templates\app\tem\projects.html:102 .\templates\app\tem\projects.html:105
 msgid "Previous"
-msgstr ""
+msgstr "Trang trước"
 
 #: .\templates\app\tem\course.html:123 .\templates\app\tem\projects.html:108
 msgid "Page"
-msgstr ""
+msgstr "Trang"
 
 #: .\templates\app\tem\course.html:146 .\templates\app\tem\projects.html:122
 msgid "of"
-msgstr ""
+msgstr "của"
 
 #: .\templates\app\tem\course.html:159 .\templates\app\tem\course.html:162
 #: .\templates\app\tem\projects.html:131 .\templates\app\tem\projects.html:134
 msgid "Next"
-msgstr ""
+msgstr "Trang tiếp theo"
 
 #: .\templates\app\tem\index.html:12
 msgid "slogan"
 msgstr ""
-"Họ gọi chúng tôi là những kẻ mộng mơ, nhưng trong từ điển của chúng tôi, "
-"không có chỗ cho \"giấc ngủ\"."
+"Họ gọi chúng tôi là những kẻ mộng mơ, nhưng \"ngủ\" không có trong từ điển "
+"của chúng tôi."
 
 #: .\templates\app\tem\index.html:14
 msgid "about_description"
@@ -248,11 +248,11 @@ msgstr "Về chúng tôi"
 
 #: .\templates\app\tem\index.html:26
 msgid "projects_description"
-msgstr "Khám phá các dự án và sản phẩm mới nhất của chúng tôi."
+msgstr "Khám phá các dự án mới nhất của chúng tôi."
 
 #: .\templates\app\tem\index.html:31
 msgid "courses_description"
-msgstr "Học các kỹ năng mới với các khóa học được tuyển chọn của chúng tôi."
+msgstr "Học các kỹ năng mới với các khóa học của chúng tôi."
 
 #: .\templates\app\tem\index.html:34
 msgid "news"
@@ -260,11 +260,11 @@ msgstr "Tin tức"
 
 #: .\templates\app\tem\index.html:35
 msgid "news_description"
-msgstr "Luôn cập nhật những tin tức mới nhất của chúng tôi."
+msgstr "Cập nhật những tin tức mới nhất."
 
 #: .\templates\app\tem\index.html:39
 msgid "contact_description"
-msgstr "Hãy liên hệ với chúng tôi để biết thêm thông tin."
+msgstr "Liên hệ với chúng tôi để biết thêm thông tin."
 
 #: .\templates\app\tem\index.html:44
 msgid "Welcome to Algorka Tech Club"
@@ -276,13 +276,13 @@ msgstr "Chào mừng đến với "
 
 #: .\templates\app\tem\index.html:54
 msgid "where innovation meets inspiration!"
-msgstr "nơi sáng tạo và cảm hứng hòa quyện!"
+msgstr "Nơi sáng tạo hòa quyện với cảm hứng!"
 
 #: .\templates\app\tem\index.html:58
 msgid ""
 " We are a passionate community of tech enthusiasts, innovators, and problem-"
-"solvers who come together to explore the cutting edge of technology. Whether "
-"you're a coder, designer, builder, or simply curious about tech, our club "
+"solvers who come together to explore the cutting edge of technology. Whether"
+" you're a coder, designer, builder, or simply curious about tech, our club "
 "offers a platform to learn, grow, and make a difference."
 msgstr ""
 "Chúng tôi là một cộng đồng đam mê công nghệ, những người sáng tạo và giải "
@@ -301,8 +301,8 @@ msgid ""
 "excellence by empowering our members to innovate, experiment, and thrive in "
 "the rapidly evolving world of technology."
 msgstr ""
-"Sứ mệnh của chúng tôi là thúc đẩy sự sáng tạo, hợp tác và xuất sắc công nghệ "
-"bằng cách trao quyền cho các thành viên của mình để đổi mới, thử nghiệm và "
+"Sứ mệnh của chúng tôi là thúc đẩy sự sáng tạo, hợp tác và xuất sắc công nghệ"
+" bằng cách trao quyền cho các thành viên của mình để đổi mới, thử nghiệm và "
 "phát triển trong thế giới công nghệ đang thay đổi nhanh chóng."
 
 #: .\templates\app\tem\index.html:67
@@ -311,48 +311,52 @@ msgstr "Chúng tôi làm gì ?"
 
 #: .\templates\app\tem\index.html:71
 msgid "Workshops & Hackathons:"
-msgstr ""
+msgstr "Những buổi hội thảo và cuộc thi Hackathon:"
 
 #: .\templates\app\tem\index.html:71
 msgid "Hands-on events to master new skills and tackle real-world challenges."
 msgstr ""
+"Những hoạt động thực tế trau dồi kỹ năng và giải quyết các vấn đề phức tạp."
 
 #: .\templates\app\tem\index.html:75
 msgid "Tech Talks & Seminars:"
-msgstr ""
+msgstr "Các buổi tọa đàm và hội thảo công nghệ:"
 
 #: .\templates\app\tem\index.html:75
 msgid ""
 "Stay updated with the latest trends and innovations in the tech industry."
-msgstr ""
+msgstr "Cập nhật những xu hướng mới nhất trong ngành công nghệ."
 
 #: .\templates\app\tem\index.html:79
 msgid "Projects & Collaborations:"
-msgstr ""
+msgstr "Dự án & Hợp tác:"
 
 #: .\templates\app\tem\index.html:79
 msgid ""
-"Work on exciting team projects to build cutting-edge solutions and practical "
-"experience."
-msgstr ""
+"Work on exciting team projects to build cutting-edge solutions and practical"
+" experience."
+msgstr "Tham gia các dự án thú vị và tích lũy kinh nghiệm thực tế."
 
 #: .\templates\app\tem\index.html:83
 msgid "Competitions:"
-msgstr ""
+msgstr "Cuộc thi:"
 
 #: .\templates\app\tem\index.html:83
 msgid ""
-"Showcase your skills in local, national, and international tech competitions."
-msgstr ""
+"Showcase your skills in local, national, and international tech "
+"competitions."
+msgstr "Nâng cao kỹ năng của bạn tại các cuộc thi công nghệ."
 
 #: .\templates\app\tem\index.html:87
 msgid "Mentorship & Networking:"
-msgstr ""
+msgstr "Định hướng & Kết nối:"
 
 #: .\templates\app\tem\index.html:87
 msgid ""
 "Learn from experienced professionals and connect with like-minded peers."
 msgstr ""
+"Học hỏi từ các chuyên gia giàu kinh nghiệm và kết nối với những người cùng "
+"chí hướng."
 
 #: .\templates\app\tem\index.html:91
 msgid "Why Join Us?"
@@ -360,27 +364,29 @@ msgstr "Vì sao nên tham gia cùng chúng tôi?"
 
 #: .\templates\app\tem\index.html:93
 msgid "By joining"
-msgstr ""
+msgstr "Tham gia cùng chúng tôi"
 
 #: .\templates\app\tem\index.html:93
 msgid "you’ll gain:"
-msgstr ""
+msgstr "Bạn sẽ nhận được:"
 
 #: .\templates\app\tem\index.html:96
 msgid "A platform to sharpen your technical and creative skills."
-msgstr ""
+msgstr "Một nền tảng để rèn luyện kỹ năng và sự sáng tạo của bạn."
 
 #: .\templates\app\tem\index.html:98
 msgid "Access to a supportive community of peers and mentors."
 msgstr ""
+"Cơ hội kết nối với một cộng đồng gắn kết cùng với những người cố đầy tài "
+"năng."
 
 #: .\templates\app\tem\index.html:100
 msgid "Opportunities to showcase your talent and gain recognition."
-msgstr ""
+msgstr "Cơ hội thể hiện tài năng của bạn và có được sự công nhận."
 
 #: .\templates\app\tem\index.html:102
 msgid "Resources and guidance to turn your ideas into reality."
-msgstr ""
+msgstr "Tài nguyên và định hướng để biến ý tưởng của bạn thành hiện thực."
 
 #: .\templates\app\tem\index.html:105
 msgid "Get Involved"
@@ -391,90 +397,90 @@ msgid ""
 "Ready to join the tech revolution? We welcome members from all skill levels "
 "and backgrounds."
 msgstr ""
+"Sẵn sàng trở thành một phần của cuộc cách mạng công nghệ? Chúng tôi chào đón"
+" mọi thành viên ở mọi trình độ và lĩnh vực."
 
 #: .\templates\app\tem\index.html:112
 msgid "Follow us on"
-msgstr ""
+msgstr "Theo dõi chúng tôi trên"
 
 #: .\templates\app\tem\index.html:112
 msgid "or reach out at"
-msgstr ""
+msgstr "Hoặc liên hệ với chúng tôi tại"
 
 #: .\templates\app\tem\index.html:112
 msgid "to learn more and get started."
-msgstr ""
+msgstr "Để khám phá thêm và bắt đầu hành trình của bạn."
 
 #: .\templates\app\tem\index.html:114
 msgid "Together, let’s shape the future of technology! 🚀"
-msgstr ""
+msgstr "Cùng nhau tạo kiến tạo tương lai! 🚀"
 
 #: .\templates\app\tem\login.html:7 .\templates\app\tem\login.html:18
 msgid "Sign In"
-msgstr ""
+msgstr "Đăng nhập"
 
 #: .\templates\app\tem\login.html:11 .\templates\app\tem\register.html:38
 msgid "Username"
-msgstr ""
+msgstr "Tên người dùng"
 
 #: .\templates\app\tem\login.html:15 .\templates\app\tem\register.html:64
 msgid "Password"
-msgstr ""
+msgstr "Mật khẩu"
 
 #: .\templates\app\tem\login.html:20
 msgid "Don't have an account?"
-msgstr ""
+msgstr "Chưa có tài khoản?"
 
 #: .\templates\app\tem\login.html:22
 msgid "Sign up"
-msgstr ""
+msgstr "Đăng ký"
 
 #: .\templates\app\tem\new.html:7 .\templates\app\tem\news.html:6
 msgid "This is the news page. It will be developed in the future."
-msgstr ""
+msgstr "Đây là trang tin tức. Trang sẽ được phát triển trong tương lai."
 
 #: .\templates\app\tem\project.html:13
 msgid "By:"
-msgstr ""
+msgstr "Bởi"
 
 #: .\templates\app\tem\projects.html:51
-#, fuzzy
 #| msgid "projects"
 msgid "No projects found"
-msgstr "Dự án"
+msgstr "Không có dự án nào được tìm thấy"
 
 #: .\templates\app\tem\register.html:7 .\templates\app\tem\register.html:100
-#, fuzzy
 #| msgid "register"
 msgid "Register"
 msgstr "Đăng ký"
 
 #: .\templates\app\tem\register.html:13
 msgid "First Name"
-msgstr ""
+msgstr "Tên "
 
 #: .\templates\app\tem\register.html:25
 msgid "Last Name"
-msgstr ""
+msgstr "Họ"
 
 #: .\templates\app\tem\register.html:51
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: .\templates\app\tem\register.html:77
 msgid "Confirm Password"
-msgstr ""
+msgstr "Nhập lại mật khẩu"
 
 #: .\templates\app\tem\register.html:88 .\templates\app\tem\register.html:90
 msgid "Upload Avatar"
-msgstr ""
+msgstr " Ảnh đại diện"
 
 #: .\templates\app\tem\register.html:103
 msgid "Already have an account?"
-msgstr ""
+msgstr "Đã có tài khoản?"
 
 #: .\templates\app\tem\register.html:105
 msgid "Login here"
-msgstr ""
+msgstr "Đăng nhập ở đây"
 
 #: .\website\settings.py:152
 msgid "Vietnamese"
