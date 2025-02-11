@@ -1,79 +1,90 @@
-<nav
-  class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top fixed-lg-top">
-  <div class="container-fluid">
-    <a class="navbar-brand fw-bold" href="#">algorka</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto w-100 text-center">
-        <li class="nav-item w-100">
-          <a class="nav-link" href="#"
-            ><i class="bi bi-speedometer2"></i> Dashboard</a
-          >
-        </li>
-        <li class="nav-item w-100">
-          <a class="nav-link" href="#"><i class="bi bi-kanban"></i> Projects</a>
-        </li>
-        <li class="nav-item w-100">
-          <a class="nav-link" href="#"><i class="bi bi-newspaper"></i> News</a>
-        </li>
-        <li class="nav-item w-100">
-          <a class="nav-link" href="#"><i class="bi bi-book"></i> Courses</a>
-        </li>
-        <li class="nav-item w-100">
-          <a class="nav-link" href="#"
-            ><i class="bi bi-chat-dots"></i> Contact</a
-          >
-        </li>
-        <li class="nav-item w-100 hide ">
-          <a class="nav-link" href="#"
-            ><i class="bi bi-person"></i></i> Profile</a
-          >
-        </li>
-        <li class="nav-item w-100 hide">
-          <a class="nav-link" href="#"
-            ><i class="bi bi-box-arrow-right"></i> Logout</a
-          >
-        </li>
-      </ul>
-      <ul class="navbar-nav settingDropdown">
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="settingDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <i class="bi bi-gear"></i>
-          </a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="settingDropdown">
-            <li>
-              <a class="dropdown-item" href="#"
-                ><i class="bi bi-person"></i> Profile</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" href="#"
-                ><i class="bi bi-box-arrow-right"></i> Logout</a
-              >
-            </li>
-          </ul>
-        </li>
-      </ul>
+<header class="">
+  <nav
+    class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top fixed-lg-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold me-5 fs-2" href="{% url 'mindex' %}">
+        <img src="{{MEDIA_URL}}/media/logo-white.png" alt="Logo" height="50" />
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto w-100 text-center">
+          <li class="nav-item w-100">
+            <a class="nav-link" href="{% url 'mindex' %}"
+              ><i class="bi bi-speedometer2"></i> Dashboard</a
+            >
+          </li>
+          <li class="nav-item w-100">
+            <a class="nav-link" href="{% url 'mprojects' %}"
+              ><i class="bi bi-kanban"></i> Projects</a
+            >
+          </li>
+          <li class="nav-item w-100">
+            <a class="nav-link" href="{% url 'mnews' %}"
+              ><i class="bi bi-newspaper"></i> News</a
+            >
+          </li>
+          <li class="nav-item w-100">
+            <a class="nav-link" href="{% url 'mcourses' %}"
+              ><i class="bi bi-book"></i> Courses</a
+            >
+          </li>
+          <li class="nav-item w-100">
+            <a class="nav-link" href="{% url 'mcontact' %}"
+              ><i class="bi bi-chat-dots"></i> Contact</a
+            >
+          </li>
+          <li class="nav-item w-100 hide">
+            <a class="nav-link" href="{% url 'mindex' %}"
+              ><i class="bi bi-person"></i> Profile</a
+            >
+          </li>
+          <li class="nav-item w-100 hide">
+            <a class="nav-link" href="{% url 'mlogout' %}"
+              ><i class="bi bi-box-arrow-right"></i> Logout</a
+            >
+          </li>
+        </ul>
+        <ul class="navbar-nav settingDropdown">
+          <li class="nav-item dropdown w-100">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="settingDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="bi bi-gear"></i>
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="settingDropdown">
+              <li>
+                <a class="dropdown-item" href="{% url 'mindex' %}"
+                  ><i class="bi bi-person"></i> Profile</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'mlogout' %}"
+                  ><i class="bi bi-box-arrow-right"></i> Logout</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</header>
+
 <style>
   @media (max-width: 992px) {
     .navbar {
@@ -100,10 +111,24 @@
     }
   }
   .nav-link:hover {
-    background-color: #343a40;
+    background-color: #079fa0;
     color: white;
   }
   .hide {
     display: none;
+  }
+  .nav-link {
+    font-size: 1.2rem;
+  }
+  .navbar {
+    background-color: #023852;
+  }
+  .dropdown-toggle::after {
+    display: none;
+  }
+  .settingDropdown {
+    /* margin-right: 20px; */
+    width: 5%;
+    text-align: center;
   }
 </style>

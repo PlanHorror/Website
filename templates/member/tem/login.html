@@ -1,21 +1,24 @@
 {% extends 'member/base.html' %} {% block content %}
 <div class="login-container">
-  <form class="login-form">
-    <h3 class="text-center">Login</h3>
+  <form class="login-form" method="POST">
+    {% csrf_token %}
+    <h3 class="text-center text-dark">Login</h3>
     <div class="mb-3">
-      <label for="username" class="form-label">Username</label>
+      <label for="username" class="form-label text-dark">Username</label>
       <input
         type="text"
         class="form-control"
         id="username"
+        name="username"
         placeholder="Enter username" />
     </div>
     <div class="mb-3 password-wrapper">
-      <label for="password" class="form-label">Password</label>
+      <label for="password" class="form-label text-dark">Password</label>
       <input
         type="password"
         class="form-control"
         id="password"
+        name="password"
         placeholder="Enter password" />
       <i class="bi bi-eye-slash toggle-password" onclick="togglePassword()"></i>
     </div>
