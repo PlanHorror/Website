@@ -13,17 +13,65 @@ def index(request):
 @members_required   
 def news(request):
     news = News.objects.all()
-    return render(request, 'member/tem/news.html', {'news': news})
+    usr_news = []
+    for i in news:
+        if len(i.image.all().order_by('-num')) > 0:
+            i.imagef = i.image.all().order_by('-num')[0].image
+        else:
+            i.imagef = None
+        if len(i.content.all().order_by('num')) > 0:
+            i.contentf = i.content.all().order_by('num')[0].content
+        else:
+            i.contentf = None
+        if i.author == request.user:
+            usr_news.append(i)
+    return render(request, 'member/tem/news.html', {'news': news, 'usr_news': usr_news})
+@members_required
+def create_news(request):
+    labels = NewsLabel.objects.all()
+    if request.method == 'POST':
+        print(request.POST)
+    return render(request, 'member/tem/new_create.html', {'labels': labels})
 @members_required
 def projects(request):
     projects = Project.objects.all()
+    all_labels = ProjectLabel.objects.all()
     usr_projects = projects.filter(author=request.user)
     if request.method == 'POST':
+        label_selected = request.POST.getlist('labels')
+        label_selected = ProjectLabel.objects.filter(id__in=label_selected)
         project = Project.objects.create(title=request.POST['title'], content=request.POST['content'], image = request.FILES['image'], author=request.user)
+        project.label.set(label_selected)
         project.save()
         messages.success(request, 'Project created successfully')
         return redirect('/members/projects')
-    return render(request, 'member/tem/projects.html', {'projects': projects, 'usr_projects': usr_projects})
+    return render(request, 'member/tem/projects.html', {'projects': projects, 'usr_projects': usr_projects, 'all_labels': all_labels})
+@members_required
+def project_labels(request):
+    labels = ProjectLabel.objects.all()
+    if request.method == 'POST':
+        if request.POST['submit'] == 'add':
+            label = ProjectLabel.objects.create(name=request.POST['name'], created_by=request.user)
+            label.save()
+            messages.success(request, 'Label created successfully')
+            return redirect('/members/projects/labels')
+        if request.POST['submit'] == 'update':
+            label = ProjectLabel.objects.get(id=request.POST['id'])
+            label.name = request.POST['name']
+            label.save()
+            messages.success(request, 'Label updated successfully')
+            return redirect('/members/projects/labels')
+    return render(request, 'member/tem/project_labels.html', {'labels': labels})
+@members_required
+def project_label_delete(request, label_id):
+    try:
+        label = ProjectLabel.objects.get(id=label_id)
+    except ProjectLabel.DoesNotExist:
+        messages.error(request, 'Label not found')
+        return redirect('/members/projects/labels')
+    label.delete()
+    messages.success(request, 'Label deleted successfully')
+    return redirect('/members/projects/labels')
 @members_required
 def courses(request):
     return render(request, 'member/tem/courses.html')
@@ -61,6 +109,7 @@ def contact(request):
     return render(request, 'member/tem/contact.html')
 @members_required
 def project(request, project_id):
+    all_labels = ProjectLabel.objects.all()
     try:
         project = Project.objects.get(id=project_id)
     except Project.DoesNotExist:
@@ -75,12 +124,16 @@ def project(request, project_id):
     if request.method == 'POST':
         if request.FILES:
             project.image = request.FILES['image']
+        project.label.clear()
+        label_selected = request.POST.getlist('labels')
+        label_selected = ProjectLabel.objects.filter(id__in=label_selected)
+        project.label.set(label_selected)
         project.title = request.POST['title']
         project.content = request.POST['content']
         project.save()
         messages.success(request, 'Project updated successfully')
         return redirect('/members/projects')
-    return render(request, 'member/tem/project.html', {'p': project})
+    return render(request, 'member/tem/project.html', {'p': project, 'all_labels': all_labels})
 @members_required  
 def delete_project(request, project_id):
     print(project_id)

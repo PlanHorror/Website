@@ -1,1 +1,149 @@
-{% extends 'member/base.html' %} {% block content %} {% endblock %}
+{% extends 'member/base.html' %}{% block content %}
+<div class="container mt-4">
+  <h2 class="text-center mb-3">{{ p.title }}</h2>
+  <form
+    method="POST"
+    enctype="multipart/form-data"
+    class="bg-dark p-4 rounded border border-secondary">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="title" class="form-label text-light">Title</label>
+      <input
+        type="text"
+        class="form-control bg-dark text-light border-secondary"
+        id="title"
+        name="title"
+        value="{{ p.title }}"
+        required />
+    </div>
+    <div class="mb-3">
+      <label for="labels" class="form-label text-light">Select Labels</label>
+      <select
+        id="labels"
+        name="labels"
+        class="form-control bg-dark text-light border-secondary"
+        multiple>
+        {% for label in all_labels %}
+        <!-- prettier-ignore -->
+        <option
+          value="{{ label.id }}"
+          {% if label in p.label.all %}selected{% endif %}>
+          {{ label.name }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label text-light">Content</label>
+      <textarea
+        class="form-control bg-dark text-light border-secondary"
+        id="content"
+        name="content"
+        rows="4"
+        required>
+{{ p.content }}</textarea
+      >
+    </div>
+    <div class="mb-3">
+      <label class="form-label text-light">Project Image</label>
+      <div
+        id="dropzone"
+        class="dropzone border border-secondary rounded text-center py-5">
+        <input
+          type="file"
+          id="image"
+          name="image"
+          class="d-none"
+          accept="image/*"
+          value="{{ p.image }}" />
+        <p class="text-light">
+          Drop your image here, or
+          <span class="text-warning browse">browse</span>
+        </p>
+        <p class="text-secondary small">Supports: JPG, JPEG2000, PNG</p>
+        <img
+          id="preview"
+          src="{{MEDIA_URL}}{{p.image.url}}"
+          class="mt-2 rounded"
+          style="max-width: 100%; height: 150px; object-fit: cover" />
+      </div>
+      <p class="error"></p>
+    </div>
+    <button type="submit" class="btn btn-outline-warning w-100">
+      Updates Project
+    </button>
+  </form>
+</div>
+<style>
+  #dropzone {
+    border: 2px dashed #6c757d;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  #dropzone:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .browse {
+    cursor: pointer;
+    font-weight: bold;
+  }
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const dropzone = document.getElementById("dropzone");
+    const fileInput = document.getElementById("image");
+    const preview = document.getElementById("preview");
+
+    // Click to open file dialog
+    dropzone.addEventListener("click", function () {
+      fileInput.click();
+    });
+
+    // Drag & Drop Support
+    dropzone.addEventListener("dragover", function (e) {
+      e.preventDefault();
+      dropzone.style.background = "rgba(255, 255, 255, 0.1)";
+    });
+
+    dropzone.addEventListener("dragleave", function () {
+      dropzone.style.background = "";
+    });
+
+    dropzone.addEventListener("drop", function (e) {
+      e.preventDefault();
+      dropzone.style.background = "";
+      const file = e.dataTransfer.files[0];
+      handleFile(file);
+    });
+
+    // Handle File Selection via Input
+    fileInput.addEventListener("change", function () {
+      const file = fileInput.files[0];
+      handleFile(file);
+    });
+
+    function handleFile(file) {
+      if (file && file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+          preview.classList.remove("d-none");
+        };
+        reader.readAsDataURL(file);
+
+        // ✅ Ensure file gets uploaded by setting it in input.files
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        fileInput.files = dataTransfer.files;
+      }
+    }
+  });
+  $(document).ready(function () {
+    $("#labels").select2({
+      placeholder: "Select labels",
+      allowClear: true,
+    });
+  });
+</script>
+
+{% endblock %}

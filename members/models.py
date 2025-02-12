@@ -52,7 +52,7 @@ class News(TranslatableModel):
         return "News id: " + str(self.pk) + " - Title: " + self.title
 # NewsContent model is created to store the content of the news
 class NewsContent(TranslatableModel):
-    news = models.ForeignKey(News, on_delete=models.CASCADE)
+    news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='content')
     translation = TranslatedFields(
         content = models.TextField()
     )
@@ -61,7 +61,7 @@ class NewsContent(TranslatableModel):
         return  "News id: " + str(self.news.pk) + " - Num: "+ str(self.num)
 # NewsImage model is created to store the images of the news
 class NewsImage(models.Model):
-    news = models.ForeignKey(News, on_delete=models.CASCADE)
+    news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='image')
     image = models.ImageField(upload_to='news-images/')
     num = models.IntegerField()
     def __str__(self):

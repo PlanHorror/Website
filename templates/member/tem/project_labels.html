@@ -1,0 +1,70 @@
+{% extends 'member/base.html' %} {% block content %}
+<div class="container mt-4">
+  <h2 class="text-light mb-3">Manage Project Labels</h2>
+  <div class="bg-dark p-4 rounded border border-secondary">
+    <ul id="label-list" class="list-group mb-3">
+      {% for label in labels %}
+      <form method="POST">
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center bg-dark text-light border-secondary">
+          {% csrf_token %}
+          <input
+            type="text"
+            class="form-control bg-dark text-light border-0 label-input"
+            name="name"
+            value="{{ label.name }}" />
+          <input
+            type="hidden"
+            class="form-control bg-dark text-light border-0 label-id"
+            name="id"
+            value="{{ label.id }}" />
+          <button
+            class="btn btn-success btn-sm update-label me-2"
+            value="update"
+            type="submit"
+            name="submit">
+            Update
+          </button>
+          <a
+            href="{% url 'del_project_label' label.id %}"
+            class="btn btn-danger btn-sm delete-label"
+            >Delete</a
+          >
+        </li>
+      </form>
+      {% endfor %}
+      <!-- Input for adding new labels -->
+      <form method="POST">
+        {% csrf_token %}
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center bg-dark text-light border-secondary">
+          <input
+            type="text"
+            id="new-label"
+            class="form-control bg-dark text-light border-0"
+            placeholder="Add new label..."
+            name="name"
+            required />
+          <button
+            class="btn btn-success btn-sm"
+            id="add-label"
+            value="add"
+            type="submit"
+            name="submit">
+            Add
+          </button>
+        </li>
+      </form>
+    </ul>
+  </div>
+</div>
+<style>
+  .form-control::placeholder {
+    color: #6c757d;
+  }
+  input {
+    width: 90% !important;
+    margin-right: 10px;
+  }
+</style>
+{% endblock %}

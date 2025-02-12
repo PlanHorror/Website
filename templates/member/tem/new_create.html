@@ -1,0 +1,102 @@
+{% extends 'member/base.html' %}{% block content %}
+<form
+  id="newsForm"
+  class="bg-dark p-4 rounded border border-secondary"
+  method="post"
+  enctype="multipart/form-data">
+  {% csrf_token %}
+  <h2 class="text-light mb-3">Create News</h2>
+
+  <!-- Title -->
+  <div class="mb-3">
+    <label for="title" class="form-label text-light">Title</label>
+    <input
+      type="text"
+      class="form-control bg-dark text-light border-secondary"
+      id="title"
+      name="title"
+      required />
+  </div>
+
+  <!-- Label -->
+  <div class="mb-3">
+    <label for="label" class="form-label text-light">Label</label>
+    <select
+      class="form-control bg-dark text-light border-secondary"
+      id="label"
+      name="label">
+      <option value="News">News</option>
+      <option value="Update">Update</option>
+      <option value="Event">Event</option>
+    </select>
+  </div>
+
+  <!-- Dynamic Fields Section -->
+  <div id="fieldsContainer"></div>
+
+  <!-- Buttons to Add Fields -->
+  <div class="d-flex gap-2 mt-3">
+    <button
+      type="button"
+      class="btn btn-outline-warning btn-sm"
+      onclick="addTextField()">
+      ➕ Add Text
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-success btn-sm"
+      onclick="addImageField()">
+      📷 Add Image
+    </button>
+  </div>
+
+  <hr />
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-outline-primary w-100 mt-3">
+    Submit
+  </button>
+</form>
+
+<script>
+  let fieldCount = 0;
+
+  function addTextField() {
+    fieldCount++;
+    const container = document.getElementById("fieldsContainer");
+    const fieldHTML = `
+        <div class="input-group mt-2" id="field-${fieldCount}">
+          <input type="hidden" name="text-${fieldCount}" value="${fieldCount}">
+          <textarea class="form-control bg-dark text-light border-secondary" name="text-${fieldCount}" rows="2" required></textarea>
+          <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeField(${fieldCount})">🗑</button>
+        </div>
+      `;
+    container.insertAdjacentHTML("beforeend", fieldHTML);
+  }
+
+  function addImageField() {
+    fieldCount++;
+    const container = document.getElementById("fieldsContainer");
+    const fieldHTML = `
+        <div class="input-group mt-2" id="field-${fieldCount}">
+          <input type="hidden" name="image-${fieldCount}" value="${fieldCount}">
+          <input type="file" class="form-control bg-dark text-light border-secondary" name="image-${fieldCount}" accept="image/*" required>
+          <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeField(${fieldCount})">🗑</button>
+        </div>
+      `;
+    container.insertAdjacentHTML("beforeend", fieldHTML);
+  }
+
+  function removeField(id) {
+    document.getElementById(`field-${id}`).remove();
+    sortId();
+  }
+  function sortId() {
+    let fields = document.getElementById("fieldsContainer").children;
+    for (let i = 0; i < fields.length; i++) {
+      fields[i].children[0].value = i;
+    }
+  }
+</script>
+
+{% endblock %}

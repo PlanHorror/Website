@@ -24,6 +24,20 @@
         rows="4"
         required></textarea>
     </div>
+    <!-- Multi-select Labels -->
+    <div class="mb-3">
+      <label for="labels" class="form-label text-light">Select Labels</label>
+      <select
+        id="labels"
+        name="labels"
+        class="form-control bg-dark text-light border-secondary"
+        multiple>
+        {% for label in all_labels %}
+        <option value="{{ label.id }}">{{ label.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
     <div class="mb-3">
       <label class="form-label text-light">Project Image</label>
       <div
@@ -67,16 +81,24 @@
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">
             <a
-              href="{% url 'project' project.pk %}"
+              href="{% url 'mproject' project.pk %}"
               class="text-decoration-none text-warning fw-bold">
               {{ project.title }}
             </a>
           </h5>
-
+          <!-- Labels -->
+          <p class="card-text text-light small">
+            <strong>Labels:</strong>
+            {% for label in project.label.all %}
+            <span class="badge bg-warning text-dark">{{ label.name }}</span>
+            {% empty %}
+            <span class="text-secondary">No labels</span>
+            {% endfor %}
+          </p>
           <p class="card-text text-light small">{{ project.content }}</p>
           <div class="mt-auto d-flex justify-content-between">
             <a
-              href="{% url 'project' project.pk %}"
+              href="{% url 'mproject' project.pk %}"
               class="btn btn-outline-warning btn-sm"
               >Update</a
             >
@@ -113,6 +135,15 @@
               {{ project.title }}
             </a>
           </h5>
+          <!-- Labels -->
+          <p class="card-text text-light small">
+            <strong>Labels:</strong>
+            {% for label in project.label.all %}
+            <span class="badge bg-warning text-dark">{{ label.name }}</span>
+            {% empty %}
+            <span class="text-secondary">No labels</span>
+            {% endfor %}
+          </p>
           <!-- Author -->
           <p class="card-text text-light small">
             <i class="bi bi-person-fill"></i> {{ project.author.username }}
@@ -208,6 +239,12 @@
         document.querySelector(".error").textContent =
           "Please select an image.";
       }
+    });
+  });
+  $(document).ready(function () {
+    $("#labels").select2({
+      placeholder: "Select labels",
+      allowClear: true,
     });
   });
 </script>

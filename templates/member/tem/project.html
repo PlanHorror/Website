@@ -17,6 +17,23 @@
         required />
     </div>
     <div class="mb-3">
+      <label for="labels" class="form-label text-light">Select Labels</label>
+      <select
+        id="labels"
+        name="labels"
+        class="form-control bg-dark text-light border-secondary"
+        multiple>
+        {% for label in all_labels %}
+        <!-- prettier-ignore -->
+        <option
+          value="{{ label.id }}"
+          {% if label in p.label.all %}selected{% endif %}>
+          {{ label.name }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
       <label for="content" class="form-label text-light">Content</label>
       <textarea
         class="form-control bg-dark text-light border-secondary"
@@ -120,6 +137,12 @@
         fileInput.files = dataTransfer.files;
       }
     }
+  });
+  $(document).ready(function () {
+    $("#labels").select2({
+      placeholder: "Select labels",
+      allowClear: true,
+    });
   });
 </script>
 
