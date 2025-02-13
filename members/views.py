@@ -15,8 +15,8 @@ def news(request):
     news = News.objects.all()
     usr_news = []
     for i in news:
-        if len(i.image.all().order_by('-num')) > 0:
-            i.imagef = i.image.all().order_by('-num')[0].image
+        if len(i.image.all().order_by('num')) > 0:
+            i.imagef = i.image.all().order_by('num')[0].image
         else:
             i.imagef = None
         if len(i.content.all().order_by('num')) > 0:
@@ -30,8 +30,27 @@ def news(request):
 def create_news(request):
     labels = NewsLabel.objects.all()
     if request.method == 'POST':
-        print(request.POST)
-    return render(request, 'member/tem/new_create.html', {'labels': labels})
+        post = dict(request.POST)
+        new = News.objects.create(title=post['title'][0], author=request.user)
+        label_selected = request.POST.getlist('label')
+        label_selected = NewsLabel.objects.filter(id__in=label_selected)
+        new.label.set(label_selected)
+        new.save()
+        print(new)
+        del post['csrfmiddlewaretoken'], post['title']
+        for x,y in post.items():
+            print(x,y)
+            if y[0]=='image':
+                image = NewsImage.objects.create(image=request.FILES[x], num=int(y[1]), news=new)
+                print(image)
+                image.save()
+            if y[0]=='text':
+                content = NewsContent.objects.create(content=y[2], num=int(y[1]), news=new)
+                print(content)
+                content.save()
+        messages.success(request, 'News created successfully')
+        return redirect('/members/news')
+    return render(request, 'member/tem/new_create.html', {'all_labels': labels})
 @members_required
 def projects(request):
     projects = Project.objects.all()

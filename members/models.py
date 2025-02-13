@@ -59,6 +59,8 @@ class NewsContent(TranslatableModel):
     num = models.IntegerField()
     def __str__(self):
         return  "News id: " + str(self.news.pk) + " - Num: "+ str(self.num)
+    class Meta:
+        unique_together = ('news', 'num')
 # NewsImage model is created to store the images of the news
 class NewsImage(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='image')
@@ -66,6 +68,8 @@ class NewsImage(models.Model):
     num = models.IntegerField()
     def __str__(self):
         return "News id: " + str(self.news.pk) + " - Num: "+ str(self.num) + " - Image: " + self.image.url
+    class Meta:
+        unique_together = ('news', 'num')
 # Comment model is created to store the comments created by the user
 class Comment(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

@@ -1,80 +1,121 @@
-{% extends 'member/base.html' %}{% block content %}
+{% extends 'member/base.html' %} {% block content %}
 <div class="container mt-4">
-  <h2 class="text-center mb-3">{{ p.title }}</h2>
-  <form
-    method="POST"
-    enctype="multipart/form-data"
-    class="bg-dark p-4 rounded border border-secondary">
-    {% csrf_token %}
-    <div class="mb-3">
-      <label for="title" class="form-label text-light">Title</label>
-      <input
-        type="text"
-        class="form-control bg-dark text-light border-secondary"
-        id="title"
-        name="title"
-        value="{{ p.title }}"
-        required />
-    </div>
-    <div class="mb-3">
-      <label for="labels" class="form-label text-light">Select Labels</label>
-      <select
-        id="labels"
-        name="labels"
-        class="form-control bg-dark text-light border-secondary"
-        multiple>
-        {% for label in all_labels %}
-        <!-- prettier-ignore -->
-        <option
-          value="{{ label.id }}"
-          {% if label in p.label.all %}selected{% endif %}>
-          {{ label.name }}
-        </option>
-        {% endfor %}
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="content" class="form-label text-light">Content</label>
-      <textarea
-        class="form-control bg-dark text-light border-secondary"
-        id="content"
-        name="content"
-        rows="4"
-        required>
-{{ p.content }}</textarea
-      >
-    </div>
-    <div class="mb-3">
-      <label class="form-label text-light">Project Image</label>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="text-light">Your News</h2>
+    <a href="{% url 'mcreate_news' %}" class="btn btn-outline-warning btn-sm"
+      ><i class="bi bi-journal-plus"></i> Add News</a
+    >
+  </div>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for new in usr_news %}
+    <div class="col">
       <div
-        id="dropzone"
-        class="dropzone border border-secondary rounded text-center py-5">
-        <input
-          type="file"
-          id="image"
-          name="image"
-          class="d-none"
-          accept="image/*"
-          value="{{ p.image }}" />
-        <p class="text-light">
-          Drop your image here, or
-          <span class="text-warning browse">browse</span>
-        </p>
-        <p class="text-secondary small">Supports: JPG, JPEG2000, PNG</p>
+        class="card text-light shadow-sm h-100 border-1 border-secondary rounded">
+        {% if new.imagef %}
         <img
-          id="preview"
-          src="{{MEDIA_URL}}{{p.image.url}}"
-          class="mt-2 rounded"
-          style="max-width: 100%; height: 150px; object-fit: cover" />
+          src="{{ new.imagef.url }}"
+          class="card-img-top rounded-top"
+          alt="{{ new.title }}"
+          style="height: 180px; object-fit: cover" />
+        {% else %}
+        <img
+          src="{{MEDIA_URL}}/media/news-default.png"
+          class="card-img-top rounded-top"
+          alt="{{ new.title }}"
+          style="height: 180px; object-fit: cover" />
+        {% endif %}
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">
+            <a href="#" class="text-decoration-none text-warning fw-bold">
+              {{ new.title }}
+            </a>
+          </h5>
+          <!-- Labels -->
+          <p class="card-text text-light small">
+            <strong>Labels:</strong>
+            {% for label in new.label.all %}
+            <span class="badge bg-warning text-dark">{{ label.name }}</span>
+            {% empty %}
+            <span class="text-secondary">No labels</span>
+            {% endfor %}
+          </p>
+          {% if new.contentf %}
+          <p class="card-text text-light small">{{ new.contentf }}</p>
+          {% else %}
+          <p class="card-text text-light small">No content</p>
+          {% endif %}
+          <div class="mt-auto d-flex justify-content-between">
+            <a href="#" class="btn btn-outline-warning btn-sm">Update</a>
+            <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+          </div>
+        </div>
       </div>
-      <p class="error"></p>
     </div>
-    <button type="submit" class="btn btn-outline-warning w-100">
-      Updates Project
-    </button>
-  </form>
+    {% empty %}
+    <p class="text-light">No news found.</p>
+    {% endfor %}
+  </div>
+  <br />
+  <br />
+  <hr />
+  <h2 class="text-light mb-3">All news</h2>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for new in news %}
+    <div class="col">
+      <div
+        class="card text-light shadow-sm h-100 border-1 border-secondary rounded">
+        {% if new.imagef %}
+        <img
+          src="{{ new.imagef.url }}"
+          class="card-img-top rounded-top"
+          alt="{{ new.title }}"
+          style="height: 180px; object-fit: cover" />
+        {% else %}
+        <img
+          src="{{MEDIA_URL}}/media/news-default.png"
+          class="card-img-top rounded-top"
+          alt="{{ new.title }}"
+          style="height: 180px; object-fit: cover" />
+        {% endif %}
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">
+            <a href="#" class="text-decoration-none text-warning fw-bold">
+              {{ new.title }}
+            </a>
+          </h5>
+          <!-- Labels -->
+          <p class="card-text text-light small">
+            <strong>Labels:</strong>
+            {% for label in new.label.all %}
+            <span class="badge bg-warning text-dark">{{ label.name }}</span>
+            {% empty %}
+            <span class="text-secondary">No labels</span>
+            {% endfor %}
+          </p>
+          <!-- Author -->
+          <p class="card-text text-light small">
+            <i class="bi bi-person-fill"></i> {{ new.author.username }}
+          </p>
+          {% if new.contentf %}
+          <p class="card-text text-light small">{{ new.contentf }}</p>
+          {% else %}
+          <p class="card-text text-light small">No content</p>
+          {% endif %}
+          <div class="mt-auto d-flex justify-content-between">
+            <a href="#" class="btn btn-outline-success btn-sm w-100">View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-light">No news found.</p>
+    {% endfor %}
+  </div>
 </div>
 <style>
+  .card {
+    background-color: #ffffff00 !important;
+  }
   #dropzone {
     border: 2px dashed #6c757d;
     cursor: pointer;
@@ -86,6 +127,9 @@
   .browse {
     cursor: pointer;
     font-weight: bold;
+  }
+  .error {
+    color: red;
   }
 </style>
 <script>
@@ -137,6 +181,17 @@
         fileInput.files = dataTransfer.files;
       }
     }
+
+    // ✅ Debugging: Ensure image is selected before submitting
+    document.querySelector("form").addEventListener("submit", function (event) {
+      const file = fileInput.files[0];
+      if (!file) {
+        event.preventDefault(); // Stop form submission if no file is selected
+        // Show error message
+        document.querySelector(".error").textContent =
+          "Please select an image.";
+      }
+    });
   });
   $(document).ready(function () {
     $("#labels").select2({
