@@ -74,7 +74,7 @@
 
   .custom-file-upload {
     width: 100%;
-    height: 40vh;
+    height: 60vh;
   }
 
   .custom-file-upload .form-label {
@@ -100,14 +100,13 @@
   }
   .img-pre {
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 </style>
 <script>
   let fieldCount = 0;
 
   function addTextField() {
-    fieldCount++;
     const container = document.getElementById("fieldsContainer");
     const fieldHTML = `
         <div class=" mt-2 mb-3" id="field-${fieldCount}">
@@ -121,10 +120,11 @@
         </div>
       `;
     container.insertAdjacentHTML("beforeend", fieldHTML);
+    fieldCount++;
+    sortId();
   }
 
   function addImageField() {
-    fieldCount++;
     const container = document.getElementById("fieldsContainer");
     const fieldHTML = `
         <div class=" mt-2 mb-3" id="field-${fieldCount}">
@@ -143,6 +143,8 @@
         </div>
       `;
     container.insertAdjacentHTML("beforeend", fieldHTML);
+    fieldCount++;
+    sortId();
   }
 
   function removeField(id) {

@@ -45,8 +45,16 @@
           <p class="card-text text-light small">No content</p>
           {% endif %}
           <div class="mt-auto d-flex justify-content-between">
-            <a href="#" class="btn btn-outline-warning btn-sm">Update</a>
-            <a href="#" class="btn btn-outline-danger btn-sm">Delete</a>
+            <a
+              href="{% url 'mnew' new.pk %}"
+              class="btn btn-outline-warning btn-sm"
+              >Update</a
+            >
+            <a
+              href="{% url 'del_news' new.pk %}"
+              class="btn btn-outline-danger btn-sm"
+              >Delete</a
+            >
           </div>
         </div>
       </div>

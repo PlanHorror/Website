@@ -32,14 +32,12 @@ def create_news(request):
     if request.method == 'POST':
         post = dict(request.POST)
         new = News.objects.create(title=post['title'][0], author=request.user)
-        label_selected = request.POST.getlist('label')
+        label_selected = request.POST.getlist('labels')
         label_selected = NewsLabel.objects.filter(id__in=label_selected)
         new.label.set(label_selected)
         new.save()
-        print(new)
         del post['csrfmiddlewaretoken'], post['title']
         for x,y in post.items():
-            print(x,y)
             if y[0]=='image':
                 image = NewsImage.objects.create(image=request.FILES[x], num=int(y[1]), news=new)
                 print(image)
@@ -51,6 +49,66 @@ def create_news(request):
         messages.success(request, 'News created successfully')
         return redirect('/members/news')
     return render(request, 'member/tem/new_create.html', {'all_labels': labels})
+@members_required
+def new(request, new_id):
+    this_new = News.objects.get(id=new_id)
+    this_new_data = list(this_new.image.all()) + list(this_new.content.all())
+    this_new_data.sort(key=lambda x: x.num)
+    this_new.data = this_new_data
+    all_labels = NewsLabel.objects.all()
+    if this_new.author != request.user:
+        messages.error(request, 'You are not the author of this news')
+        return redirect('/members/news')
+    if request.method == 'POST':
+        post = dict(request.POST)
+        this_new.title = post['title'][0]
+        label_selected = request.POST.getlist('labels')
+        image_not_delete = request.POST.getlist('not-delete')
+        label_selected = NewsLabel.objects.filter(id__in=label_selected)
+        this_new.label.set(label_selected)
+        this_new.save()
+        del post['csrfmiddlewaretoken'], post['title']
+        try:
+            del post['labels'], post['not-delete']
+        except:
+            pass
+        print(image_not_delete)
+        a = NewsImage.objects.filter(news=this_new).exclude(num__in=image_not_delete)
+        for i in a:
+            i.image.delete(save=False)
+        # Bulk delete for speed and performance
+        a.delete()
+        NewsContent.objects.filter(news=this_new).delete()
+        for x,y in post.items():
+            if y[0]=='image' or y[0]=='change_image':
+                image = NewsImage.objects.create(image=request.FILES[x], num=int(y[1]), news=this_new)
+                print(image)
+                image.save()
+            if y[0]=='text':
+                content = NewsContent.objects.create(content=y[2], num=int(y[1]), news=this_new)
+                print(content)
+                content.save()
+            if y[0]=='change_num':
+                image = NewsImage.objects.get(num=int(y[2]), news=this_new)
+                image.num = int(y[1])
+                image.save()
+        messages.success(request, 'News updated successfully')
+        return redirect('/members/news')
+    return render(request, 'member/tem/new.html', {'new': this_new, 'all_labels': all_labels})
+@members_required
+def delete_news_item(request, new_id):
+    try:
+        new = News.objects.get(id=new_id)
+    except News.DoesNotExist:
+        messages.error(request, 'News not found')
+        return redirect('/members/news')
+    if new.author != request.user:
+        messages.error(request, 'You are not the author of this news')
+        return redirect('/members/news')
+    new.delete()
+    messages.success(request, 'News deleted successfully')
+    return redirect('/members/news')
+
 @members_required
 def projects(request):
     projects = Project.objects.all()

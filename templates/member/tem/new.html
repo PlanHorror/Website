@@ -1,1 +1,271 @@
-{% extends 'member/base.html' %} {% block content %} {% endblock %}
+{% extends 'member/base.html' %}{% block content %}
+<div class="container mt-4">
+  <form
+    id="newsForm"
+    class="bg-dark p-4 rounded border border-secondary"
+    method="post"
+    enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2 class="text-light mb-3 text-center">{{new.title}}</h2>
+
+    <!-- Title -->
+    <div class="mb-3">
+      <label for="title" class="form-label text-light">Title</label>
+      <input
+        type="text"
+        class="form-control bg-dark text-light border-secondary"
+        id="title"
+        name="title"
+        value="{{new.title}}"
+        required />
+    </div>
+
+    <!-- Multi-select Labels -->
+    <div class="mb-3">
+      <label for="labels" class="form-label text-light">Select Labels</label>
+      <!-- prettier-ignore -->
+      <select
+        id="labels"
+        name="labels"
+        class="form-control bg-dark text-light border-secondary"
+        multiple>
+        {% for label in all_labels %}
+        <option value="{{ label.id }}" {% if label in new.label.all %} selected {% endif %}>{{ label.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Dynamic Fields Section -->
+    <div id="fieldsContainer">
+      {% for data in new.data %} {% if data.image %}
+      <div class="mt-2 mb-3" id="field-{{forloop.counter0}}">
+        <label class="form-label text-light">Image</label>
+        <input
+          type="hidden"
+          name="image-{{forloop.counter0}}"
+          value="change_num" />
+        <input
+          type="hidden"
+          name="image-{{forloop.counter0}}"
+          value="{{data.num}}" />
+        <input
+          id="image-{{forloop.counter0}}-old-num"
+          type="hidden"
+          name="image-{{forloop.counter0}}"
+          value="{{data.num}}" />
+
+        <div class="form_control custom-file-upload mb-4">
+          <label class="form-label" for="image-{{forloop.counter0}}">
+            <img
+              id="preview-{{forloop.counter0}}"
+              class="img-fluid img-pre"
+              src="{{data.image.url}}"
+              alt="Image Preview" />
+          </label>
+          <input
+            type="file"
+            id="image-{{forloop.counter0}}"
+            name="image-{{forloop.counter0}}"
+            class="image-input"
+            accept="image/*"
+            onchange="oldImageChange(this,{{forloop.counter0}})"
+            hidden />
+          <input
+            id="not-delete-{{forloop.counter0}}"
+            type="hidden"
+            name="not-delete"
+            value="{{data.num}}" />
+        </div>
+        <button
+          type="button"
+          class="btn btn-outline-danger btn-sm delete-image"
+          onclick="removeField({{forloop.counter0}})">
+          <i class="bi bi-trash-fill"></i>
+        </button>
+      </div>
+      {% else %}
+      <div class="mt-2 mb-3" id="field-{{forloop.counter0}}">
+        <label class="form-label text-light">Text</label>
+        <input type="hidden" name="text-{{forloop.counter0}}" value="text" />
+        <input
+          type="hidden"
+          name="text-{{forloop.counter0}}"
+          value="{{data.num}}" />
+        <div class="d-flex">
+          <textarea
+            class="form-control bg-dark text-light border-secondary can-delete"
+            name="text-{{forloop.counter0}}"
+            rows="1"
+            required>
+{{data.content}}</textarea
+          >
+          <button
+            type="button"
+            class="btn btn-outline-danger btn-sm delete"
+            onclick="removeField({{forloop.counter0}})">
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </div>
+      </div>
+      {% endif %} {% endfor %}
+    </div>
+
+    <!-- Buttons to Add Fields -->
+    <div class="d-flex gap-2 mt-3">
+      <button
+        type="button"
+        class="btn btn-outline-warning btn-sm"
+        onclick="addTextField()">
+        <i class="bi bi-file-earmark-text-fill"></i> Add Text
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-success btn-sm"
+        onclick="addImageField()">
+        <i class="bi bi-file-earmark-image-fill"></i> Add Image
+      </button>
+    </div>
+
+    <hr />
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-outline-primary w-100 mt-3">
+      Submit
+    </button>
+  </form>
+</div>
+<style>
+  textarea {
+    border-radius: 5px 0 0 5px !important;
+  }
+  input {
+    border-radius: 5px 5px 5px 5px !important;
+  }
+  .delete {
+    border-radius: 0 5px 5px 0 !important;
+    width: 40px;
+  }
+
+  .custom-file-upload {
+    width: 100%;
+    height: 60vh;
+  }
+
+  .custom-file-upload .form-label {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    align-content: center;
+    border: 2px dashed #ffa500;
+    border-radius: 5px;
+  }
+
+  .custom-file-upload label:hover {
+    background-color: #ffa500;
+    color: black;
+    cursor: pointer;
+  }
+  .icon {
+    font-size: 7.5rem;
+  }
+  .delete-image {
+    border-radius: 5px !important;
+    width: 100%;
+  }
+  .img-pre {
+    height: 100%;
+    object-fit: contain;
+  }
+</style>
+<script>
+  let fieldCount = {{new.data|length}}-1;
+
+  function addTextField() {
+    fieldCount++;
+    const container = document.getElementById("fieldsContainer");
+    const fieldHTML = `
+        <div class=" mt-2 mb-3" id="field-${fieldCount}">
+          <label class="form-label text-light">Text</label>
+          <input type="hidden" name="text-${fieldCount}" value="text">
+          <input type="hidden" name="text-${fieldCount}" value="${fieldCount}">
+          <div class="d-flex ">
+            <textarea class="form-control bg-dark text-light border-secondary can-delete" name="text-${fieldCount}" rows="1" required></textarea>
+            <button type="button" class="btn btn-outline-danger btn-sm delete" onclick="removeField(${fieldCount})"><i class="bi bi-trash-fill"></i></button>
+          </div>
+        </div>
+      `;
+    container.insertAdjacentHTML("beforeend", fieldHTML);
+    sortId();
+  }
+
+  function addImageField() {
+    fieldCount++;
+    const container = document.getElementById("fieldsContainer");
+    const fieldHTML = `
+        <div class=" mt-2 mb-3" id="field-${fieldCount}">
+          <label class="form-label text-light">Image</label>
+          <input type="hidden" name="image-${fieldCount}" value="image">
+          <input type="hidden" name="image-${fieldCount}" value="${fieldCount}">
+
+            <div class="form_control custom-file-upload mb-4">
+              <label class="form-label" for="image-${fieldCount}">
+                <p class="icon" id="icon-${fieldCount}"><i class="bi bi-card-image"></i></p>
+                <img id="preview-${fieldCount}" class="img-fluid d-none img-pre" src="" alt="Image Preview" />
+              </label>
+              <input type="file" id="image-${fieldCount}" name="image-${fieldCount}" class="image-input" accept="image/*" onchange="imagePreview(this, ${fieldCount})" required hidden />
+            </div>
+            <button type="button" class="btn btn-outline-danger btn-sm delete-image" onclick="removeField(${fieldCount})"><i class="bi bi-trash-fill"></i></button>
+        </div>
+      `;
+    container.insertAdjacentHTML("beforeend", fieldHTML);
+    sortId();
+  }
+
+  function removeField(id) {
+    document.getElementById(`field-${id}`).remove();
+    sortId();
+  }
+  function sortId() {
+    let fields = document.getElementById("fieldsContainer").children;
+    for (let i = 0; i < fields.length; i++) {
+      fields[i].children[2].value = i;
+    }
+  }
+  $(document).ready(function () {
+    $("#labels").select2({
+      placeholder: "Select labels",
+      allowClear: true,
+    });
+  });
+  function imagePreview(input, id) {
+    const preview = document.getElementById(`preview-${id}`);
+    const icon = document.getElementById(`icon-${id}`);
+    const file = input.files[0];
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      preview.src = e.target.result;
+      preview.classList.remove("d-none");
+      icon ? icon.classList.add("d-none") : null;
+    };
+    reader.readAsDataURL(file);
+  }
+  function oldImageChange(input,id){
+    const preview = document.getElementById(`preview-${id}`);
+    const file = input.files[0];
+    const notDelete = document.getElementById(`not-delete-${id}`);
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      preview.src = e.target.result;
+      preview.classList.remove("d-none");
+    };
+    reader.readAsDataURL(file);
+    list_input = document.getElementsByName(input.name);
+    list_input[0].value = "change_image";
+    list_input[2].remove();
+    notDelete.remove();
+    input.removeAttribute("onchange");
+    input.setAttribute("onchange",`imagePreview(this,${id})`);
+  }
+</script>
+
+{% endblock %}

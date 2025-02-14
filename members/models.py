@@ -10,6 +10,15 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True, blank=False)
     def __str__(self):
         return "User id: " + str(self.pk) + " - Username: " + self.username + " - Email: " + self.email
+    def delete(self, *args, **kwargs):
+        self.avatar.delete()
+        super().delete(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if self.pk is not None:
+            orig = CustomUser.objects.get(pk=self.pk)
+            if orig.avatar != self.avatar:
+                orig.avatar.delete(save=False)
+        super().save(*args, **kwargs)
 # Label model is created for projects to store the labels created by the user
 class ProjectLabel(TranslatableModel):
     translation = TranslatedFields(
@@ -40,6 +49,15 @@ class Project(TranslatableModel):
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return "Project id: " + str(self.pk) + " - Title: " + self.title + "- Author: " + self.author.username
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        super().delete(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if self.pk is not None:
+            orig = Project.objects.get(pk=self.pk)
+            if orig.image != self.image:
+                orig.image.delete(save=False)
+        super().save(*args, **kwargs)
 # News model is created to store the news created by the user
 class News(TranslatableModel):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -50,6 +68,10 @@ class News(TranslatableModel):
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return "News id: " + str(self.pk) + " - Title: " + self.title
+    def delete(self, *args, **kwargs):
+        for img in self.image.all():
+            img.delete()
+        super().delete(*args, **kwargs)
 # NewsContent model is created to store the content of the news
 class NewsContent(TranslatableModel):
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='content')
@@ -68,8 +90,19 @@ class NewsImage(models.Model):
     num = models.IntegerField()
     def __str__(self):
         return "News id: " + str(self.news.pk) + " - Num: "+ str(self.num) + " - Image: " + self.image.url
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        print('Image deleted')
+        super().delete(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if self.pk is not None:
+            orig = NewsImage.objects.get(pk=self.pk)
+            if orig.image != self.image:
+                orig.image.delete(save=False)
+        super().save(*args, **kwargs)
     class Meta:
         unique_together = ('news', 'num')
+    
 # Comment model is created to store the comments created by the user
 class Comment(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
