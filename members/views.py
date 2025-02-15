@@ -151,7 +151,53 @@ def project_label_delete(request, label_id):
     return redirect('/members/projects/labels')
 @members_required
 def courses(request):
-    return render(request, 'member/tem/courses.html')
+    module = Module.objects.all()
+    all_courses = Course.objects.all().order_by('-created_at')
+    usr_courses = all_courses.filter(author=request.user).order_by('-created_at')
+    if request.method == 'POST':
+        course = Course.objects.create(title=request.POST['title'], url=request.POST['url'], author=request.user)
+        module_selected = request.POST.getlist('modules')
+        module_selected = Module.objects.filter(id__in=module_selected)
+        course.module.set(module_selected)
+        course.save()
+        messages.success(request, 'Course created successfully')
+        return redirect('/members/courses')
+    return render(request, 'member/tem/courses.html', {'courses': all_courses, 'usr_courses': usr_courses, 'modules': module})
+@members_required
+def delete_course(request, course_id):
+    try:
+        course = Course.objects.get(id=course_id)
+    except Course.DoesNotExist:
+        messages.error(request, 'Course not found')
+        return redirect('/members/courses')
+    if course.author != request.user:
+        messages.error(request, 'You are not the author of this course')
+        return redirect('/members/courses')
+    course.delete()
+    messages.success(request, 'Course deleted successfully')
+    return redirect('/members/courses')
+@members_required
+def course(request, course_id):
+    module = Module.objects.all()
+    try:
+        course = Course.objects.get(id=course_id)
+    except Course.DoesNotExist:
+        messages.error(request, 'Course not found')
+        return redirect('/members/courses')
+    if course.author != request.user:
+        messages.error(request, 'You are not the author of this course')
+        return redirect('/members/courses')
+    if request.method == 'POST':
+        course.title = request.POST['title']
+        course.url = request.POST['url']
+        course.module.clear()
+        module_selected = request.POST.getlist('modules')
+        module_selected = Module.objects.filter(id__in=module_selected)
+        course.module.set(module_selected)
+        course.save()
+        messages.success(request, 'Course updated successfully')
+        return redirect('/members/courses')
+    return render(request, 'member/tem/course.html', {'course': course, 'modules': module})
 @members_required
 def profile(request):
     return render(request, 'member/tem/profile.html')

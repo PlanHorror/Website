@@ -1,1 +1,131 @@
-{% extends 'member/base.html' %} {% block content %} {% endblock %}
+{% extends 'member/base.html' %}{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-3">Create Course</h2>
+  <form
+    method="POST"
+    enctype="multipart/form-data"
+    class="bg-dark p-4 rounded border border-secondary">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="title" class="form-label text-light">Title</label>
+      <input
+        type="text"
+        class="form-control bg-dark text-light border-secondary"
+        id="title"
+        name="title"
+        required />
+    </div>
+    <!-- Multi-select Modules -->
+    <div class="mb-3">
+      <label for="modules" class="form-label text-light">Select Modules</label>
+      <select
+        id="modules"
+        name="modules"
+        class="form-control bg-dark text-light border-secondary"
+        multiple>
+        {% for m in modules %}
+        <option value="{{ m.id }}">{{ m.module }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="url" class="form-label text-light">Link</label>
+      <input
+        type="url"
+        class="form-control bg-dark text-light border-secondary"
+        id="url"
+        name="url"
+        required />
+    </div>
+    <button type="submit" class="btn btn-outline-warning w-100">
+      Create Course
+    </button>
+  </form>
+  <br />
+  <br />
+  <hr />
+  <h2 class="text-light">Your Course</h2>
+
+  <div class="list-group">
+    <!-- Course Item -->
+    {% for c in courses %}
+
+    <div
+      class="border bg-transparent text-light d-flex justify-content-between align-items-center rounded mb-3 p-3">
+      <div>
+        <a href="{{c.url}}"
+          ><strong class="text-warning">{{c.title}}</strong></a
+        >
+        <p class="mb-1 small">Time: {{ c.created_at|date:"d/m/Y H:i:s" }}</p>
+      </div>
+      <div class="d-flex flex-column align-items-center ms-auto me-3">
+        <img
+          src="{{ c.author.avatar.url }}"
+          class="rounded author-avatar mb-1"
+          alt="Author" />
+        <span class="small text-center">{{ c.author.username }}</span>
+      </div>
+
+      <a
+        href="{% url 'mcourse' c.pk %}"
+        class="btn btn-outline-warning btn-sm me-2"
+        >Update</a
+      >
+      <a class="btn btn-outline-danger btn-sm">Delete</a>
+    </div>
+
+    {% endfor %}
+  </div>
+  <br />
+  <br />
+  <hr />
+  <h2 class="text-light">All Course</h2>
+
+  <div class="list-group">
+    <!-- Course Item -->
+    {% for c in courses %}
+
+    <div
+      class="border bg-transparent text-light d-flex justify-content-between align-items-center rounded mb-3 p-3">
+      <div>
+        <a href="{{c.url}}"
+          ><strong class="text-warning">{{c.title}}</strong></a
+        >
+        <p class="mb-1 small">Time: {{ c.created_at|date:"d/m/Y H:i:s" }}</p>
+      </div>
+      <div class="d-flex flex-column align-items-center ms-auto me-3">
+        <img
+          src="{{ c.author.avatar.url }}"
+          class="rounded author-avatar mb-1"
+          alt="Author" />
+        <span class="small text-center">{{ c.author.username }}</span>
+      </div>
+      <a class="btn btn-outline-success btn-sm me-2 two-btn"> View </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<style>
+  a {
+    text-decoration: none;
+    color: unset;
+  }
+  .author-avatar {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: var(--card-border-radius-3);
+    overflow: hidden;
+  }
+  .two-btn {
+    width: 120px;
+  }
+</style>
+<script>
+  $(document).ready(function () {
+    $("#modules").select2({
+      placeholder: "Select modules",
+      allowClear: true,
+    });
+  });
+</script>
+{% endblock %}
