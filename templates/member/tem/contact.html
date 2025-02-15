@@ -1,1 +1,75 @@
-{% extends 'member/base.html' %} {% block content %} {% endblock %}
+{% extends 'member/base.html' %} {% block content %}
+<div class="container mt-4">
+  <h2 class="text-light mb-3">User Responses</h2>
+  <div class="table-responsive">
+    <table class="table table-dark table-bordered table-hover">
+      <thead>
+        <tr class="text-warning text-center">
+          <th>User</th>
+          <th>Phone Number</th>
+          <th>Type</th>
+          <th>Objects</th>
+          <th>Message</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for response in contacts %}
+        <tr>
+          <!-- User -->
+          <td class="text-center align-content-center">
+            <img
+              src="{{ response.user.avatar.url }}"
+              class="rounded m-1"
+              style="width: 40px; height: 40px; object-fit: cover"
+              alt="Avatar" />
+            <span class="m-1">{{ response.user.username }}</span>
+          </td>
+
+          <!-- Phone Number -->
+          <td class="text-center align-content-center">
+            {{ response.phone_number }}
+          </td>
+
+          <!-- Type -->
+          <td class="text-center align-content-center">
+            <span
+              class="btn text-light w-100 {% if response.c_type == 'project' %}btn-success{% else %}btn-primary{% endif %}">
+              {{ response.get_c_type_display }}
+            </span>
+          </td>
+
+          {% if response.c_type == 'project' %}
+          <!-- All Titles -->
+          <td class="align-content-center">
+            {% for p in response.project_obj.all %}
+            <a class="btn btn-success text-light m-1">{{ p.title }}</a>
+            {% endfor %}
+          </td>
+          {% else %}
+          <!-- All Titles -->
+          <td class="align-content-center">
+            {% for n in response.news_obj.all %}
+            <a class="btn btn-primary text-light m-1">{{ n.title }}</a>
+            {% endfor %}
+          </td>
+          {% endif %}
+
+          <!-- Message -->
+          <td>{{ response.message }}</td>
+          <!-- Create at -->
+          <td>{{ response.created_at }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" class="text-center text-secondary">
+            No responses found.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

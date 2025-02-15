@@ -281,7 +281,7 @@ def logout(request):
 @members_required
 def contact(request):
     all_contacts = Contact.objects.all()
-    return render(request, 'member/tem/contact.html')
+    return render(request, 'member/tem/contact.html', {'contacts': all_contacts})
 @members_required
 def project(request, project_id):
     all_labels = ProjectLabel.objects.all()
