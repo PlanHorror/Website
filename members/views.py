@@ -108,7 +108,32 @@ def delete_news_item(request, new_id):
     new.delete()
     messages.success(request, 'News deleted successfully')
     return redirect('/members/news')
-
+@members_required
+def new_labels(request):
+    labels = NewsLabel.objects.all()
+    if request.method == 'POST':
+        if request.POST['submit'] == 'add':
+            label = NewsLabel.objects.create(name=request.POST['name'], created_by=request.user)
+            label.save()
+            messages.success(request, 'Label created successfully')
+            return redirect('/members/news/labels')
+        if request.POST['submit'] == 'update':
+            label = NewsLabel.objects.get(id=request.POST['id'])
+            label.name = request.POST['name']
+            label.save()
+            messages.success(request, 'Label updated successfully')
+            return redirect('/members/news/labels')
+    return render(request, 'member/tem/new_labels.html', {'labels': labels})
+@members_required
+def new_label_delete(request, label_id):
+    try:
+        label = NewsLabel.objects.get(id=label_id)
+    except NewsLabel.DoesNotExist:
+        messages.error(request, 'Label not found')
+        return redirect('/members/news/labels')
+    label.delete()
+    messages.success(request, 'Label deleted successfully')
+    return redirect('/members/news/labels')
 @members_required
 def projects(request):
     projects = Project.objects.all()
@@ -199,6 +224,32 @@ def course(request, course_id):
         return redirect('/members/courses')
     return render(request, 'member/tem/course.html', {'course': course, 'modules': module})
 @members_required
+def modules(request):
+    module = Module.objects.all()
+    if request.method == 'POST':
+        if request.POST['submit'] == 'add':
+            module = Module.objects.create(module=request.POST['module'], created_by=request.user)
+            module.save()
+            messages.success(request, 'Module created successfully')
+            return redirect('/members/courses/module')
+        if request.POST['submit'] == 'update':
+            module = Module.objects.get(id=request.POST['id'])
+            module.module = request.POST['module']
+            module.save()
+            messages.success(request, 'Module updated successfully')
+            return redirect('/members/courses/module')
+    return render(request, 'member/tem/modules.html', {'modules': module})
+@members_required
+def module_delete(request, module_id):
+    try:
+        module = Module.objects.get(id=module_id)
+    except Module.DoesNotExist:
+        messages.error(request, 'Module not found')
+        return redirect('/members/courses/module')
+    module.delete()
+    messages.success(request, 'Module deleted successfully')
+    return redirect('/members/courses/module')
+@members_required
 def profile(request):
     return render(request, 'member/tem/profile.html')
 def login(request):
@@ -229,6 +280,7 @@ def logout(request):
     return redirect('/members/login')
 @members_required
 def contact(request):
+    all_contacts = Contact.objects.all()
     return render(request, 'member/tem/contact.html')
 @members_required
 def project(request, project_id):

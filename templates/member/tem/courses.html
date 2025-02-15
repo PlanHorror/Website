@@ -71,7 +71,11 @@
         class="btn btn-outline-warning btn-sm me-2"
         >Update</a
       >
-      <a class="btn btn-outline-danger btn-sm">Delete</a>
+      <a
+        href="{% url 'del_course' c.pk %}"
+        class="btn btn-outline-danger btn-sm"
+        >Delete</a
+      >
     </div>
 
     {% endfor %}
