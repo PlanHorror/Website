@@ -1,1 +1,204 @@
-{% extends 'member/base.html' %} {% block content %} {% endblock %}
+{% extends 'member/base.html' %} {% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <!-- Avatar & Profile Info -->
+    <div class="col-md-4">
+      <div
+        class="card bg-dark text-light p-3 border border-secondary text-center">
+        <img
+          id="avatarPreview"
+          src="{{ user.avatar.url }}"
+          class="rounded-circle img-fluid border border-warning align-self-center"
+          style="width: 150px; height: 150px; object-fit: cover"
+          alt="User Avatar" />
+
+        <label class="btn btn-outline-warning btn-sm mt-3" for="avatarInput">
+          Change Avatar
+        </label>
+
+        <button
+          type="button"
+          class="btn btn-outline-danger btn-sm mt-3"
+          onclick="document.getElementById('avatarPreview').src = '{{ user.avatar.url }}'; document.getElementById('status').value = 'remove'">
+          Reset Avatar
+        </button>
+      </div>
+
+      <!-- Change Password Section -->
+      <form
+        class="card bg-dark text-light p-3 border border-secondary mt-4"
+        method="post"
+        id="passwordForm">
+        {% csrf_token %}
+        <h5 class="text-warning mb-3 title-password">Change Password</h5>
+        <div class="mb-3 password-wrapper">
+          <input
+            placeholder="Current Password"
+            type="password"
+            name="current_password"
+            class="form-control bg-dark text-light border-secondary password"
+            required /><i
+            class="bi bi-eye-slash toggle-password"
+            onclick="togglePassword()"></i>
+        </div>
+        <div class="mb-3">
+          <input
+            placeholder="New Password"
+            type="password"
+            name="new_password"
+            class="form-control bg-dark text-light border-secondary password"
+            required />
+        </div>
+        <div class="mb-3">
+          <input
+            placeholder="Confirm Password"
+            type="password"
+            name="confirm_password"
+            class="form-control bg-dark text-light border-secondary password"
+            required />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-warning w-100"
+          name="type"
+          value="password">
+          Update Password
+        </button>
+      </form>
+    </div>
+
+    <!-- Editable Fields -->
+    <form method="post" enctype="multipart/form-data" class="col-md-8">
+      {% csrf_token %}
+      <div class="card bg-dark text-light p-4 pb-3 border border-secondary">
+        <h3 class="text-warning mb-4">Profile</h3>
+
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <!-- prettier-ignore -->
+          {{ form.username }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">First Name</label>
+          <!-- prettier-ignore -->
+          {{ form.first_name }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Last Name</label>
+          <!-- prettier-ignore -->
+          {{ form.last_name }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <!-- prettier-ignore -->
+          {{ form.email }}
+          {% if error %}
+          <div class="text-danger small mt-1">
+            <i class="bi bi-exclamation-circle"></i> {{ error }}
+          </div>
+          <script>
+            let form = document.getElementById("passwordForm");
+            let title = document.querySelector(".title-password");
+            // Remove class p-3 and add p-4
+            form.classList.remove("p-3");
+            form.classList.add("p-4");
+            title.classList.remove("mb-3");
+            title.classList.add("mb-4");
+          </script>
+          {% endif %}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Phone Number</label>
+          <!-- prettier-ignore -->
+          {{ form.phone_number }}
+        </div>
+        <input type="hidden" id="status" name="avatar" value="nochange" />
+        <input
+          type="file"
+          id="avatarInput"
+          name="avatar"
+          class="d-none"
+          accept="image/*" />
+        <button
+          type="submit"
+          class="btn btn-warning w-100 mt-2"
+          name="type"
+          value="profile">
+          Save Changes
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Achievements Section -->
+  <div class="row mt-4 g-3 mb-4">
+    <div class="col-md-4">
+      <div
+        class="card bg-dark text-light p-3 text-center border border-secondary">
+        <h5 class="text-warning">Total Projects</h5>
+        <p class="display-5 fw-bold">{{ total_projects }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div
+        class="card bg-dark text-light p-3 text-center border border-secondary">
+        <h5 class="text-warning">Total News</h5>
+        <p class="display-5 fw-bold">{{ total_news }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div
+        class="card bg-dark text-light p-3 text-center border border-secondary">
+        <h5 class="text-warning">Total Courses</h5>
+        <p class="display-5 fw-bold">{{ total_courses }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .card {
+    border-radius: 12px;
+  }
+  ::placeholder {
+    color: #6c757d !important;
+  }
+  .password-wrapper {
+    position: relative;
+  }
+  .password-wrapper .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+</style>
+<script>
+  document
+    .getElementById("avatarInput")
+    .addEventListener("change", function (event) {
+      document.getElementById("status").value = "changed";
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("avatarPreview").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  function togglePassword() {
+    let passwordInput = document.querySelectorAll(".password");
+    let toggleIcon = document.querySelector(".toggle-password");
+    if (passwordInput[0].type === "password") {
+      passwordInput.forEach((e) => (e.type = "text"));
+      toggleIcon.classList.remove("bi-eye-slash");
+      toggleIcon.classList.add("bi-eye");
+    } else {
+      passwordInput.forEach((e) => (e.type = "password"));
+      toggleIcon.classList.remove("bi-eye");
+      toggleIcon.classList.add("bi-eye-slash");
+    }
+  }
+</script>
+{% endblock %}

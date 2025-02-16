@@ -20,23 +20,29 @@
 <!-- Four Option Boxes -->
 <section class="options">
   <div class="options_container">
-    <a href="{% url 'projects' %}"
-      ><div class="option_box">
+    <div class="option_box">
+      <a href="{% url 'projects' %}">
         {% trans 'projects' %}
         <p>{% trans 'projects_description' %}</p>
-      </div></a
-    >
-    <div class="option_box">
-      <a href="{% url 'courses' %}">{% trans 'courses' %}</a>
-      <p>{% trans 'courses_description' %}</p>
+      </a>
     </div>
     <div class="option_box">
-      <a href="{% url 'news' %}">{% trans 'news' %}</a>
-      <p>{% trans 'news_description' %}</p>
+      <a href="{% url 'courses' %}"
+        >{% trans 'courses' %}
+        <p>{% trans 'courses_description' %}</p></a
+      >
     </div>
     <div class="option_box">
-      <a href="{% url 'collaboration' %}">{% trans 'contact' %}</a>
-      <p>{% trans 'contact_description' %}</p>
+      <a href="{% url 'news' %}"
+        >{% trans 'News' %}
+        <p>{% trans 'news_description' %}</p></a
+      >
+    </div>
+    <div class="option_box">
+      <a href="{% url 'collaboration' %}"
+        >{% trans 'contact' %}
+        <p>{% trans 'contact_description' %}</p></a
+      >
     </div>
   </div>
 </section>

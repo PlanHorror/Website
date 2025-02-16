@@ -4,6 +4,7 @@ urlpatterns = [
     path('', views.index, name='mindex'),
     path('login/', views.login, name='mlogin'),
     path('logout/', views.logout, name='mlogout'),
+    path('profile/', views.profile, name='mprofile'),
     path('projects/', views.projects, name='mprojects'),
     path('projects/<int:project_id>/', views.project, name='mproject'),
     path('projects/<int:project_id>/delete/', views.delete_project, name='del_project'),

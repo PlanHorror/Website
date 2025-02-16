@@ -71,6 +71,39 @@
       .select2-results__option--selected {
         color: black !important;
       }
+      /* Ẩn loader mặc định */
+      .loader {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+
+      /* Tạo hiệu ứng quay */
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid transparent;
+        border-top: 5px solid #ffc107;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
       @media screen and (max-width: 992px) {
         .messages {
           position: unset;
@@ -155,6 +188,34 @@
       setTimeout(() => {
         m.style.display = "none";
       }, 3000);
+      document.addEventListener("DOMContentLoaded", function () {
+        // Take all buttons and anchor tags but not not-load class
+        const loader = document.querySelector(".loader");
+        let buttons = document.querySelectorAll(" a");
+        buttons = Array.from(buttons).filter(
+          (btn) => !btn.classList.contains("not-load")
+        );
+
+        buttons.forEach((btn) => {
+          btn.addEventListener("click", function (e) {
+            loader.style.display = "flex";
+            console.log("loading...");
+            setTimeout(() => {
+              loader.style.display = "none";
+              console.log("done");
+            }, 15000);
+          });
+        });
+      });
+      document.addEventListener("submit", function (e) {
+        const loader = document.querySelector(".loader");
+        loader.style.display = "flex";
+        console.log("loading...");
+        setTimeout(() => {
+          loader.style.display = "none";
+          console.log("done");
+        }, 15000);
+      });
     </script>
   </body>
 </html>

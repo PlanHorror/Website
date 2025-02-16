@@ -8,6 +8,7 @@ class CustomUser(AbstractUser):
     is_member = models.BooleanField(default=False)
     avatar = models.ImageField(upload_to='user-avatars/', default='user-avatars/default.jpg')
     email = models.EmailField(unique=True, blank=False)
+    phone_number = models.CharField(max_length=15, blank=True, unique=True, null=True)
     def __str__(self):
         return "User id: " + str(self.pk) + " - Username: " + self.username + " - Email: " + self.email
     def delete(self, *args, **kwargs):
@@ -16,9 +17,17 @@ class CustomUser(AbstractUser):
     def save(self, *args, **kwargs):
         if self.pk is not None:
             orig = CustomUser.objects.get(pk=self.pk)
-            if orig.avatar != self.avatar:
+            if orig.avatar != self.avatar and orig.avatar != '/media/user-avatars/default.jpg':
                 orig.avatar.delete(save=False)
         super().save(*args, **kwargs)
+    def reset_avatar(self):
+        print(type(self.avatar), self.avatar)
+        if self.avatar != 'user-avatars/default.jpg':
+            self.avatar.delete()
+            self.avatar = 'user-avatars/default.jpg'
+            self.save()
+        else:
+            pass
 # Label model is created for projects to store the labels created by the user
 class ProjectLabel(TranslatableModel):
     translation = TranslatedFields(
@@ -92,7 +101,6 @@ class NewsImage(models.Model):
         return "News id: " + str(self.news.pk) + " - Num: "+ str(self.num) + " - Image: " + self.image.url
     def delete(self, *args, **kwargs):
         self.image.delete()
-        print('Image deleted')
         super().delete(*args, **kwargs)
     def save(self, *args, **kwargs):
         if self.pk is not None:

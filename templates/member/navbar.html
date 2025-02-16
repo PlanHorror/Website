@@ -41,6 +41,7 @@
             <a class="nav-link" href="{% url 'mcontact' %}"
               ><i class="bi bi-chat-dots"></i> Contact</a
             >
+            {% if user.is_authenticated %}
           </li>
           <li class="nav-item w-100 hide">
             <a class="nav-link" href="{% url 'mindex' %}"
@@ -52,11 +53,19 @@
               ><i class="bi bi-box-arrow-right"></i> Logout</a
             >
           </li>
+          {% else %}
+          <li class="nav-item w-100 hide">
+            <a class="nav-link" href="{% url 'mlogin' %}"
+              ><i class="bi bi-box-arrow-in-right"></i> Login</a
+            >
+          </li>
+          {% endif %}
         </ul>
+
         <ul class="navbar-nav settingDropdown">
           <li class="nav-item dropdown w-100">
             <a
-              class="nav-link dropdown-toggle"
+              class="nav-link dropdown-toggle not-load"
               href="#"
               id="settingDropdown"
               role="button"
@@ -67,8 +76,9 @@
             <ul
               class="dropdown-menu dropdown-menu-end"
               aria-labelledby="settingDropdown">
+              {% if user.is_authenticated %}
               <li>
-                <a class="dropdown-item" href="{% url 'mindex' %}"
+                <a class="dropdown-item" href="{% url 'mprofile' %}"
                   ><i class="bi bi-person"></i> Profile</a
                 >
               </li>
@@ -77,6 +87,13 @@
                   ><i class="bi bi-box-arrow-right"></i> Logout</a
                 >
               </li>
+              {% else %}
+              <li>
+                <a class="dropdown-item" href="{% url 'mlogin' %}"
+                  ><i class="bi bi-box-arrow-in-right"></i> Login</a
+                >
+              </li>
+              {% endif %}
             </ul>
           </li>
         </ul>

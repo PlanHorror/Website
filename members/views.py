@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages, auth
 from django.shortcuts import redirect
 from .models import *
+from .forms import *
 from django.shortcuts import get_object_or_404
 from .decorators import members_required
 # Create your views here.
@@ -251,7 +252,47 @@ def module_delete(request, module_id):
     return redirect('/members/courses/module')
 @members_required
 def profile(request):
-    return render(request, 'member/tem/profile.html')
+    total_projects = Project.objects.filter(author=request.user).count()
+    total_news = News.objects.filter(author=request.user).count()
+    total_courses = Course.objects.filter(author=request.user).count()
+    usr = CustomUser.objects.get(id=request.user.id)
+    form = UserChangeForm(request.POST or None, instance=usr)
+    error = None
+    if request.session.get('error'):
+        error = request.session['error']['email'][0]
+        request.session['error'] = None
+    if request.method == 'POST':
+        if request.POST['type'] == 'profile':
+            if form.is_valid():
+                usr.first_name = form.cleaned_data['first_name']
+                usr.last_name = form.cleaned_data['last_name']
+                usr.email = form.cleaned_data['email']
+                usr.phone_number = form.cleaned_data['phone_number']
+                if request.POST.getlist('avatar')[0] == 'remove':
+                    usr.reset_avatar()
+                elif request.POST.getlist('avatar')[0] == 'changed':
+                    usr.avatar = request.FILES['avatar']
+                else:
+                    pass
+                usr.save()
+                messages.success(request, 'Profile updated successfully')
+                return redirect('/members/profile') 
+            else:
+                request.session['error'] = form.errors
+                return redirect('/members/profile')
+        elif request.POST['type'] == 'password':
+            if not usr.check_password(request.POST['current_password']):
+                messages.error(request, 'Old password is incorrect')
+                return redirect('/members/profile')
+            if request.POST['new_password'] != request.POST['confirm_password']:
+                messages.error(request, 'New password and confirm password do not match')
+                return redirect('/members/profile')
+            usr.set_password(request.POST['new_password'])
+            usr.save()
+            auth.login(request, usr)
+            messages.success(request, 'Password updated successfully')
+            return redirect('/members/profile')
+    return render(request, 'member/tem/profile.html', {'total_projects': total_projects, 'total_news': total_news, 'total_courses': total_courses, 'form': form, 'error': error})
 def login(request):
     if request.user.is_authenticated and (request.user.is_member or request.user.is_staff or request.user.is_superuser):
         messages.error(request, 'You are already logged in')
