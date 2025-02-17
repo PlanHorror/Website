@@ -1,9 +1,176 @@
-{% extends 'app/base.html' %} {% load i18n %} {% block content %}
+<!-- prettier-ignore -->
+{% extends 'app/base.html' %} 
+{% block content %}
+{% load i18n %}
+<form method="get">
+<section class="search_bar">
+  <div class="container search_bar-container">
+    
+    <div class="search_input">
+      <i class="uil uil-search"></i>
+      {% if search %}
+      <input type="search" name="search" placeholder="{% trans 'Search' %}" value="{{ search }}" />
+      {% else %}
+      <input type="search" name="search" placeholder="{% trans 'Search' %}" />
+      {% endif %}
+      {% if topic %}
+      <input type="hidden" name="topic" value="{{ topic }}" />
+      {% endif %}
+      {% if sort %}
+      <input type="hidden" name="sort" value="{{ sort }}" />
+      {% endif %}
+    </div>
+    <button type="submit" class="btn">{% trans 'Go' %}</button>
+    
+  </div>
+</section></form>
 
-<!-- Its a page will develop in future -->
-<section class="empty_page">
-  <h1>
-    {% trans 'This is the news page. It will be developed in the future.' %}
-  </h1>
+<!-- Dropdown Menu Outside Search Bar -->
+<section class="topic_menu">
+  <div class="container menu">
+    <label for="topic-menu" class="topic_label">Filter by Topic:</label>
+    <form method="get">
+      {% if search %}
+      <input type="hidden" name="search" value="{{ search }}" />
+      {% endif %}
+      {% if sort %}
+      <input type="hidden" name="sort" value="{{ sort }}" />
+      {% endif %}
+    <select name="topic" id="topic-menu" onchange="this.form.submit()">
+      {% if topic == 'all' %}
+      <option value="all" selected>{% trans 'All' %}</option>
+      {% else %}
+      <option value="all">{% trans 'All' %}</option>
+      {% endif %}
+      {% for label in labels %}
+      {% if label.id == topic %}
+      <option value="{{ label.id }}" selected>{{ label.name }}</option>
+      {% else %}
+      <option value="{{ label.id }}">{{ label.name }}</option>
+      {% endif %}
+      {% endfor %}
+    </select>
+    </form>
+    <label for="sort-select" class="sort_label">{% trans 'Sort:' %}</label>
+    <form  method="get">
+      {% if search %}
+      <input type="hidden" name="search" value="{{ search }}" />
+      {% endif %}
+      {% if topic %}
+      <input type="hidden" name="topic" value="{{ topic }}" />
+      {% endif %}
+    <select name="sort" id="sort-select" onchange=" this.form.submit()">
+      {% if sort == 'time1' %}
+      <option value="time1" selected>{% trans 'Newest' %}</option>
+      <option value="time2">{% trans 'Oldest' %}</option>
+      {% elif sort == 'time2' %}
+      <option value="time1">{% trans 'Newest' %}</option>
+      <option value="time2" selected>{% trans 'Oldest' %}</option>
+      {% else %}
+      <option value="time1">{% trans 'Newest' %}</option>
+      <option value="time2">{% trans 'Oldest' %}</option>
+      {% endif %}
+    </select>
+    <button type="submit" style="display: none" class="sort"></button>
+    </form>
+  </div>
 </section>
+
+<!-- ======================= END OF SEARCH ======================= -->
+<!-- ============================================================= -->
+    {% if n|length == 0 %}
+    <section class="no-data">
+      <p>{% trans 'No news found' %}</p>
+    </section>
+    {% endif %}
+<section class="posts">
+  <div class="container posts_container">
+
+    {% for ns in n %}
+    <article class="post">
+      <div class="post_thumbnail">
+        <img src="{{MEDIA_URL}}{{ ns.imagef.url }}" />
+      </div>
+      <div class="post_info">
+        {% for label in ns.label.all|slice:":3" %}
+        <a href="" class="category_button" style="margin-bottom: 3px"
+          >{{ label.name }}</a
+        >
+        {% endfor %}
+        <h3 class="post_title">
+          <a href="{% url 'new' ns.title|slugify ns.pk %}">{{ ns.title }}</a>
+        </h3>
+        <p class="post_body">
+          <!-- prettier-ignore -->
+          {{ ns.contentf.content|slice:":226" }}{% if ns.contentf.content|length > 226 %} ...{% endif %}
+        </p>
+        <div class="post_author">
+          <div class="post_author-avatar">
+            <img src="{{MEDIA_URL}}{{ ns.author.avatar.url }}" alt="" />
+          </div>
+          <div class="post_author-info">
+            <h5>{% trans 'Author:' %} {{ns.author.username}}</h5>
+            <small>{{ ns.created_at|date:"F j, Y - H:i:s" }} </small>
+          </div>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ======================= END OF POSTS ======================= -->
+<!-- ============================================================ -->
+
+<div class="pagination">
+  {% if n.has_previous %}
+  <form id="prev-page" method="get">
+    {% if search %}
+    <input type="hidden" name="search" value="{{ search }}" />
+    {% endif %}
+    {% if topic %}
+    <input type="hidden" name="topic" value="{{ topic }}" />
+    {% endif %}
+    {% if sort %}
+    <input type="hidden" name="sort" value="{{ sort }}" />
+    {% endif %}
+    <button class="btn" type="submit" name="page" value="{{n.number|add:-1}}">{% trans 'Previous' %}</button>
+  </form>
+  {% else %}
+  <button id="prev-page" class="btn" disabled>{% trans 'Previous' %}</button>
+  {% endif %}
+  <form class="page-form" method="get">
+    <span>{% trans 'Page' %} </span>
+    {% if search %}
+    <input type="hidden" name="search" value="{{ search }}" />
+    {% endif %}
+    {% if topic %}
+    <input type="hidden" name="topic" value="{{ topic }}" />
+    {% endif %}
+    {% if sort %}
+    <input type="hidden" name="sort" value="{{ sort }}" />
+    {% endif %}
+    <select id="page-select" name="page" onchange="this.form.submit()">
+      {% for i in n.paginator.page_range %}
+      <option value="{{ i }}" {% if i == n.number %} selected {% endif %}>{{ i }}</option>
+      {% endfor %}
+    </select>
+
+  </form>
+  <span> {% trans 'of' %} <span id="total-pages"> {{ n.paginator.page_range|length }} </span></span>
+  {% if n.has_next %}
+  <form id="prev-page" method="get">
+    {% if search %}
+    <input type="hidden" name="search" value="{{ search }}" />
+    {% endif %}
+    {% if sort %}
+    <input type="hidden" name="sort" value="{{ sort }}" />
+    {% endif %}
+    <button class="btn" type="submit" name="page" value="{{n.number|add:1}}">{% trans 'Next' %}</button>
+  </form>
+  {% else %}
+  <button id="next-page" class="btn" disabled>{% trans 'Next' %}</button>
+  {% endif %}
+
+</div>
 {% endblock %}

@@ -13,21 +13,29 @@ from .forms import *
 from django.utils import translation
 # Create your views here.
 def index(request):
-    # Create 16 Course objects
-    # for i in range(1, 17):
-    #     cr = Course.objects.create(title='Course ' + str(i), url='course-' + str(i), author=CustomUser.objects.get(id=1))
-    #     m1 = Module.objects.get(id=(i % 4) + 1)
-    #     try:
-    #         m2 = Module.objects.get(id=(i % 4) + 2)
-    #     except Module.DoesNotExist:
-    #         cr.module.add(m1)
+    # Create 16 News objects
+    # for i in range(1, 19):
+    #     ns = News.objects.create(title='News ' + str(i), author=CustomUser.objects.get(id=1))
+    #     if i%6 < 5:
+    #         ns.label.set(NewsLabel.objects.filter(id__in=[i%6, i%6+1, i%6+2]))
+    #     elif i%6 == 5:
+    #         ns.label.set(NewsLabel.objects.filter(id__in=[5, 6, 7]))
     #     else:
-    #         cr.module.add(m1, m2)
-    #     cr.set_current_language('en')
-    #     cr.save()
-    #     cr.set_current_language('vi')
-    #     cr.title = 'Khoá học ' + str(i)
-    #     cr.save()
+    #         ns.label.set(NewsLabel.objects.filter(id__in=[6,7,1]))
+    #     ns.set_current_language('en')
+    #     ns.save()
+    #     ns_image = NewsImage.objects.create(news=ns, image='news-images/download_jtR0orR.avif', num=1)
+    #     ns_content = NewsContent.objects.create(news=ns, content='Content ' + str(i), num=2)
+    #     ns_content.set_current_language('en')
+    #     ns_image.save()
+    #     ns_content.save()
+    #     ns.set_current_language('vi')
+    #     ns.title = 'Tin tức ' + str(i)
+    #     ns_content.content = 'Nội dung ' + str(i)   
+    #     ns_content.save()
+    #     ns.save()
+ 
+
     return render(request, 'app/tem/index.html')
 def login(request):
     if request.user.is_authenticated:
@@ -68,13 +76,39 @@ def logout(request):
 def about(request):
     return render(request, 'app/tem/about.html')
 def news(request):
-    # news = News.objects.all()
-    # # Select image have num min of each news
-    # for n in news:
-    #     image = NewsImage.objects.filter(news=n).order_by('num').first()
-    #     if image:
-    #         n.image = image.image
-    return render(request, 'app/tem/news.html')
+    news = News.objects.all()
+    labels = NewsLabel.objects.all()
+    sort = request.GET.get('sort', None)
+    search = request.GET.get('search', None)
+    label = request.GET.get('topic', None)
+    if search and label:
+        news = News.objects.filter(Q(translation__title__icontains=search) & Q(label=label)).distinct()
+        label = int(label)
+    else:
+        if search:
+            news = News.objects.filter(Q(translation__title__icontains=search)).distinct()
+        if label:
+            label = int(label)
+            news = news.filter(label=label)
+    if sort == 'time2':
+        news = news.order_by('created_at')
+    else:
+        news = news.order_by('-created_at')
+    paginator = Paginator(news, 6)
+    page = request.GET.get('page') or 1
+    try:
+        paginator.validate_number(page)
+    except EmptyPage :
+        page = 1
+        messages.error(request, _('Page not found'))
+    except PageNotAnInteger:
+        page = 1
+        messages.error(request, _('Page invalid'))
+    news = paginator.get_page(page)
+    for i in news:
+        i.imagef= NewsImage.objects.filter(news=i).order_by('num').first().image or None
+        i.contentf= NewsContent.objects.filter(news=i).order_by('num').first() or None
+    return render(request, 'app/tem/news.html', {'n': news, 'labels': labels, 'sort': sort, 'search': search, 'topic': label})
 def new(request, title ,news_id):
     news = News.objects.get(id=news_id)
     image = NewsImage.objects.filter(news=news)
@@ -175,11 +209,21 @@ def collaboration(request):
         else:
             print(form.errors)
     return render(request, 'app/tem/collab.html', {'form': form})
+@login_required(login_url='login')
 def profile(request):
-    if not request.user.is_authenticated:
-        messages.error(request, _('You must login to view this page'))
-        return redirect('login') 
-    return render(request, 'app/tem/profile.html')
+    form = UserUpdateForm(request.POST, request.FILES, instance=request.user)
+    error = None
+    if request.method == 'POST':
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, _('Update profile successfully'))
+            return redirect('profile')
+        else:
+            error = form.errors
+    else:
+        form = UserUpdateForm(instance=request.user)
+    return render(request, 'app/tem/profile.html', {'form': form, 'error': error})
 # JSON response for AJAX request
 def get_projects(request):
     # Take current language

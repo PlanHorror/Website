@@ -2,9 +2,56 @@
 {% extends 'app/base.html' %}
 {% load i18n %}
 {% block content %}
-<section class="empty_page">
-  <h1>
-    {% trans 'This is the news page. It will be developed in the future.' %}
-  </h1>
+<section class="singlepost">
+  <div class="container singlepost_container">
+    <h2>{{n.title}}</h2>
+    <div class="post_author">
+      <div class="post_author-avatar">
+        <img src="{{MEDIA_URL}}{{n.author.avatar.url}}" alt="" />
+      </div>
+      <div class="post_author-info">
+        <h5>{% trans 'By:' %} {{n.author.username}}</h5>
+        <small>{{n.created_at}}</small>
+      </div>
+    </div>
+
+    {% for i in n.combine %} {% if i.type == 'content' %}
+    <p>{{i.content}}</p>
+    {% elif i.type == 'image' %}
+    <div class="singlepost_thumbnail">
+      <img src="{{MEDIA_URL}}{{i.image.url}}" alt="" />
+    </div>
+    {% endif %} {% endfor %}
+  </div>
+  <!-- Comment Section -->
+  <section class="comments">
+    <div class="container comments_container">
+      <h3>Comments</h3>
+      <!-- Comment Form -->
+      <form class="comment_form">
+        <div class="form_control">
+          <textarea
+            id="comment"
+            name="comment"
+            rows="4"
+            placeholder="Write your comment here..."
+            required></textarea>
+        </div>
+        <button type="submit" class="btn">Post Comment</button>
+      </form>
+
+      <!-- Display Comments -->
+      <div class="comment_list">
+        <!-- Example Comment (can be dynamically populated) -->
+        <div class="comment">
+          <div class="comment_author">
+            <strong>phiêu linh</strong>
+            <small>February 15, 2024 - 10:30</small>
+          </div>
+          <p>This is a great post! I really enjoyed reading it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </section>
 {% endblock %}

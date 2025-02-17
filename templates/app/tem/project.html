@@ -7,10 +7,10 @@
     <h2>{{p.title}}</h2>
     <div class="post_author">
       <div class="post_author-avatar">
-        <img src="{{MEDIA_URL}}{{request.user.avatar.url}}" alt="" />
+        <img src="{{MEDIA_URL}}{{p.author.avatar.url}}" alt="" />
       </div>
       <div class="post_author-info">
-        <h5>{% trans 'By:' %} {{request.user.username}}</h5>
+        <h5>{% trans 'By:' %} {{p.author.username}}</h5>
         <small>{{p.created_at}}</small>
       </div>
     </div>

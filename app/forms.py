@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from members.models import *
 # Create a form for user registration with CustomUser model
 class UserRegisterForm(UserCreationForm):
@@ -35,4 +35,17 @@ class ContactForm(forms.ModelForm):
         widgets = {
             'phone_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your phone number', 'pattern': r'^\+?1?\d{9,15}$', 'help_text': 'Phone number must be entered in the format: "+999999999". Up to 15 digits allowed.'}),
             'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter your message', 'rows': '5'}),
+        }
+
+class UserUpdateForm(UserChangeForm):
+    class Meta:
+        model = CustomUser
+        fields = ['first_name', 'last_name', 'username' , 'email', 'phone_number', 'avatar']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'avatar': forms.FileInput(attrs={'class': 'custom-file-input'}),
         }
