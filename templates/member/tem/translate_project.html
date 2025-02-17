@@ -1,0 +1,151 @@
+{% extends 'member/base.html' %} {% block content %}
+
+<div class="container mt-5">
+  <h2 class="text-light">Translate Project</h2>
+
+  <!-- Custom Tabs -->
+  <div class="tab-container mt-3">
+    <button class="tab-btn active" onclick="showTab('en', event)">
+      English
+    </button>
+    <button class="tab-btn" onclick="showTab('vi', event)">Vietnamese</button>
+    <button class="tab-btn" onclick="showTab('jp', event)">Japanese</button>
+  </div>
+
+  <div class="tab-content-container">
+    <form method="post">
+      {% csrf_token %}
+
+      <!-- English Tab -->
+      <div id="tab-en" class="tab-content mt-3">
+        <label class="form-label text-light">Title (English)</label>
+        <input
+          type="text"
+          name="title_en"
+          class="form-control bg-dark text-light border-secondary"
+          required
+          value="{{project_en.title}}" />
+
+        <label class="form-label text-light mt-3">Content (English)</label>
+        <textarea
+          name="content_en"
+          class="form-control bg-dark text-light border-secondary"
+          rows="5"
+          required>
+{{project_en.content}}</textarea
+        >
+      </div>
+
+      <!-- Vietnamese Tab -->
+      <div id="tab-vi" class="tab-content mt-3 d-none">
+        <label class="form-label text-light">Title (Vietnamese)</label>
+        <input
+          type="text"
+          name="title_vi"
+          class="form-control bg-dark text-light border-secondary"
+          value="{{project_vi.title}}" />
+
+        <label class="form-label text-light mt-3">Content (Vietnamese)</label>
+        <textarea
+          name="content_vi"
+          class="form-control bg-dark text-light border-secondary"
+          rows="5">
+{{project_vi.content}}</textarea
+        >
+      </div>
+
+      <!-- Japanese Tab -->
+      <div id="tab-jp" class="tab-content mt-3 d-none">
+        <label class="form-label text-light">Title (Japanese)</label>
+        <input
+          type="text"
+          name="title_jp"
+          class="form-control bg-dark text-light border-secondary"
+          value="{{project_jp.title}}" />
+
+        <label class="form-label text-light mt-3">Content (Japanese)</label>
+        <textarea
+          name="content_jp"
+          class="form-control bg-dark text-light border-secondary"
+          rows="5">
+{{project_jp.content}}</textarea
+        >
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-warning w-100 mt-3">
+        Save Translation
+      </button>
+    </form>
+  </div>
+</div>
+
+<style>
+  /* Tab Container */
+  .tab-container {
+    border-bottom: 2px solid #ffc107;
+  }
+
+  /* Tab Buttons */
+  .tab-btn {
+    background-color: unset;
+    color: #ffc107;
+    padding: 10px 20px;
+    border: none;
+    border-bottom: none;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    transition: 0.3s;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .tab-btn:hover {
+    background-color: #444;
+  }
+
+  .tab-btn.active {
+    background-color: #ffc107;
+    color: #000;
+    font-weight: bold;
+    border: 1px solid #ffc107;
+  }
+
+  /* Tab Content */
+  .tab-content-container {
+    background: unset;
+
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .tab-content {
+    display: block;
+  }
+
+  .d-none {
+    display: none;
+  }
+</style>
+
+<script>
+  function showTab(lang, event) {
+    // Hide all tab content
+    document
+      .querySelectorAll(".tab-content")
+      .forEach((tab) => tab.classList.add("d-none"));
+
+    // Show selected tab
+    document.getElementById("tab-" + lang).classList.remove("d-none");
+
+    // Remove 'active' class from all buttons
+    document
+      .querySelectorAll(".tab-btn")
+      .forEach((btn) => btn.classList.remove("active"));
+
+    // Add 'active' class to clicked button
+    event.target.classList.add("active");
+  }
+</script>
+
+{% endblock %}

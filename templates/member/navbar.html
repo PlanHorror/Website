@@ -1,6 +1,5 @@
-<header class="">
-  <nav
-    class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top fixed-lg-top">
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold me-5 fs-2" href="{% url 'mindex' %}">
         <img src="{{MEDIA_URL}}/media/logo-white.png" alt="Logo" height="50" />
@@ -18,52 +17,121 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto w-100 text-center">
           <li class="nav-item w-100">
-            <a class="nav-link" href="{% url 'mindex' %}"
-              ><i class="bi bi-speedometer2"></i> Dashboard</a
-            >
+            <a class="nav-link" href="{% url 'mindex' %}">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
           </li>
-          <li class="nav-item w-100">
-            <a class="nav-link" href="{% url 'mprojects' %}"
-              ><i class="bi bi-kanban"></i> Projects</a
-            >
+
+          <!-- Projects Dropdown -->
+          <li class="nav-item dropdown w-100">
+            <a
+              class="nav-link dropdown-toggle not-load"
+              href="#"
+              id="projectsDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="bi bi-kanban"></i> Projects
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-dark"
+              aria-labelledby="projectsDropdown">
+              <li>
+                <a class="dropdown-item" href="{% url 'mprojects' %}"
+                  >All Projects</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'mproject_labels' %}"
+                  >Project Label</a
+                >
+              </li>
+            </ul>
           </li>
-          <li class="nav-item w-100">
-            <a class="nav-link" href="{% url 'mnews' %}"
-              ><i class="bi bi-newspaper"></i> News</a
-            >
+
+          <!-- News Dropdown -->
+          <li class="nav-item dropdown w-100">
+            <a
+              class="nav-link dropdown-toggle not-load"
+              href="#"
+              id="newsDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="bi bi-newspaper"></i> News
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-dark"
+              aria-labelledby="newsDropdown">
+              <li>
+                <a class="dropdown-item" href="{% url 'mnews' %}">All News</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'mcreate_news' %}"
+                  >Create News</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'mnews_labels' %}"
+                  >News Labels</a
+                >
+              </li>
+            </ul>
           </li>
-          <li class="nav-item w-100">
-            <a class="nav-link" href="{% url 'mcourses' %}"
-              ><i class="bi bi-book"></i> Courses</a
-            >
+
+          <!-- Courses Dropdown -->
+          <li class="nav-item dropdown w-100">
+            <a
+              class="nav-link dropdown-toggle not-load"
+              id="coursesDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="bi bi-book"></i> Courses
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-dark"
+              aria-labelledby="coursesDropdown">
+              <li>
+                <a class="dropdown-item" href="{% url 'mcourses' %}"
+                  >All Courses</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'mmodule' %}">Module</a>
+              </li>
+            </ul>
           </li>
+
           <li class="nav-item w-100">
-            <a class="nav-link" href="{% url 'mcontact' %}"
-              ><i class="bi bi-chat-dots"></i> Contact</a
-            >
-            {% if user.is_authenticated %}
+            <a class="nav-link" href="{% url 'mcontact' %}">
+              <i class="bi bi-chat-dots"></i> Contact
+            </a>
+          </li>
+
+          {% if user.is_authenticated %}
+          <li class="nav-item w-100 hide">
+            <a class="nav-link" href="{% url 'mindex' %}">
+              <i class="bi bi-person"></i> Profile
+            </a>
           </li>
           <li class="nav-item w-100 hide">
-            <a class="nav-link" href="{% url 'mindex' %}"
-              ><i class="bi bi-person"></i> Profile</a
-            >
-          </li>
-          <li class="nav-item w-100 hide">
-            <a class="nav-link" href="{% url 'mlogout' %}"
-              ><i class="bi bi-box-arrow-right"></i> Logout</a
-            >
+            <a class="nav-link" href="{% url 'mlogout' %}">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
           </li>
           {% else %}
           <li class="nav-item w-100 hide">
-            <a class="nav-link" href="{% url 'mlogin' %}"
-              ><i class="bi bi-box-arrow-in-right"></i> Login</a
-            >
+            <a class="nav-link" href="{% url 'mlogin' %}">
+              <i class="bi bi-box-arrow-in-right"></i> Login
+            </a>
           </li>
           {% endif %}
         </ul>
 
+        <!-- Settings Dropdown -->
         <ul class="navbar-nav settingDropdown">
-          <li class="nav-item dropdown w-100">
+          <li class="nav-item dropdown w-100 dropdown-menu-dark">
             <a
               class="nav-link dropdown-toggle not-load"
               href="#"
@@ -74,7 +142,7 @@
               <i class="bi bi-gear"></i>
             </a>
             <ul
-              class="dropdown-menu dropdown-menu-end"
+              class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
               aria-labelledby="settingDropdown">
               {% if user.is_authenticated %}
               <li>
@@ -146,7 +214,6 @@
     display: none;
   }
   .settingDropdown {
-    /* margin-right: 20px; */
     width: 5%;
     text-align: center;
   }

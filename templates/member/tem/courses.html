@@ -69,7 +69,7 @@
       <a
         href="{% url 'mcourse' c.pk %}"
         class="btn btn-outline-warning btn-sm me-2"
-        >Update</a
+        >Update & Translation</a
       >
       <a
         href="{% url 'del_course' c.pk %}"
@@ -89,23 +89,22 @@
     <!-- Course Item -->
     {% for c in courses %}
 
-    <div
-      class="border bg-transparent text-light d-flex justify-content-between align-items-center rounded mb-3 p-3">
-      <div>
-        <a href="{{c.url}}"
-          ><strong class="text-warning">{{c.title}}</strong></a
-        >
-        <p class="mb-1 small">Time: {{ c.created_at|date:"d/m/Y H:i:s" }}</p>
-      </div>
-      <div class="d-flex flex-column align-items-center ms-auto me-3">
-        <img
-          src="{{ c.author.avatar.url }}"
-          class="rounded author-avatar mb-1"
-          alt="Author" />
-        <span class="small text-center">{{ c.author.username }}</span>
-      </div>
-      <a class="btn btn-outline-success btn-sm me-2 two-btn"> View </a>
-    </div>
+    <a href="{{c.url}}"
+      ><div
+        class="border bg-transparent text-light d-flex justify-content-between align-items-center rounded mb-3 p-3">
+        <div>
+          <strong class="text-warning">{{c.title}}</strong>
+          <p class="mb-1 small">Time: {{ c.created_at|date:"d/m/Y H:i:s" }}</p>
+        </div>
+        <div class="d-flex flex-column align-items-center ms-auto me-3">
+          <img
+            src="{{ c.author.avatar.url }}"
+            class="rounded author-avatar mb-1"
+            alt="Author" />
+          <span class="small text-center">{{ c.author.username }}</span>
+        </div>
+      </div></a
+    >
     {% endfor %}
   </div>
 </div>

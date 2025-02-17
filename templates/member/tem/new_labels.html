@@ -3,16 +3,35 @@
   <h2 class="text-light mb-3">Manage News Labels</h2>
   <div class="bg-dark p-4 rounded border border-secondary">
     <ul id="label-list" class="list-group mb-3">
+      <div class="mt-2 mb-3">
+        <button class="btn btn-outline-warning btn-sm active" id="en">
+          English
+        </button>
+        <button class="btn btn-outline-warning btn-sm" id="vi">
+          Vietnamese
+        </button>
+        <button class="btn btn-outline-warning btn-sm" id="ja">Japanese</button>
+      </div>
       {% for label in labels %}
       <form method="POST">
         <li
-          class="list-group-item d-flex justify-content-between align-items-center bg-dark text-light border-secondary">
+          class="list-group-item d-flex justify-content-between align-items-center bg-dark text-light border-secondary {% if forloop.first %} top-list{% endif %}">
           {% csrf_token %}
           <input
             type="text"
             class="form-control bg-dark text-light border-0 label-input"
-            name="name"
+            name="name_en"
             value="{{ label.name }}" />
+          <input
+            type="hidden"
+            class="form-control bg-dark text-light border-0 label-input"
+            name="name_vi"
+            value="{% if label.name_vi %}{{ label.name_vi }}{% endif %}" />
+          <input
+            type="hidden"
+            class="form-control bg-dark text-light border-0 label-input"
+            name="name_ja"
+            value="{% if label.name_ja %}{{ label.name_ja }}{% endif %}" />
           <input
             type="hidden"
             class="form-control bg-dark text-light border-0 label-id"
@@ -37,7 +56,7 @@
       <form method="POST">
         {% csrf_token %}
         <li
-          class="list-group-item d-flex justify-content-between align-items-center bg-dark text-light border-secondary">
+          class="list-group-item d-flex justify-content-between align-items-center bg-dark text-light border-secondary bot-list">
           <input
             type="text"
             id="new-label"
@@ -66,5 +85,63 @@
     width: 90% !important;
     margin-right: 10px;
   }
+  .top-list {
+    border-top-left-radius: 0.25rem !important;
+    border-top-right-radius: 0.25rem !important;
+  }
+  .bot-list {
+    border-bottom-left-radius: 0.25rem !important;
+    border-bottom-right-radius: 0.25rem !important;
+  }
 </style>
+<script>
+  button_vi = document.getElementById("vi");
+  button_en = document.getElementById("en");
+  button_ja = document.getElementById("ja");
+  input_vi = document.getElementsByName("name_vi");
+  input_en = document.getElementsByName("name_en");
+  input_ja = document.getElementsByName("name_ja");
+  button_vi.addEventListener("click", function () {
+    button_vi.classList.add("active");
+    button_en.classList.remove("active");
+    button_ja.classList.remove("active");
+    input_vi.forEach((input) => {
+      input.type = "text";
+    });
+    input_en.forEach((input) => {
+      input.type = "hidden";
+    });
+    input_ja.forEach((input) => {
+      input.type = "hidden";
+    });
+  });
+  button_en.addEventListener("click", function () {
+    button_en.classList.add("active");
+    button_vi.classList.remove("active");
+    button_ja.classList.remove("active");
+    input_en.forEach((input) => {
+      input.type = "text";
+    });
+    input_vi.forEach((input) => {
+      input.type = "hidden";
+    });
+    input_ja.forEach((input) => {
+      input.type = "hidden";
+    });
+  });
+  button_ja.addEventListener("click", function () {
+    button_ja.classList.add("active");
+    button_vi.classList.remove("active");
+    button_en.classList.remove("active");
+    input_ja.forEach((input) => {
+      input.type = "text";
+    });
+    input_vi.forEach((input) => {
+      input.type = "hidden";
+    });
+    input_en.forEach((input) => {
+      input.type = "hidden";
+    });
+  });
+</script>
 {% endblock %}

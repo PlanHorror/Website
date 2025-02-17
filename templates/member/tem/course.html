@@ -7,14 +7,36 @@
     class="bg-dark p-4 rounded border border-secondary">
     {% csrf_token %}
     <div class="mb-3">
-      <label for="title" class="form-label text-light">Title</label>
+      <label for="title" class="form-label text-light">Title (English)</label>
       <input
         type="text"
         class="form-control bg-dark text-light border-secondary"
         id="title"
-        name="title"
-        value="{{ course.title }}"
+        name="title_en"
+        value="{{ title_en }}"
         required />
+    </div>
+    <!-- prettier-ignore -->
+    <div class="mb-3">
+      <label for="title" class="form-label text-light"
+        >Title (Vietnamese)</label
+      >
+      <input
+        type="text"
+        class="form-control bg-dark text-light border-secondary"
+        id="title"
+        name="title_vi"
+        value="{% if title_vi %}{{title_vi }}{% endif %}" />
+    </div>
+    <!-- prettier-ignore -->
+    <div class="mb-3">
+      <label for="title" class="form-label text-light">Title (Japanese)</label>
+      <input
+        type="text"
+        class="form-control bg-dark text-light border-secondary"
+        id="title"
+        name="title_jp"
+        value="{% if title_jp %}{{ title_jp }}{% endif %}" />
     </div>
     <!-- Multi-select Modules -->
     <div class="mb-3">

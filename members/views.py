@@ -13,7 +13,7 @@ def index(request):
     return render(request, 'member/tem/index.html')
 @members_required   
 def news(request):
-    news = News.objects.all()
+    news = News.objects.all().order_by('-created_at')
     usr_news = []
     for i in news:
         if len(i.image.all().order_by('num')) > 0:
@@ -29,7 +29,7 @@ def news(request):
     return render(request, 'member/tem/news.html', {'news': news, 'usr_news': usr_news})
 @members_required
 def create_news(request):
-    labels = NewsLabel.objects.all()
+    labels = NewsLabel.objects.all().order_by('-created_at')
     if request.method == 'POST':
         post = dict(request.POST)
         new = News.objects.create(title=post['title'][0], author=request.user)
@@ -109,9 +109,104 @@ def delete_news_item(request, new_id):
     new.delete()
     messages.success(request, 'News deleted successfully')
     return redirect('/members/news')
+def translate_news(request, new_id):
+    try:
+        new = News.objects.get(id=new_id)
+    except News.DoesNotExist:
+        messages.error(request, 'News not found')
+        return redirect('/members/news')
+    if new.author != request.user:
+        messages.error(request, 'You are not the author of this news')
+        return redirect('/members/news')
+    # Get news by english, japanese, vietnamese
+    new_ja = None
+    new_vi = None
+    new_en = new.title
+    if new.has_translation('ja'):
+        new_ja = {
+            'title': new.get_translation('ja').title,
+        }
+    
+    if new.has_translation('vi'):
+        new_vi = {
+            'title': new.get_translation('vi').title,
+        }
+    contents = new.content.all()
+    list_content_en = []
+    list_content_ja = []
+    list_content_vi = []
+    for i in contents:
+        list_content_en.append({
+            'content': i.get_translation('en').content,
+            'num': i.num,
+            'id': i.pk
+        })
+        if i.has_translation('ja'):
+            list_content_ja.append({
+                'content': i.get_translation('ja').content,
+                'num': i.num,
+                'id': i.pk
+            })
+        else:
+            list_content_ja.append({
+                'content': None,
+                'num': i.num,
+                'id': i.pk
+            })
+        if i.has_translation('vi'):
+            list_content_vi.append({
+                'content': i.get_translation('vi').content,
+                'num': i.num,
+                'id': i.pk
+            })
+        else:
+            list_content_vi.append({
+                'content': None,
+                'num': i.num,
+                'id': i.pk
+            })
+    if request.method == 'POST':
+        p = dict(request.POST)
+        new.title = p['title_en'][0]
+        new.save()
+        new.set_current_language('ja')
+        new.title = p['title_ja'][0]
+        new.save()
+        new.set_current_language('vi')
+        new.title = p['title_vi'][0]
+        new.save()
+        del p['csrfmiddlewaretoken'], p['title_en'], p['title_ja'], p['title_vi']
+        for x,y in p.items():
+            if y[0] == 'en':
+                content = NewsContent.objects.get(id=y[1])
+                content.set_current_language('en')
+                content.content = y[2]
+                content.save()
+            if y[0] == 'ja':
+                content = NewsContent.objects.get(id=y[1])
+                content.set_current_language('ja')
+                content.content = y[2]
+                content.save()
+            if y[0] == 'vi':
+                content = NewsContent.objects.get(id=y[1])
+                content.set_current_language('vi')
+                content.content = y[2]
+                content.save()
+        messages.success(request, 'News translated successfully')
+        return redirect('/members/news')
+    return render(request, 'member/tem/translate_news.html', {'new_en': new_en, 'new_ja': new_ja, 'new_vi': new_vi, 'contents_en': list_content_en, 'contents_ja': list_content_ja, 'contents_vi': list_content_vi})
 @members_required
 def new_labels(request):
-    labels = NewsLabel.objects.all()
+    labels = NewsLabel.objects.all().order_by('-created_at')
+    for i in labels:
+        if i.has_translation('vi'):
+            i.name_vi = i.get_translation('vi').name
+        else:
+            i.name_vi = None
+        if i.has_translation('ja'):
+            i.name_ja = i.get_translation('ja').name
+        else:
+            i.name_ja = None
     if request.method == 'POST':
         if request.POST['submit'] == 'add':
             label = NewsLabel.objects.create(name=request.POST['name'], created_by=request.user)
@@ -120,7 +215,13 @@ def new_labels(request):
             return redirect('/members/news/labels')
         if request.POST['submit'] == 'update':
             label = NewsLabel.objects.get(id=request.POST['id'])
-            label.name = request.POST['name']
+            label.name = request.POST['name_en']
+            label.save()
+            label.set_current_language('ja')
+            label.name = request.POST['name_ja']
+            label.save()
+            label.set_current_language('vi')
+            label.name = request.POST['name_vi']
             label.save()
             messages.success(request, 'Label updated successfully')
             return redirect('/members/news/labels')
@@ -137,8 +238,8 @@ def new_label_delete(request, label_id):
     return redirect('/members/news/labels')
 @members_required
 def projects(request):
-    projects = Project.objects.all()
-    all_labels = ProjectLabel.objects.all()
+    projects = Project.objects.all().order_by('-created_at')
+    all_labels = ProjectLabel.objects.all().order_by('-created_at')
     usr_projects = projects.filter(author=request.user)
     if request.method == 'POST':
         label_selected = request.POST.getlist('labels')
@@ -151,7 +252,16 @@ def projects(request):
     return render(request, 'member/tem/projects.html', {'projects': projects, 'usr_projects': usr_projects, 'all_labels': all_labels})
 @members_required
 def project_labels(request):
-    labels = ProjectLabel.objects.all()
+    labels = ProjectLabel.objects.all().order_by('-created_at')
+    for i in labels:
+        if i.has_translation('vi'):
+            i.name_vi = i.get_translation('vi').name
+        else:
+            i.name_vi = None
+        if i.has_translation('ja'):
+            i.name_ja = i.get_translation('ja').name
+        else:
+            i.name_ja = None
     if request.method == 'POST':
         if request.POST['submit'] == 'add':
             label = ProjectLabel.objects.create(name=request.POST['name'], created_by=request.user)
@@ -160,7 +270,13 @@ def project_labels(request):
             return redirect('/members/projects/labels')
         if request.POST['submit'] == 'update':
             label = ProjectLabel.objects.get(id=request.POST['id'])
-            label.name = request.POST['name']
+            label.name = request.POST['name_en']
+            label.save()
+            label.set_current_language('ja')
+            label.name = request.POST['name_ja']
+            label.save()
+            label.set_current_language('vi')
+            label.name = request.POST['name_vi']
             label.save()
             messages.success(request, 'Label updated successfully')
             return redirect('/members/projects/labels')
@@ -177,7 +293,7 @@ def project_label_delete(request, label_id):
     return redirect('/members/projects/labels')
 @members_required
 def courses(request):
-    module = Module.objects.all()
+    module = Module.objects.all().order_by('-created_at')
     all_courses = Course.objects.all().order_by('-created_at')
     usr_courses = all_courses.filter(author=request.user).order_by('-created_at')
     if request.method == 'POST':
@@ -204,7 +320,7 @@ def delete_course(request, course_id):
     return redirect('/members/courses')
 @members_required
 def course(request, course_id):
-    module = Module.objects.all()
+    module = Module.objects.all().order_by('-created_at')
     try:
         course = Course.objects.get(id=course_id)
     except Course.DoesNotExist:
@@ -213,20 +329,46 @@ def course(request, course_id):
     if course.author != request.user:
         messages.error(request, 'You are not the author of this course')
         return redirect('/members/courses')
+    title_en = None
+    title_jp = None
+    title_vi = None
+    if course.has_translation('en'):
+        title_en = course.get_translation('en').title
+    if course.has_translation('ja'):
+        title_jp = course.get_translation('ja').title
+    if course.has_translation('vi'):
+        title_vi = course.get_translation('vi').title
     if request.method == 'POST':
-        course.title = request.POST['title']
+        course.title = request.POST['title_en']
         course.url = request.POST['url']
         course.module.clear()
         module_selected = request.POST.getlist('modules')
         module_selected = Module.objects.filter(id__in=module_selected)
         course.module.set(module_selected)
         course.save()
+        if request.POST['title_jp']:
+            course.set_current_language('ja')
+            course.title = request.POST['title_jp']
+            course.save()
+        if request.POST['title_vi']:
+            course.set_current_language('vi')
+            course.title = request.POST['title_vi']
+            course.save()
         messages.success(request, 'Course updated successfully')
         return redirect('/members/courses')
-    return render(request, 'member/tem/course.html', {'course': course, 'modules': module})
+    return render(request, 'member/tem/course.html', {'course': course, 'modules': module, 'title_en': title_en, 'title_jp': title_jp, 'title_vi': title_vi})
 @members_required
 def modules(request):
-    module = Module.objects.all()
+    module = Module.objects.all().order_by('-created_at')
+    for i in module:
+        if i.has_translation('vi'):
+            i.module_vi = i.get_translation('vi').module
+        else:
+            i.module_vi = None
+        if i.has_translation('ja'):
+            i.module_ja = i.get_translation('ja').module
+        else:
+            i.module_ja = None
     if request.method == 'POST':
         if request.POST['submit'] == 'add':
             module = Module.objects.create(module=request.POST['module'], created_by=request.user)
@@ -235,7 +377,13 @@ def modules(request):
             return redirect('/members/courses/module')
         if request.POST['submit'] == 'update':
             module = Module.objects.get(id=request.POST['id'])
-            module.module = request.POST['module']
+            module.module = request.POST['module_en']
+            module.save()
+            module.set_current_language('ja')
+            module.module = request.POST['module_ja']
+            module.save()
+            module.set_current_language('vi')
+            module.module = request.POST['module_vi']
             module.save()
             messages.success(request, 'Module updated successfully')
             return redirect('/members/courses/module')
@@ -321,11 +469,11 @@ def logout(request):
     return redirect('/members/login')
 @members_required
 def contact(request):
-    all_contacts = Contact.objects.all()
+    all_contacts = Contact.objects.all().order_by('-created_at')
     return render(request, 'member/tem/contact.html', {'contacts': all_contacts})
 @members_required
 def project(request, project_id):
-    all_labels = ProjectLabel.objects.all()
+    all_labels = ProjectLabel.objects.all().order_by('-created_at')
     try:
         project = Project.objects.get(id=project_id)
     except Project.DoesNotExist:
@@ -352,7 +500,6 @@ def project(request, project_id):
     return render(request, 'member/tem/project.html', {'p': project, 'all_labels': all_labels})
 @members_required  
 def delete_project(request, project_id):
-    print(project_id)
     try:
         project = Project.objects.get(id=project_id)
     except Project.DoesNotExist:
@@ -364,3 +511,47 @@ def delete_project(request, project_id):
     project.delete()
     messages.success(request, 'Project deleted successfully')
     return redirect('/members/projects')
+@members_required
+def translate_project(request, project_id):
+    try:
+        project = Project.objects.get(id=project_id)
+    except Project.DoesNotExist:
+        messages.error(request, 'Project not found')
+        return redirect('/members/projects')
+    if project.author != request.user:
+        messages.error(request, 'You are not the author of this project')
+        return redirect('/members/projects')
+    # Get project by english, japanese, vietnamese
+    project_en = None
+    project_jp = None
+    project_vi = None
+    if project.has_translation('en'):
+        project_en = {
+            'title': project.get_translation('en').title,
+            'content': project.get_translation('en').content,
+        }
+    if project.has_translation('ja'):
+        project_jp = {
+            'title': project.get_translation('ja').title,
+            'content': project.get_translation('ja').content,
+        }
+    if project.has_translation('vi'):
+        project_vi = {
+            'title': project.get_translation('vi').title,
+            'content': project.get_translation('vi').content,
+        }
+    if request.method == 'POST':
+        project.set_current_language('en')
+        project.title = request.POST['title_en']
+        project.content = request.POST['content_en']
+        project.set_current_language('ja')
+        project.title = request.POST['title_jp']
+        project.content = request.POST['content_jp']
+        project.set_current_language('vi')
+        project.title = request.POST['title_vi']
+        project.content = request.POST['content_vi']
+        project.save()
+        messages.success(request, 'Project translated successfully')
+        return redirect('/members/projects')
+    return render(request, 'member/tem/translate_project.html', {'project_en': project_en, 'project_jp': project_jp, 'project_vi': project_vi})
+
