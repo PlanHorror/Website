@@ -21,7 +21,6 @@ class CustomUser(AbstractUser):
                 orig.avatar.delete(save=False)
         super().save(*args, **kwargs)
     def reset_avatar(self):
-        print(type(self.avatar), self.avatar)
         if self.avatar != 'user-avatars/default.jpg':
             self.avatar.delete()
             self.avatar = 'user-avatars/default.jpg'
@@ -115,10 +114,10 @@ class NewsImage(models.Model):
 class Comment(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     news = models.ForeignKey(News, on_delete=models.CASCADE)
-    content = models.TextField()
+    comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return "Comment id: " + str(self.pk) + " - Author: " + self.author.username + " - News id: " + self.news.pk
+        return "Comment id: " + str(self.pk) + " - Author: " + self.author.username + " - News id: " + str(self.news.pk)
 # Course model is created to store the courses created by the user
 class Course(TranslatableModel):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

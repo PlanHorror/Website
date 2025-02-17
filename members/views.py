@@ -41,11 +41,9 @@ def create_news(request):
         for x,y in post.items():
             if y[0]=='image':
                 image = NewsImage.objects.create(image=request.FILES[x], num=int(y[1]), news=new)
-                print(image)
                 image.save()
             if y[0]=='text':
                 content = NewsContent.objects.create(content=y[2], num=int(y[1]), news=new)
-                print(content)
                 content.save()
         messages.success(request, 'News created successfully')
         return redirect('/members/news')
@@ -73,7 +71,6 @@ def new(request, new_id):
             del post['labels'], post['not-delete']
         except:
             pass
-        print(image_not_delete)
         a = NewsImage.objects.filter(news=this_new).exclude(num__in=image_not_delete)
         for i in a:
             i.image.delete(save=False)
@@ -83,11 +80,9 @@ def new(request, new_id):
         for x,y in post.items():
             if y[0]=='image' or y[0]=='change_image':
                 image = NewsImage.objects.create(image=request.FILES[x], num=int(y[1]), news=this_new)
-                print(image)
                 image.save()
             if y[0]=='text':
                 content = NewsContent.objects.create(content=y[2], num=int(y[1]), news=this_new)
-                print(content)
                 content.save()
             if y[0]=='change_num':
                 image = NewsImage.objects.get(num=int(y[2]), news=this_new)
@@ -446,7 +441,6 @@ def login(request):
         messages.error(request, 'You are already logged in')
         return redirect('/members')
     if request.method == 'POST':
-        print(request.POST)
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)

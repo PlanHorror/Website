@@ -11,7 +11,7 @@
       </div>
       <div class="post_author-info">
         <h5>{% trans 'By:' %} {{n.author.username}}</h5>
-        <small>{{n.created_at}}</small>
+        <small>{{n.created_at|date:"F d, Y - P"}}</small>
       </div>
     </div>
 
@@ -42,16 +42,49 @@
 
       <!-- Display Comments -->
       <div class="comment_list">
-        <!-- Example Comment (can be dynamically populated) -->
+        {% for c in comments %}
         <div class="comment">
           <div class="comment_author">
-            <strong>phiêu linh</strong>
-            <small>February 15, 2024 - 10:30</small>
+            <strong>{{c.author.username}}</strong>
+            <small>{{c.created_at|date:"F d, Y - P"}}</small>
           </div>
-          <p>This is a great post! I really enjoyed reading it.</p>
+          <p>{{c.comment}}</p>
         </div>
+        {% endfor %}
       </div>
     </div>
   </section>
 </section>
+<script>
+  const commentForm = document.querySelector(".comment_form");
+  const commentList = document.querySelector(".comment_list");
+
+  commentForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const comment = document.querySelector("#comment").value;
+    const commentDiv = document.createElement("div");
+    commentDiv.classList.add("comment");
+
+    $.ajax({
+      type: "POST",
+      url: "{% url 'new' n.title|slugify n.pk %}",
+      data: {
+        comment: comment,
+        csrfmiddlewaretoken: "{{csrf_token}}",
+      },
+      success: function (response) {
+        console.log(response);
+        commentDiv.innerHTML = `
+      <div class="comment_author">
+        <strong>{{request.user.username}}</strong>
+        <small>${response.comment_time} </small>
+      </div>
+      <p>${comment}</p>
+    `;
+        commentList.appendChild(commentDiv);
+        commentForm.reset();
+      },
+    });
+  });
+</script>
 {% endblock %}

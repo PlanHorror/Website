@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages, auth
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .forms import *
 from django.utils import translation
 # Create your views here.
@@ -113,6 +113,7 @@ def new(request, title ,news_id):
     news = News.objects.get(id=news_id)
     image = NewsImage.objects.filter(news=news)
     content = NewsContent.objects.filter(news=news)
+    all_comments = Comment.objects.filter(news=news)
     # Merge image and content to a list then sort by num
     combine = list(image) + list(content)
     combine.sort(key=lambda x: x.num)
@@ -122,7 +123,13 @@ def new(request, title ,news_id):
         else:
             i.type = 'content'
     news.combine = combine
-    return render(request, 'app/tem/new.html', {'n': news})
+    if request.method == 'POST':
+        comment = request.POST.get('comment', None)
+        if comment:
+            a = Comment.objects.create(author=request.user, news=news, comment=comment)
+            a.save()
+            return JsonResponse({'status': 'success', 'comment_time' : a.created_at.strftime('%B %d, %Y - %I:%M %p')})
+    return render(request, 'app/tem/new.html', {'n': news, 'comments': all_comments})
 def course(request):
     sort = request.GET.get('sort', None)
     search = request.GET.get('search', None)
