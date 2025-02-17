@@ -124,6 +124,8 @@ def new(request, title ,news_id):
             i.type = 'content'
     news.combine = combine
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return JsonResponse({'status': 'error', 'message': _('You need to login to comment'), 'url': '/login'})
         comment = request.POST.get('comment', None)
         if comment:
             a = Comment.objects.create(author=request.user, news=news, comment=comment)

@@ -74,6 +74,10 @@
       },
       success: function (response) {
         console.log(response);
+        if (response.status = 'error'){
+          window.location.href = "{% url 'login' %}";
+          alert('Please login to comment');
+        } 
         commentDiv.innerHTML = `
       <div class="comment_author">
         <strong>{{request.user.username}}</strong>
@@ -83,6 +87,9 @@
     `;
         commentList.appendChild(commentDiv);
         commentForm.reset();
+      },
+      error: function (error) {
+        console.log(error);
       },
     });
   });
