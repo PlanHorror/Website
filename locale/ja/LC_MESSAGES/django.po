@@ -9,62 +9,63 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-09 23:46+0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2025-02-19 07:47+0000\n"
+"Last-Translator: My First Name <admin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Translated-Using: django-rosetta 0.10.1\n"
 
 #: .\app\views.py:34 .\app\views.py:50
 msgid "You are already logged in"
-msgstr ""
+msgstr "ログインしています"
 
 #: .\app\views.py:42
 msgid "Login successfully"
-msgstr ""
+msgstr "ログインに成功します"
 
 #: .\app\views.py:45
 msgid "Invalid username or password"
-msgstr ""
+msgstr "ユーザー名またはパスワードが無効です"
 
 #: .\app\views.py:58
 msgid "Register successfully"
-msgstr ""
+msgstr "レジスターにせいこうします"
 
 #: .\app\views.py:66
 msgid "Logout successfully"
-msgstr ""
+msgstr "ログアウトに成功します"
 
 #: .\app\views.py:78 .\app\views.py:182
 msgid "Send message successfully"
-msgstr ""
+msgstr "メッセージ送信を成功します"
 
 #: .\app\views.py:127 .\app\views.py:151
 msgid "Page not found"
-msgstr ""
+msgstr "ページなし"
 
 #: .\app\views.py:130 .\app\views.py:154
 msgid "Page invalid"
-msgstr ""
+msgstr "ページが無効です"
 
 #: .\app\views.py:189
 msgid "You must login to view this page"
-msgstr ""
+msgstr "このページを表示するために、ログインする必要がある"
 
 #: .\members\models.py:16 .\members\models.py:25
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
 #: .\members\models.py:36
 msgid "Title"
-msgstr ""
+msgstr "タイトル"
 
 #: .\members\models.py:37
 msgid "Content"
-msgstr ""
+msgstr "コンテント"
 
 #: .\templates\app\navbar.html:17 .\templates\app\navbar.html:45
 #: .\templates\app\navbar.html:59
@@ -87,35 +88,35 @@ msgstr ""
 
 #: .\templates\app\navbar.html:66 .\templates\app\tem\index.html:25
 msgid "projects"
-msgstr ""
+msgstr "プロジェクト"
 
 #: .\templates\app\navbar.html:68 .\templates\app\tem\index.html:30
 msgid "courses"
-msgstr ""
+msgstr "コース"
 
 #: .\templates\app\navbar.html:69 .\templates\app\tem\index.html:38
 msgid "contact"
-msgstr ""
+msgstr "コンタクト"
 
 #: .\templates\app\navbar.html:88
 msgid "profile"
-msgstr ""
+msgstr "プロファイル"
 
 #: .\templates\app\navbar.html:99
 msgid "logout"
-msgstr ""
+msgstr "ログアウト"
 
 #: .\templates\app\navbar.html:111
 msgid "login"
-msgstr ""
+msgstr "ログイン"
 
 #: .\templates\app\navbar.html:122
 msgid "register"
-msgstr ""
+msgstr "レジスター"
 
 #: .\templates\app\tem\collab.html:7
 msgid "Contact Us"
-msgstr ""
+msgstr "連絡先"
 
 #: .\templates\app\tem\collab.html:10
 msgid ""
@@ -124,7 +125,7 @@ msgstr ""
 
 #: .\templates\app\tem\collab.html:16
 msgid "Phone Number"
-msgstr ""
+msgstr "電話番号"
 
 #: .\templates\app\tem\collab.html:20
 msgid "Phone number must be in the format: +1234567890"
@@ -140,11 +141,11 @@ msgstr ""
 
 #: .\templates\app\tem\collab.html:30
 msgid "Project"
-msgstr ""
+msgstr "プロジェクト"
 
 #: .\templates\app\tem\collab.html:31
 msgid "News"
-msgstr ""
+msgstr "ニュース"
 
 #: .\templates\app\tem\collab.html:32
 msgid "Other"
@@ -272,8 +273,8 @@ msgstr ""
 #: .\templates\app\tem\index.html:58
 msgid ""
 " We are a passionate community of tech enthusiasts, innovators, and problem-"
-"solvers who come together to explore the cutting edge of technology. Whether "
-"you're a coder, designer, builder, or simply curious about tech, our club "
+"solvers who come together to explore the cutting edge of technology. Whether"
+" you're a coder, designer, builder, or simply curious about tech, our club "
 "offers a platform to learn, grow, and make a difference."
 msgstr ""
 
@@ -315,8 +316,8 @@ msgstr ""
 
 #: .\templates\app\tem\index.html:79
 msgid ""
-"Work on exciting team projects to build cutting-edge solutions and practical "
-"experience."
+"Work on exciting team projects to build cutting-edge solutions and practical"
+" experience."
 msgstr ""
 
 #: .\templates\app\tem\index.html:83
@@ -325,7 +326,8 @@ msgstr ""
 
 #: .\templates\app\tem\index.html:83
 msgid ""
-"Showcase your skills in local, national, and international tech competitions."
+"Showcase your skills in local, national, and international tech "
+"competitions."
 msgstr ""
 
 #: .\templates\app\tem\index.html:87
@@ -364,105 +366,107 @@ msgstr ""
 #: .\templates\app\tem\index.html:102
 msgid "Resources and guidance to turn your ideas into reality."
 msgstr ""
+"アイデアを現実するためのリソース\n"
+"とガイダンス"
 
 #: .\templates\app\tem\index.html:105
 msgid "Get Involved"
-msgstr ""
+msgstr "参加します"
 
 #: .\templates\app\tem\index.html:108
 msgid ""
 "Ready to join the tech revolution? We welcome members from all skill levels "
 "and backgrounds."
-msgstr ""
+msgstr "てくのろじー革命を参加することが準備できていますか？私たちはあらゆるスキールレベルとバックグラウンドを歓迎します。"
 
 #: .\templates\app\tem\index.html:112
 msgid "Follow us on"
-msgstr ""
+msgstr "私たちをフォローします"
 
 #: .\templates\app\tem\index.html:112
 msgid "or reach out at"
-msgstr ""
+msgstr "または連絡します"
 
 #: .\templates\app\tem\index.html:112
 msgid "to learn more and get started."
-msgstr ""
+msgstr "もっと詳しく調べて、始めるため"
 
 #: .\templates\app\tem\index.html:114
 msgid "Together, let’s shape the future of technology! 🚀"
-msgstr ""
+msgstr "一緒にテクノロジーの未来を形作りましょう。"
 
 #: .\templates\app\tem\login.html:7 .\templates\app\tem\login.html:18
 msgid "Sign In"
-msgstr ""
+msgstr "サインイン"
 
 #: .\templates\app\tem\login.html:11 .\templates\app\tem\register.html:38
 msgid "Username"
-msgstr ""
+msgstr "ユーザー名"
 
 #: .\templates\app\tem\login.html:15 .\templates\app\tem\register.html:64
 msgid "Password"
-msgstr ""
+msgstr "パスワード"
 
 #: .\templates\app\tem\login.html:20
 msgid "Don't have an account?"
-msgstr ""
+msgstr "アカウントがありません？"
 
 #: .\templates\app\tem\login.html:22
 msgid "Sign up"
-msgstr ""
+msgstr "サインアップ"
 
 #: .\templates\app\tem\new.html:7 .\templates\app\tem\news.html:6
 msgid "This is the news page. It will be developed in the future."
-msgstr ""
+msgstr "これは新しいページで、将来配達する予定です。"
 
 #: .\templates\app\tem\project.html:13
 msgid "By:"
-msgstr ""
+msgstr "作成者:"
 
 #: .\templates\app\tem\projects.html:51
 msgid "No projects found"
-msgstr ""
+msgstr "プロジェクトなし"
 
 #: .\templates\app\tem\register.html:7 .\templates\app\tem\register.html:100
 msgid "Register"
-msgstr ""
+msgstr "レジスター"
 
 #: .\templates\app\tem\register.html:13
 msgid "First Name"
-msgstr ""
+msgstr "名"
 
 #: .\templates\app\tem\register.html:25
 msgid "Last Name"
-msgstr ""
+msgstr "苗字"
 
 #: .\templates\app\tem\register.html:51
 msgid "Email"
-msgstr ""
+msgstr "メール"
 
 #: .\templates\app\tem\register.html:77
 msgid "Confirm Password"
-msgstr ""
+msgstr "パスワード（確認）"
 
 #: .\templates\app\tem\register.html:88 .\templates\app\tem\register.html:90
 msgid "Upload Avatar"
-msgstr ""
+msgstr "アバターアップロード"
 
 #: .\templates\app\tem\register.html:103
 msgid "Already have an account?"
-msgstr ""
+msgstr "アカウントがありましたか？"
 
 #: .\templates\app\tem\register.html:105
 msgid "Login here"
-msgstr ""
+msgstr "ここにログインしてください"
 
 #: .\website\settings.py:152
 msgid "Vietnamese"
-msgstr ""
+msgstr "ベトナム語"
 
 #: .\website\settings.py:153
 msgid "English"
-msgstr ""
+msgstr "英語"
 
 #: .\website\settings.py:154
 msgid "Japanese"
-msgstr ""
+msgstr "日本語"
