@@ -82,10 +82,10 @@
               <a href="{% url 'profile' %}" class="profile-item">
                 <span class="profile-text">
                   <img
-                    src=""
+                    src="{{MEDIA_URL}}/media/profile.png"
                     alt="Profile Icon"
-                    class="profile_icon" />
-                    {% trans 'profile' %}
+                    class="logout_icon" />
+                     {% trans 'profile' %}
                 </span>
               </a>
             </li>
@@ -93,7 +93,7 @@
               <a href="{% url 'logout' %}" class="logout-item">
                 <span class="logout-text">
                   <img
-                    src=""
+                    src="{{MEDIA_URL}}/media/login.png"
                     alt="Logout Icon"
                     class="logout_icon" />
                     {% trans 'logout' %}

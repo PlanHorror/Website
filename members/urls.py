@@ -24,4 +24,11 @@ urlpatterns = [
     path('courses/<int:course_id>/', views.course, name='mcourse'),
     path('courses/<int:course_id>/delete/', views.delete_course, name='del_course'),
     path('contact/', views.contact, name='mcontact'),
+    # Path for ajax requests
+    path('api/projects/', views.get_projects, name='mapi_projects'),
+    path('api/news/', views.get_news, name='mapi_news'),
+    path('api/courses/', views.get_courses, name='mapi_courses'),
+    path('api/contact/', views.get_contacts, name='mapi_contact'),
+    path('api/comments/', views.get_comments, name='mapi_comments'),
+    path('api/account/', views.get_accounts, name='mapi_account'),
 ]

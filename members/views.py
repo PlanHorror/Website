@@ -7,10 +7,23 @@ from .models import *
 from .forms import *
 from django.shortcuts import get_object_or_404
 from .decorators import members_required
+import datetime
+from django.http import JsonResponse
+from django.db.models import Q
 # Create your views here.
 @members_required
 def index(request):
-    return render(request, 'member/tem/index.html')
+    # Time now
+    start = datetime.datetime.now()
+    members = CustomUser.objects.filter(Q(is_member=True) | Q(is_staff=True) | Q(is_superuser=True))
+    for i in members:
+        i.total_projects = Project.objects.filter(author=i).count()
+        i.total_news = News.objects.filter(author=i).count()
+        i.total_courses = Course.objects.filter(author=i).count()
+        i.total = i.total_projects + i.total_news + i.total_courses
+    end = datetime.datetime.now()
+    print( end-start)
+    return render(request, 'member/tem/index.html', {'members': members})
 @members_required   
 def news(request):
     news = News.objects.all().order_by('-created_at')
@@ -549,3 +562,174 @@ def translate_project(request, project_id):
         return redirect('/members/projects')
     return render(request, 'member/tem/translate_project.html', {'project_en': project_en, 'project_jp': project_jp, 'project_vi': project_vi})
 
+# Function for get by ajax
+def get_projects(request):
+    start = datetime.datetime.now()
+    projects = Project.objects.all()
+    project_label = ProjectLabel.objects.all().order_by('-created_at')
+    label = [i.name for i in project_label]
+    projects_by_label = []
+    for i in project_label:
+        projects_by_label.append(projects.filter(label=i).count())
+
+    projects_by_month = [
+        projects.filter(created_at__month=1).count(),
+        projects.filter(created_at__month=2).count(),
+        projects.filter(created_at__month=3).count(),
+        projects.filter(created_at__month=4).count(),
+        projects.filter(created_at__month=5).count(),
+        projects.filter(created_at__month=6).count(),
+        projects.filter(created_at__month=7).count(),
+        projects.filter(created_at__month=8).count(),
+        projects.filter(created_at__month=9).count(),
+        projects.filter(created_at__month=10).count(),
+        projects.filter(created_at__month=11).count(),
+        projects.filter(created_at__month=12).count(),
+    ]
+    data = {
+        'projects': projects.count(),
+        'label': label,
+        'projects_by_month': projects_by_month,
+        'projects_by_label': projects_by_label
+    }
+    end = datetime.datetime.now()
+    print("Time get projects: ", end-start)
+    return JsonResponse(data, safe=False)
+def get_news(request):
+    news = News.objects.all()
+    news_label = NewsLabel.objects.all().order_by('-created_at')
+    label = [i.name for i in news_label]
+    news_by_label = []
+    for i in news_label:
+        news_by_label.append(news.filter(label=i).count())
+    news_by_month = [
+        news.filter(created_at__month=1).count(),
+        news.filter(created_at__month=2).count(),
+        news.filter(created_at__month=3).count(),
+        news.filter(created_at__month=4).count(),
+        news.filter(created_at__month=5).count(),
+        news.filter(created_at__month=6).count(),
+        news.filter(created_at__month=7).count(),
+        news.filter(created_at__month=8).count(),
+        news.filter(created_at__month=9).count(),
+        news.filter(created_at__month=10).count(),
+        news.filter(created_at__month=11).count(),
+        news.filter(created_at__month=12).count(),
+    ]
+    data = {
+        'news': news.count(),
+        'label': label,
+        'news_by_month': news_by_month,
+        'news_by_label': news_by_label
+    }
+    return JsonResponse(data, safe=False)
+def get_courses(request):
+    start = datetime.datetime.now()
+    courses = Course.objects.all()
+    course_module = Module.objects.all().order_by('-created_at')
+    courses_by_module = []
+    for i in course_module:
+        courses_by_module.append(courses.filter(module=i).count())
+    courses_by_month = [
+        courses.filter(created_at__month=1).count(),
+        courses.filter(created_at__month=2).count(),
+        courses.filter(created_at__month=3).count(),
+        courses.filter(created_at__month=4).count(),
+        courses.filter(created_at__month=5).count(),
+        courses.filter(created_at__month=6).count(),
+        courses.filter(created_at__month=7).count(),
+        courses.filter(created_at__month=8).count(),
+        courses.filter(created_at__month=9).count(),
+        courses.filter(created_at__month=10).count(),
+        courses.filter(created_at__month=11).count(),
+        courses.filter(created_at__month=12).count(),
+    ]
+    data = {
+        'courses': courses.count(),
+        'modules': [i.module for i in course_module],
+        'courses_by_month': courses_by_month,
+        'courses_by_module': courses_by_module
+    }
+    end = datetime.datetime.now()
+    print("Time get courses: ", end-start)
+    return JsonResponse(data, safe=False)
+def get_contacts(request):
+    start = datetime.datetime.now()
+    contacts = Contact.objects.all()
+    project_contact = Contact.objects.filter(c_type='project')
+    news_contact = Contact.objects.filter(c_type='news')
+    contact_data = {
+        'project': project_contact.count(),
+        'news': news_contact.count()
+    }
+    project_contacts_by_month = [
+        project_contact.filter(created_at__month=1).count(),
+        project_contact.filter(created_at__month=2).count(),
+        project_contact.filter(created_at__month=3).count(),
+        project_contact.filter(created_at__month=4).count(),
+        project_contact.filter(created_at__month=5).count(),
+        project_contact.filter(created_at__month=6).count(),
+        project_contact.filter(created_at__month=7).count(),
+        project_contact.filter(created_at__month=8).count(),
+        project_contact.filter(created_at__month=9).count(),
+        project_contact.filter(created_at__month=10).count(),
+        project_contact.filter(created_at__month=11).count(),
+        project_contact.filter(created_at__month=12).count(),
+    ]
+    news_contacts_by_month = [
+        news_contact.filter(created_at__month=1).count(),
+        news_contact.filter(created_at__month=2).count(),
+        news_contact.filter(created_at__month=3).count(),
+        news_contact.filter(created_at__month=4).count(),
+        news_contact.filter(created_at__month=5).count(),
+        news_contact.filter(created_at__month=6).count(),
+        news_contact.filter(created_at__month=7).count(),
+        news_contact.filter(created_at__month=8).count(),
+        news_contact.filter(created_at__month=9).count(),
+        news_contact.filter(created_at__month=10).count(),
+        news_contact.filter(created_at__month=11).count(),
+        news_contact.filter(created_at__month=12).count(),
+    ]
+    data = {
+        'contacts': contacts.count(),
+        'contact_data': contact_data,
+        'project_contacts_by_month': project_contacts_by_month,
+        'news_contacts_by_month': news_contacts_by_month
+    }
+    end = datetime.datetime.now()
+    print("Time get contacts: ", end
+    -start)
+    return JsonResponse(data, safe=False)
+def get_comments(request):
+    comments = Comment.objects.all()
+    news_label = NewsLabel.objects.all().order_by('-created_at')
+    comments_by_label = {}
+    for i in news_label:
+        comments_by_label[i.name] = comments.filter(news__label=i).count()
+    data = {
+        'comments': comments.count(),
+        'label': [i.name for i in news_label],
+        'comments_by_label': comments_by_label
+    }
+    return JsonResponse(data, safe=False)
+def get_accounts(request):
+    accounts = CustomUser.objects.all()
+    accounts_by_month = [
+        accounts.filter(date_joined__month=1).count(),
+        accounts.filter(date_joined__month=2).count(),
+        accounts.filter(date_joined__month=3).count(),
+        accounts.filter(date_joined__month=4).count(),
+        accounts.filter(date_joined__month=5).count(),
+        accounts.filter(date_joined__month=6).count(),
+        accounts.filter(date_joined__month=7).count(),
+        accounts.filter(date_joined__month=8).count(),
+        accounts.filter(date_joined__month=9).count(),
+        accounts.filter(date_joined__month=10).count(),
+        accounts.filter(date_joined__month=11).count(),
+        accounts.filter(date_joined__month=12).count(),
+    ]
+    data = {
+        'accounts': accounts.count(),
+        'accounts_by_month': accounts_by_month
+    }
+    return JsonResponse(data, safe=False)

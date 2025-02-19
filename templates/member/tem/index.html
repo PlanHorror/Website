@@ -1,1 +1,627 @@
-{% extends 'member/base.html' %} {% block content %} {% endblock %}
+{% extends 'member/base.html' %} {% block content %}
+<div class="container mt-4">
+  <!-- SECTION 1: Overview Cards -->
+  <div>
+    <h3 class="section-title">Overview</h3>
+    <div class="row g-3">
+      <div class="col-sm-6 col-md-4 col-lg-2">
+        <div
+          class="card stat-card bg-dark text-light p-3 shadow-sm border-primary border-3">
+          <div class="d-flex align-items-center">
+            <div class="icon bg-primary bg-opacity-25 text-primary">
+              <i class="bi bi-kanban fs-1"></i>
+            </div>
+            <div class="w-100 title ms-2">
+              <h6 class="text-uppercase mb-0">Projects</h6>
+              <p class="mb-0" id="projects"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-2">
+        <div
+          class="card stat-card bg-dark text-light p-3 shadow-sm border-success border-3">
+          <div class="d-flex align-items-center">
+            <div class="icon bg-success bg-opacity-25 text-success">
+              <i class="bi bi-book fs-1"></i>
+            </div>
+            <div class="w-100 title ms-2">
+              <h6 class="text-uppercase mb-0">Courses</h6>
+              <p class="mb-0" id="courses"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-4 col-lg-2">
+        <div
+          class="card stat-card bg-dark text-light p-3 shadow-sm border-warning border-3">
+          <div class="d-flex align-items-center">
+            <div class="icon bg-warning bg-opacity-25 text-warning">
+              <i class="bi bi-newspaper fs-1"></i>
+            </div>
+            <div class="w-100 title ms-2">
+              <h6 class="text-uppercase mb-0">News</h6>
+              <p class="mb-0" id="news"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-4 col-lg-2">
+        <div
+          class="card stat-card bg-dark text-light p-3 shadow-sm border-info border-3">
+          <div class="d-flex align-items-center">
+            <div class="icon bg-info bg-opacity-25 text-info">
+              <i class="bi bi-people fs-1"></i>
+            </div>
+            <div class="w-100 title ms-2">
+              <h6 class="text-uppercase mb-0">Users</h6>
+              <p class="mb-0" id="accounts"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-2">
+        <div
+          class="card stat-card bg-dark text-light p-3 shadow-sm border-secondary border-3">
+          <div class="d-flex align-items-center">
+            <div class="icon bg-secondary bg-opacity-25 text-secondary">
+              <i class="bi bi-chat-square-text fs-1"></i>
+            </div>
+            <div class="w-100 title ms-2">
+              <h6 class="text-uppercase mb-0">Members</h6>
+              <p class="mb-0">{{ members|length }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-2">
+        <div
+          class="card stat-card bg-dark text-light p-3 shadow-sm border-danger border-3">
+          <div class="d-flex align-items-center">
+            <div class="icon bg-danger bg-opacity-25 text-danger">
+              <i class="bi bi-chat-dots fs-1"></i>
+            </div>
+            <div class="w-100 title ms-2">
+              <h6 class="text-uppercase mb-0">Contacts</h6>
+              <p class="mb-0" id="contacts"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other overview cards here... -->
+    </div>
+  </div>
+
+  <div class="row g-3 mt-4">
+    <h3 class="section-title">Content Creation Overview</h3>
+    <div class="col-12">
+      <div class="card text-light p-3 border-part-1-1">
+        <h6 class="text-uppercase text-title mb-2">Created Content Trends</h6>
+        <div class="p-2">
+          <canvas id="chartCreatedByMonth"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div
+        class="card bg-dark text-light p-3 shadow-sm border-success border-3">
+        <h5 class="text-center">News Breakdown</h5>
+        <div class="p-2">
+          <canvas id="chartNewsByLabel"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div
+        class="card bg-dark text-light p-3 shadow-sm border-warning border-3">
+        <h5 class="text-center">Projects by Category</h5>
+        <div class="p-2">
+          <canvas id="chartProjectsByLabel"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card bg-dark text-light p-3 shadow-sm border-info border-3">
+        <h5 class="text-center">Courses by Module</h5>
+        <div class="p-2">
+          <canvas id="chartCoursesByModule"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mt-4">
+    <h3 class="section-title">User Engagement & Interactions</h3>
+    <div class="col-md-12">
+      <div class="card text-light p-4 rounded-3 border-part-2-1">
+        <h6 class="text-uppercase text-title mb-2">Monthly Contact Activity</h6>
+        <canvas id="contactsByMonthChart"></canvas>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div
+        class="card bg-dark text-light p-4 shadow-sm rounded-3 border-primary border-4">
+        <h6 class="text-uppercase text-primary mb-2">Contact Distribution</h6>
+        <canvas id="contactDistributionChart"></canvas>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div
+        class="card bg-dark text-light p-4 shadow-sm rounded-3 border-danger border-4">
+        <h6 class="text-uppercase text-danger mb-2">News Comment Trends</h6>
+        <canvas id="commentsByLabelChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mt-3">
+    <h3 class="section-title">User Growth & Contributions</h3>
+    <div class="col-12">
+      <div class="card text-light p-3 border-part-3-1">
+        <h6 class="mb-2 text-title text-uppercase">
+          New Account Registrations
+        </h6>
+        <div class="p-2">
+          <canvas id="chartAccountsByMonth"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div
+        class="card bg-dark text-light p-3 shadow-sm border-secondary border-3">
+        <h5 class="text-center">User Content Contributions</h5>
+        <div class="table-responsive p-2">
+          <table class="table table-dark table-striped text-center">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Total News</th>
+                <th>Total Courses</th>
+                <th>Total Projects</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in members %}
+              <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.total_news }}</td>
+                <td>{{ user.total_courses }}</td>
+                <td>{{ user.total_projects }}</td>
+                <td>{{ user.total }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Take data
+  const accounts = $.ajax({
+    url: "{% url 'mapi_account' %}",
+    type: "GET",
+    async: false,
+  }).responseJSON;
+  console.log(accounts);
+  const projects = $.ajax({
+    url: "{% url 'mapi_projects' %}",
+    type: "GET",
+    async: false,
+  }).responseJSON;
+  console.log(projects);
+  const news = $.ajax({
+    url: "{% url 'mapi_news' %}",
+    type: "GET",
+    async: false,
+  }).responseJSON;
+  console.log(news);
+  const courses = $.ajax({
+    url: "{% url 'mapi_courses' %}",
+    type: "GET",
+    async: false,
+  }).responseJSON;
+  console.log(courses);
+  const contacts = $.ajax({
+    url: "{% url 'mapi_contact' %}",
+    type: "GET",
+    async: false,
+  }).responseJSON;
+  console.log(contacts);
+  comments = $.ajax({
+    url: "{% url 'mapi_comments' %}",
+    type: "GET",
+    async: false,
+  }).responseJSON;
+  console.log(comments);
+  //   Set data to the cards
+  $("#projects").text(projects["projects"]);
+  $("#courses").text(courses["courses"]);
+  $("#news").text(news["news"]);
+  $("#accounts").text(accounts["accounts"]);
+  $("#contacts").text(contacts["contacts"]);
+
+  // Chart 1: Total news, courses, projects created by month in this year
+  const ctx1 = document.getElementById("chartCreatedByMonth").getContext("2d");
+  const chartCreatedByMonth = new Chart(ctx1, {
+    type: "bar",
+    data: {
+      labels: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
+      datasets: [
+        {
+          label: "Projects",
+          data: projects["projects_by_month"],
+          backgroundColor: "rgba(255, 99, 132, 0.7)",
+          borderColor: "rgba(255, 99, 132, 1)",
+          borderWidth: 1,
+        },
+        {
+          label: "Courses",
+          data: courses["courses_by_month"],
+          backgroundColor: "rgba(54, 162, 235, 0.7)",
+          borderColor: "rgba(54, 162, 235, 1)",
+          borderWidth: 1,
+        },
+        {
+          label: "News",
+          data: news["news_by_month"],
+          backgroundColor: "rgba(255, 206, 86, 0.7)",
+          borderColor: "rgba(255, 206, 86, 1)",
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: "top", labels: { color: "#ffffff" } } },
+      scales: {
+        x: {
+          grid: { color: "rgba(255,255,255,0.1)" },
+          ticks: { color: "#ffffff" },
+        },
+        y: {
+          grid: { color: "rgba(255,255,255,0.1)" },
+          ticks: { color: "#ffffff" },
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
+  // Chart 2: Total news by news label
+  const ctx2 = document.getElementById("chartNewsByLabel").getContext("2d");
+  const chartNewsByLabel = new Chart(ctx2, {
+    type: "doughnut",
+    data: {
+      labels: news["label"],
+      datasets: [
+        {
+          label: "News by Label",
+          data: news["news_by_label"],
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.7)",
+            "rgba(54, 162, 235, 0.7)",
+            "rgba(255, 206, 86, 0.7)",
+            "rgba(75, 192, 192, 0.7)",
+            "rgba(153, 102, 255, 0.7)",
+          ],
+        },
+      ],
+    },
+    options: { responsive: true, plugins: { legend: { position: "top" } } },
+  });
+
+  // Chart 3: Total projects by project label
+  const ctx3 = document.getElementById("chartProjectsByLabel").getContext("2d");
+  const chartProjectsByLabel = new Chart(ctx3, {
+    type: "doughnut",
+    data: {
+      labels: projects["label"],
+      datasets: [
+        {
+          label: "Projects by Label",
+          data: projects["projects_by_label"],
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.7)",
+            "rgba(54, 162, 235, 0.7)",
+            "rgba(255, 206, 86, 0.7)",
+            "rgba(75, 192, 192, 0.7)",
+            "rgba(153, 102, 255, 0.7)",
+          ],
+        },
+      ],
+    },
+    options: { responsive: true, plugins: { legend: { position: "top" } } },
+  });
+
+  // Chart 4: Total courses by module
+  const ctx4 = document.getElementById("chartCoursesByModule").getContext("2d");
+  const chartCoursesByModule = new Chart(ctx4, {
+    type: "doughnut",
+    data: {
+      labels: courses["modules"],
+      datasets: [
+        {
+          label: "Courses by Module",
+          data: courses["courses_by_module"],
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.7)",
+            "rgba(54, 162, 235, 0.7)",
+            "rgba(255, 206, 86, 0.7)",
+            "rgba(75, 192, 192, 0.7)",
+            "rgba(153, 102, 255, 0.7)",
+          ],
+        },
+      ],
+    },
+    options: { responsive: true, plugins: { legend: { position: "top" } } },
+  });
+
+  // Chart 5: Contacts (News & Projects) by Month
+  var ctx5 = document.getElementById("contactsByMonthChart").getContext("2d");
+  new Chart(ctx5, {
+    type: "bar",
+    data: {
+      labels: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
+      datasets: [
+        {
+          label: "News Contacts",
+          data: contacts["news_contacts_by_month"],
+          backgroundColor: "rgba(255, 193, 7, 0.7)",
+          borderColor: "#ffc107",
+          borderWidth: 1,
+        },
+        {
+          label: "Project Contacts",
+          data: contacts["project_contacts_by_month"],
+          backgroundColor: "rgba(23, 162, 184, 0.7)",
+          borderColor: "#17a2b8",
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: "#ffffff" } },
+      },
+      scales: {
+        x: {
+          grid: { color: "rgba(255,255,255,0.1)" },
+          ticks: { color: "#ffffff" },
+        },
+        y: {
+          grid: { color: "rgba(255,255,255,0.1)" },
+          ticks: { color: "#ffffff" },
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
+  // Chart 6: Contact Distribution (News vs. Projects)
+  var ctx6 = document
+    .getElementById("contactDistributionChart")
+    .getContext("2d");
+  new Chart(ctx6, {
+    type: "pie",
+    data: {
+      labels: ["Projects", "News"],
+      datasets: [
+        {
+          data: [
+            contacts["contact_data"]["project"],
+            contacts["contact_data"]["news"],
+          ],
+          backgroundColor: [
+            "rgba(255, 193, 7, 0.7)",
+            "rgba(23, 162, 184, 0.7)",
+          ],
+          borderColor: "#fff",
+          borderWidth: 2,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: "#ffffff" } },
+      },
+    },
+  });
+
+  // Chart 7: Total Comments by News Labels
+  var ctx7 = document.getElementById("commentsByLabelChart").getContext("2d");
+  new Chart(ctx7, {
+    type: "pie",
+    data: {
+      labels: comments["label"],
+      datasets: [
+        {
+          data: comments["label"].map(
+            (label) => comments["comments_by_label"][label]
+          ),
+
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.7)",
+            "rgba(54, 162, 235, 0.7)",
+            "rgba(255, 206, 86, 0.7)",
+            "rgba(75, 192, 192, 0.7)",
+            "rgba(153, 102, 255, 0.7)",
+          ],
+          borderColor: "#fff",
+          borderWidth: 2,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: "#ffffff" } },
+      },
+    },
+  });
+
+  // Chart 8: Total accounts created by month
+  const ctx8 = document.getElementById("chartAccountsByMonth").getContext("2d");
+  new Chart(ctx8, {
+    type: "bar",
+    data: {
+      labels: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
+      datasets: [
+        {
+          label: "Total Accounts",
+          data: accounts["accounts_by_month"],
+          backgroundColor: "rgba(255, 99, 132, 0.6)",
+          borderColor: "rgba(255, 99, 132, 1)",
+          borderWidth: 2,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: "top", labels: { color: "#ffffff" } } },
+      scales: {
+        x: {
+          grid: { color: "rgba(255,255,255,0.1)" },
+          ticks: { color: "#ffffff" },
+        },
+        y: {
+          grid: { color: "rgba(255,255,255,0.1)" },
+          ticks: { color: "#ffffff" },
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+</script>
+<style>
+  @media screen and (max-width: 1200px) and (min-width: 992px) {
+    .small {
+      font-size: 0.8rem;
+    }
+  }
+  @media screen and (max-width: 576px) {
+    .title {
+      text-align: end;
+    }
+  }
+
+  .stat-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    min-height: 100px; /* Ensure consistent height */
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.15);
+  }
+  .fs-1 {
+    font-size: 1.5rem !important;
+  }
+  .stat-card .icon {
+    width: 60px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+  }
+
+  .stat-card .title h6 {
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
+
+  .stat-card .title p {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .border-part-1-1 {
+    border-color: transparent;
+  }
+  .text-title {
+    color: var(--bs-gray-100);
+  }
+  .border-part-2-1 {
+    border-color: transparent;
+  }
+  .text-part-2-1 {
+    color: var(--bs-purple);
+  }
+  .border-part-3-1 {
+    border-color: transparent;
+  }
+  .text-part-3-1 {
+    color: var(--bs-teal);
+  }
+  .card {
+    background-color: transparent;
+  }
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    color: #f8f9fa;
+    border-bottom: 2px solid #6c757d;
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% endblock %}

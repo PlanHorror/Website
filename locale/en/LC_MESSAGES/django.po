@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-09 23:46+0700\n"
+"POT-Creation-Date: 2025-02-20 03:32+0700\n"
 "PO-Revision-Date: 2025-02-18 11:40+0000\n"
 "Last-Translator: My First Name <admin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,51 +19,57 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
-#: .\app\views.py:34 .\app\views.py:50
+#: .\app\views.py:42 .\app\views.py:58
 msgid "You are already logged in"
 msgstr "You are already logged in"
 
-#: .\app\views.py:42
+#: .\app\views.py:50
 msgid "Login successfully"
 msgstr "Login successfully"
 
-#: .\app\views.py:45
+#: .\app\views.py:53
 msgid "Invalid username or password"
 msgstr "Invalid username or password"
 
-#: .\app\views.py:58
+#: .\app\views.py:66
 msgid "Register successfully"
 msgstr "Register successfully"
 
-#: .\app\views.py:66
+#: .\app\views.py:74
 msgid "Logout successfully"
 msgstr "Logout successfully"
 
-#: .\app\views.py:78 .\app\views.py:182
-msgid "Send message successfully"
-msgstr ""
-
-#: .\app\views.py:127 .\app\views.py:151
+#: .\app\views.py:103 .\app\views.py:160 .\app\views.py:184
 msgid "Page not found"
 msgstr "Page not found"
 
-#: .\app\views.py:130 .\app\views.py:154
+#: .\app\views.py:106 .\app\views.py:163 .\app\views.py:187
 msgid "Page invalid"
 msgstr "Page invalid"
 
-#: .\app\views.py:189
-msgid "You must login to view this page"
-msgstr "You must login to view this page"
+#: .\app\views.py:128
+msgid "You need to login to comment"
+msgstr ""
 
-#: .\members\models.py:16 .\members\models.py:25
+#: .\app\views.py:216
+msgid "Send message successfully"
+msgstr ""
+
+#: .\app\views.py:229
+#, fuzzy
+#| msgid "Login successfully"
+msgid "Update profile successfully"
+msgstr "Login successfully"
+
+#: .\members\models.py:33 .\members\models.py:42
 msgid "Name"
 msgstr ""
 
-#: .\members\models.py:36
+#: .\members\models.py:53
 msgid "Title"
 msgstr ""
 
-#: .\members\models.py:37
+#: .\members\models.py:54
 msgid "Content"
 msgstr ""
 
@@ -82,19 +88,22 @@ msgstr "Japanese"
 msgid "en"
 msgstr "English"
 
-#: .\templates\app\navbar.html:65 .\templates\app\tem\index.html:51
+#: .\templates\app\navbar.html:65
 msgid "about"
 msgstr "About us"
 
 #: .\templates\app\navbar.html:66 .\templates\app\tem\index.html:25
+#: .\templates\app\tem\index.html:87
 msgid "projects"
 msgstr "Projects"
 
-#: .\templates\app\navbar.html:68 .\templates\app\tem\index.html:30
+#: .\templates\app\navbar.html:68 .\templates\app\tem\index.html:31
+#: .\templates\app\tem\index.html:95
 msgid "courses"
 msgstr "Courses"
 
-#: .\templates\app\navbar.html:69 .\templates\app\tem\index.html:38
+#: .\templates\app\navbar.html:69 .\templates\app\tem\index.html:46
+#: .\templates\app\tem\index.html:108
 msgid "contact"
 msgstr "Contact"
 
@@ -148,7 +157,8 @@ msgstr "Select an option"
 msgid "Project"
 msgstr "Projects"
 
-#: .\templates\app\tem\collab.html:31
+#: .\templates\app\tem\collab.html:31 .\templates\app\tem\index.html:37
+#: .\templates\app\tem\index.html:101
 msgid "News"
 msgstr "News"
 
@@ -169,11 +179,13 @@ msgid "Submit Feedback"
 msgstr "Submit Feedback"
 
 #: .\templates\app\tem\course.html:11 .\templates\app\tem\course.html:13
+#: .\templates\app\tem\news.html:12 .\templates\app\tem\news.html:14
 #: .\templates\app\tem\projects.html:12 .\templates\app\tem\projects.html:14
 msgid "Search"
 msgstr "Search"
 
-#: .\templates\app\tem\course.html:22
+#: .\templates\app\tem\course.html:22 .\templates\app\tem\news.html:23
+#: .\templates\app\tem\projects.html:17
 msgid "Go"
 msgstr "Go"
 
@@ -181,23 +193,29 @@ msgstr "Go"
 msgid "Filter:"
 msgstr "Filter:"
 
-#: .\templates\app\tem\course.html:39
+#: .\templates\app\tem\course.html:39 .\templates\app\tem\news.html:41
+#: .\templates\app\tem\news.html:43
 msgid "All"
 msgstr "All"
 
-#: .\templates\app\tem\course.html:50 .\templates\app\tem\projects.html:25
+#: .\templates\app\tem\course.html:50 .\templates\app\tem\news.html:54
+#: .\templates\app\tem\projects.html:25
 msgid "Sort:"
 msgstr "Sort:"
 
 #: .\templates\app\tem\course.html:61 .\templates\app\tem\course.html:64
-#: .\templates\app\tem\course.html:65 .\templates\app\tem\projects.html:32
-#: .\templates\app\tem\projects.html:35 .\templates\app\tem\projects.html:38
+#: .\templates\app\tem\course.html:65 .\templates\app\tem\news.html:64
+#: .\templates\app\tem\news.html:67 .\templates\app\tem\news.html:70
+#: .\templates\app\tem\projects.html:32 .\templates\app\tem\projects.html:35
+#: .\templates\app\tem\projects.html:38
 msgid "Newest"
 msgstr "Newest"
 
 #: .\templates\app\tem\course.html:62 .\templates\app\tem\course.html:67
-#: .\templates\app\tem\course.html:68 .\templates\app\tem\projects.html:33
-#: .\templates\app\tem\projects.html:36 .\templates\app\tem\projects.html:39
+#: .\templates\app\tem\course.html:68 .\templates\app\tem\news.html:65
+#: .\templates\app\tem\news.html:68 .\templates\app\tem\news.html:71
+#: .\templates\app\tem\projects.html:33 .\templates\app\tem\projects.html:36
+#: .\templates\app\tem\projects.html:39
 msgid "Oldest"
 msgstr "Oldest"
 
@@ -206,7 +224,6 @@ msgid "Most Recent"
 msgstr "Recent"
 
 #: .\templates\app\tem\course.html:84
-#| msgid "courses"
 msgid "No courses found"
 msgstr "No courses found"
 
@@ -214,24 +231,29 @@ msgstr "No courses found"
 msgid "Date:"
 msgstr "Date:"
 
-#: .\templates\app\tem\course.html:97 .\templates\app\tem\projects.html:80
+#: .\templates\app\tem\course.html:97 .\templates\app\tem\news.html:112
+#: .\templates\app\tem\projects.html:80
 msgid "Author:"
 msgstr "Author:"
 
 #: .\templates\app\tem\course.html:118 .\templates\app\tem\course.html:121
+#: .\templates\app\tem\news.html:137 .\templates\app\tem\news.html:140
 #: .\templates\app\tem\projects.html:102 .\templates\app\tem\projects.html:105
 msgid "Previous"
 msgstr "Previous"
 
-#: .\templates\app\tem\course.html:123 .\templates\app\tem\projects.html:108
+#: .\templates\app\tem\course.html:123 .\templates\app\tem\news.html:143
+#: .\templates\app\tem\projects.html:108
 msgid "Page"
 msgstr "Page"
 
-#: .\templates\app\tem\course.html:146 .\templates\app\tem\projects.html:122
+#: .\templates\app\tem\course.html:146 .\templates\app\tem\news.html:160
+#: .\templates\app\tem\projects.html:122
 msgid "of"
 msgstr "of"
 
 #: .\templates\app\tem\course.html:159 .\templates\app\tem\course.html:162
+#: .\templates\app\tem\news.html:169 .\templates\app\tem\news.html:172
 #: .\templates\app\tem\projects.html:131 .\templates\app\tem\projects.html:134
 msgid "Next"
 msgstr "Next"
@@ -245,139 +267,124 @@ msgid "about_description"
 msgstr "About us"
 
 #: .\templates\app\tem\index.html:26
-msgid "projects_description"
-msgstr "Explore our latest projects and products."
+msgid "Explore our latest projects and innovations."
+msgstr ""
 
-#: .\templates\app\tem\index.html:31
-msgid "courses_description"
-msgstr "Learn new skills with our courses."
+#: .\templates\app\tem\index.html:32
+msgid "Learn CSE courses easier with our study notes."
+msgstr ""
 
-#: .\templates\app\tem\index.html:34
-msgid "news"
-msgstr "news"
+#: .\templates\app\tem\index.html:40
+msgid "Explore the latest trends and discoveries in tech and science."
+msgstr ""
 
-#: .\templates\app\tem\index.html:35
-msgid "news_description"
-msgstr "Stay updated with our latest news."
+#: .\templates\app\tem\index.html:47
+msgid "Get in touch with us for more information."
+msgstr ""
 
-#: .\templates\app\tem\index.html:39
-msgid "contact_description"
-msgstr "Contact us for more information."
-
-#: .\templates\app\tem\index.html:44
+#: .\templates\app\tem\index.html:53
 msgid "Welcome to Algorka Tech Club"
 msgstr "Welcome to Algorka Tech Club"
 
-#: .\templates\app\tem\index.html:53
+#: .\templates\app\tem\index.html:61
+#, fuzzy
+#| msgid "What We Do"
+msgid "Who We Are"
+msgstr "What We Do"
+
+#: .\templates\app\tem\index.html:63
 msgid "Welcome to"
 msgstr "Welcome to"
 
-#: .\templates\app\tem\index.html:54
-msgid "where innovation meets inspiration!"
-msgstr "where innovation meets inspiration!"
-
-#: .\templates\app\tem\index.html:58
-msgid ""
-" We are a passionate community of tech enthusiasts, innovators, and problem-"
-"solvers who come together to explore the cutting edge of technology. Whether"
-" you're a coder, designer, builder, or simply curious about tech, our club "
-"offers a platform to learn, grow, and make a difference."
-msgstr ""
-"We are a passionate community of tech enthusiasts, innovators, and problem-"
-"solvers who come together to explore the cutting edge of technology. Whether"
-" you're a coder, designer, builder, or simply curious about tech, our club "
-"offers a platform to learn, grow, and make a difference."
-
-#: .\templates\app\tem\index.html:61
-msgid "Our Mission"
-msgstr "Our Mission"
-
 #: .\templates\app\tem\index.html:64
 msgid ""
-"Our mission is to foster creativity, collaboration, and technological "
-"excellence by empowering our members to innovate, experiment, and thrive in "
-"the rapidly evolving world of technology."
+", a technology club founded by students from the Faculty of Advanced "
+"Technology and Engineering at Japan University."
+msgstr ""
+
+#: .\templates\app\tem\index.html:68
+#, fuzzy
+#| msgid ""
+#| "Our mission is to foster creativity, collaboration, and technological "
+#| "excellence by empowering our members to innovate, experiment, and thrive "
+#| "in the rapidly evolving world of technology."
+msgid ""
+"Our objective is to foster creativity, collaboration, and a technological "
+"community where members can learn from one another and grow together."
 msgstr ""
 "Our mission is to foster creativity, collaboration, and technological "
 "excellence by empowering our members to innovate, experiment, and thrive in "
 "the rapidly evolving world of technology."
 
-#: .\templates\app\tem\index.html:67
+#: .\templates\app\tem\index.html:71
 msgid "What We Do"
 msgstr "What We Do"
 
-#: .\templates\app\tem\index.html:71
-msgid "Workshops & Hackathons:"
-msgstr "Workshops & Hackathons:"
-
-#: .\templates\app\tem\index.html:71
-msgid "Hands-on events to master new skills and tackle real-world challenges."
-msgstr ""
-
-#: .\templates\app\tem\index.html:75
-msgid "Tech Talks & Seminars:"
-msgstr ""
-
-#: .\templates\app\tem\index.html:75
+#: .\templates\app\tem\index.html:74
 msgid ""
-"Stay updated with the latest trends and innovations in the tech industry."
+"We currently have two core teams, and as we grow, more teams will be formed "
+"to cover additional fields."
 msgstr ""
 
 #: .\templates\app\tem\index.html:79
-msgid "Projects & Collaborations:"
+msgid "Team A:"
 msgstr ""
 
 #: .\templates\app\tem\index.html:79
-msgid ""
-"Work on exciting team projects to build cutting-edge solutions and practical"
-" experience."
+msgid "Focused on Artificial Intelligence, Embedded Devices, and Robotics."
 msgstr ""
 
 #: .\templates\app\tem\index.html:83
-msgid "Competitions:"
+msgid "Team B:"
 msgstr ""
 
 #: .\templates\app\tem\index.html:83
-msgid ""
-"Showcase your skills in local, national, and international tech "
-"competitions."
+msgid "Specializing in Software Applications."
 msgstr ""
 
-#: .\templates\app\tem\index.html:87
-msgid "Mentorship & Networking:"
-msgstr ""
-
-#: .\templates\app\tem\index.html:87
+#: .\templates\app\tem\index.html:89
 msgid ""
-"Learn from experienced professionals and connect with like-minded peers."
+"Algorka offers a platform for members to develop skills, collaborate, and "
+"turn ideas into reality. With structured online training, members gain "
+"expertise while working on real-world projects and connecting with like-"
+"minded peers."
 msgstr ""
 
 #: .\templates\app\tem\index.html:91
-msgid "Why Join Us?"
+msgid ""
+"At Algorka, members can initiate their own projects with full support or "
+"join existing ones to gain experience. Whether leading or collaborating, "
+"everyone has the opportunity to learn, contribute, and build meaningful "
+"solutions, regardless of their skill level."
 msgstr ""
 
 #: .\templates\app\tem\index.html:93
-msgid "By joining"
+msgid ""
+"Members work within their teams, but many projects involve collaboration "
+"across different fields. While members work in their own teams, "
+"collaboration across fields is essential to meet the growing need for "
+"interdisciplinary teamwork in solving real-world problems."
 msgstr ""
 
-#: .\templates\app\tem\index.html:93
-msgid "you’ll gain:"
+#: .\templates\app\tem\index.html:97
+msgid ""
+"We offer a collection of documents and materials covering the core subjects "
+"of Computer Science and Engineering (CSE), divided into five main modules."
 msgstr ""
 
-#: .\templates\app\tem\index.html:96
-msgid "A platform to sharpen your technical and creative skills."
+#: .\templates\app\tem\index.html:99
+msgid ""
+"Our resources are sourced from faculty-provided lecture notes at Vietnam "
+"Japan University and other reputable sources, with clear citations. All "
+"content is provided in editable formats, allowing you to customize and take "
+"notes based on your learning needs."
 msgstr ""
 
-#: .\templates\app\tem\index.html:98
-msgid "Access to a supportive community of peers and mentors."
-msgstr ""
-
-#: .\templates\app\tem\index.html:100
-msgid "Opportunities to showcase your talent and gain recognition."
-msgstr ""
-
-#: .\templates\app\tem\index.html:102
-msgid "Resources and guidance to turn your ideas into reality."
+#: .\templates\app\tem\index.html:103
+msgid ""
+"Stay informed about the latest trends and innovations in technology and "
+"science. All news articles are written by our members, helping them build "
+"skills in research, information synthesis, and technical writing."
 msgstr ""
 
 #: .\templates\app\tem\index.html:105
@@ -386,31 +393,29 @@ msgstr ""
 
 #: .\templates\app\tem\index.html:108
 msgid ""
-"Ready to join the tech revolution? We welcome members from all skill levels "
-"and backgrounds."
+"We welcome members from all skill levels and backgrounds to join our "
+"community. Are you interested in our projects or want to collaborate? Visit "
+"our"
+msgstr ""
+
+#: .\templates\app\tem\index.html:108
+msgid "page to get in touch."
 msgstr ""
 
 #: .\templates\app\tem\index.html:112
-msgid "Follow us on"
-msgstr ""
-
-#: .\templates\app\tem\index.html:112
-msgid "or reach out at"
+msgid "Follow us on social media or visit"
 msgstr ""
 
 #: .\templates\app\tem\index.html:112
 msgid "to learn more and get started."
 msgstr ""
 
-#: .\templates\app\tem\index.html:114
-msgid "Together, let’s shape the future of technology! 🚀"
-msgstr ""
-
 #: .\templates\app\tem\login.html:7 .\templates\app\tem\login.html:18
 msgid "Sign In"
 msgstr ""
 
-#: .\templates\app\tem\login.html:11 .\templates\app\tem\register.html:38
+#: .\templates\app\tem\login.html:11 .\templates\app\tem\profile.html:38
+#: .\templates\app\tem\register.html:38
 msgid "Username"
 msgstr ""
 
@@ -426,12 +431,45 @@ msgstr ""
 msgid "Sign up"
 msgstr ""
 
-#: .\templates\app\tem\new.html:7 .\templates\app\tem\news.html:6
-msgid "This is the news page. It will be developed in the future."
+#: .\templates\app\tem\new.html:13 .\templates\app\tem\project.html:13
+msgid "By:"
 msgstr ""
 
-#: .\templates\app\tem\project.html:13
-msgid "By:"
+#: .\templates\app\tem\news.html:83
+#, fuzzy
+#| msgid "No courses found"
+msgid "No news found"
+msgstr "No courses found"
+
+#: .\templates\app\tem\profile.html:7
+#, fuzzy
+#| msgid "profile"
+msgid "Profile"
+msgstr "Profile"
+
+#: .\templates\app\tem\profile.html:13 .\templates\app\tem\register.html:13
+msgid "First Name"
+msgstr ""
+
+#: .\templates\app\tem\profile.html:25 .\templates\app\tem\register.html:25
+msgid "Last Name"
+msgstr ""
+
+#: .\templates\app\tem\profile.html:51 .\templates\app\tem\register.html:51
+msgid "Email"
+msgstr ""
+
+#: .\templates\app\tem\profile.html:63 .\templates\app\tem\register.html:88
+#: .\templates\app\tem\register.html:90
+msgid "Upload Avatar"
+msgstr ""
+
+#: .\templates\app\tem\profile.html:73
+msgid "Change Avatar"
+msgstr ""
+
+#: .\templates\app\tem\profile.html:84
+msgid "Update"
 msgstr ""
 
 #: .\templates\app\tem\projects.html:51
@@ -446,24 +484,8 @@ msgstr "Projects"
 msgid "Register"
 msgstr "Register"
 
-#: .\templates\app\tem\register.html:13
-msgid "First Name"
-msgstr ""
-
-#: .\templates\app\tem\register.html:25
-msgid "Last Name"
-msgstr ""
-
-#: .\templates\app\tem\register.html:51
-msgid "Email"
-msgstr ""
-
 #: .\templates\app\tem\register.html:77
 msgid "Confirm Password"
-msgstr ""
-
-#: .\templates\app\tem\register.html:88 .\templates\app\tem\register.html:90
-msgid "Upload Avatar"
 msgstr ""
 
 #: .\templates\app\tem\register.html:103
@@ -485,6 +507,46 @@ msgstr "English"
 #: .\website\settings.py:154
 msgid "Japanese"
 msgstr "Japanese"
+
+#~ msgid "You must login to view this page"
+#~ msgstr "You must login to view this page"
+
+#~ msgid "projects_description"
+#~ msgstr "Explore our latest projects and products."
+
+#~ msgid "courses_description"
+#~ msgstr "Learn new skills with our courses."
+
+#~ msgid "news"
+#~ msgstr "news"
+
+#~ msgid "news_description"
+#~ msgstr "Stay updated with our latest news."
+
+#~ msgid "contact_description"
+#~ msgstr "Contact us for more information."
+
+#~ msgid "where innovation meets inspiration!"
+#~ msgstr "where innovation meets inspiration!"
+
+#~ msgid ""
+#~ " We are a passionate community of tech enthusiasts, innovators, and "
+#~ "problem-solvers who come together to explore the cutting edge of "
+#~ "technology. Whether you're a coder, designer, builder, or simply curious "
+#~ "about tech, our club offers a platform to learn, grow, and make a "
+#~ "difference."
+#~ msgstr ""
+#~ "We are a passionate community of tech enthusiasts, innovators, and "
+#~ "problem-solvers who come together to explore the cutting edge of "
+#~ "technology. Whether you're a coder, designer, builder, or simply curious "
+#~ "about tech, our club offers a platform to learn, grow, and make a "
+#~ "difference."
+
+#~ msgid "Our Mission"
+#~ msgstr "Our Mission"
+
+#~ msgid "Workshops & Hackathons:"
+#~ msgstr "Workshops & Hackathons:"
 
 #~ msgid "Tiếng Việt"
 #~ msgstr "Vietnamese"

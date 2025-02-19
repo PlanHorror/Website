@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-09 23:46+0700\n"
+"POT-Creation-Date: 2025-02-20 03:32+0700\n"
 "PO-Revision-Date: 2025-02-10 09:55+0000\n"
 "Last-Translator:   <admin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,51 +19,57 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
-#: .\app\views.py:34 .\app\views.py:50
+#: .\app\views.py:42 .\app\views.py:58
 msgid "You are already logged in"
 msgstr "Bạn đã đăng nhập rồi"
 
-#: .\app\views.py:42
+#: .\app\views.py:50
 msgid "Login successfully"
 msgstr "Đăng nhập thành công"
 
-#: .\app\views.py:45
+#: .\app\views.py:53
 msgid "Invalid username or password"
 msgstr "Tên đăng nhập hoặc mật khẩu không đúng"
 
-#: .\app\views.py:58
+#: .\app\views.py:66
 msgid "Register successfully"
 msgstr "Đăng ký thành công"
 
-#: .\app\views.py:66
+#: .\app\views.py:74
 msgid "Logout successfully"
 msgstr "Đăng xuất thành công"
 
-#: .\app\views.py:78 .\app\views.py:182
-msgid "Send message successfully"
-msgstr ""
-
-#: .\app\views.py:127 .\app\views.py:151
+#: .\app\views.py:103 .\app\views.py:160 .\app\views.py:184
 msgid "Page not found"
 msgstr "Trang không tồn tại"
 
-#: .\app\views.py:130 .\app\views.py:154
+#: .\app\views.py:106 .\app\views.py:163 .\app\views.py:187
 msgid "Page invalid"
 msgstr "Trang không hợp lệ"
 
-#: .\app\views.py:189
-msgid "You must login to view this page"
-msgstr "Bạn phải đăng nhập để truy cập vào trang này"
+#: .\app\views.py:128
+msgid "You need to login to comment"
+msgstr ""
 
-#: .\members\models.py:16 .\members\models.py:25
+#: .\app\views.py:216
+msgid "Send message successfully"
+msgstr ""
+
+#: .\app\views.py:229
+#, fuzzy
+#| msgid "Login successfully"
+msgid "Update profile successfully"
+msgstr "Đăng nhập thành công"
+
+#: .\members\models.py:33 .\members\models.py:42
 msgid "Name"
 msgstr ""
 
-#: .\members\models.py:36
+#: .\members\models.py:53
 msgid "Title"
 msgstr ""
 
-#: .\members\models.py:37
+#: .\members\models.py:54
 msgid "Content"
 msgstr ""
 
@@ -82,19 +88,22 @@ msgstr "Tiếng Nhật"
 msgid "en"
 msgstr "Tiếng Anh"
 
-#: .\templates\app\navbar.html:65 .\templates\app\tem\index.html:51
+#: .\templates\app\navbar.html:65
 msgid "about"
 msgstr "Về chúng tôi"
 
 #: .\templates\app\navbar.html:66 .\templates\app\tem\index.html:25
+#: .\templates\app\tem\index.html:87
 msgid "projects"
 msgstr "Dự án"
 
-#: .\templates\app\navbar.html:68 .\templates\app\tem\index.html:30
+#: .\templates\app\navbar.html:68 .\templates\app\tem\index.html:31
+#: .\templates\app\tem\index.html:95
 msgid "courses"
 msgstr "Khóa học"
 
-#: .\templates\app\navbar.html:69 .\templates\app\tem\index.html:38
+#: .\templates\app\navbar.html:69 .\templates\app\tem\index.html:46
+#: .\templates\app\tem\index.html:108
 msgid "contact"
 msgstr "Liên hệ"
 
@@ -115,7 +124,6 @@ msgid "register"
 msgstr "Đăng ký"
 
 #: .\templates\app\tem\collab.html:7
-#| msgid "contact"
 msgid "Contact Us"
 msgstr "Liên hệ"
 
@@ -148,7 +156,8 @@ msgstr "Lựa chọn"
 msgid "Project"
 msgstr "Dự án"
 
-#: .\templates\app\tem\collab.html:31
+#: .\templates\app\tem\collab.html:31 .\templates\app\tem\index.html:37
+#: .\templates\app\tem\index.html:101
 msgid "News"
 msgstr "Tin tức"
 
@@ -169,11 +178,13 @@ msgid "Submit Feedback"
 msgstr "Gửi"
 
 #: .\templates\app\tem\course.html:11 .\templates\app\tem\course.html:13
+#: .\templates\app\tem\news.html:12 .\templates\app\tem\news.html:14
 #: .\templates\app\tem\projects.html:12 .\templates\app\tem\projects.html:14
 msgid "Search"
 msgstr "Tìm kiếm"
 
-#: .\templates\app\tem\course.html:22
+#: .\templates\app\tem\course.html:22 .\templates\app\tem\news.html:23
+#: .\templates\app\tem\projects.html:17
 msgid "Go"
 msgstr "Tìm"
 
@@ -181,23 +192,29 @@ msgstr "Tìm"
 msgid "Filter:"
 msgstr "Bộ lọc:"
 
-#: .\templates\app\tem\course.html:39
+#: .\templates\app\tem\course.html:39 .\templates\app\tem\news.html:41
+#: .\templates\app\tem\news.html:43
 msgid "All"
 msgstr "Tất cả"
 
-#: .\templates\app\tem\course.html:50 .\templates\app\tem\projects.html:25
+#: .\templates\app\tem\course.html:50 .\templates\app\tem\news.html:54
+#: .\templates\app\tem\projects.html:25
 msgid "Sort:"
 msgstr "Sắp xếp:"
 
 #: .\templates\app\tem\course.html:61 .\templates\app\tem\course.html:64
-#: .\templates\app\tem\course.html:65 .\templates\app\tem\projects.html:32
-#: .\templates\app\tem\projects.html:35 .\templates\app\tem\projects.html:38
+#: .\templates\app\tem\course.html:65 .\templates\app\tem\news.html:64
+#: .\templates\app\tem\news.html:67 .\templates\app\tem\news.html:70
+#: .\templates\app\tem\projects.html:32 .\templates\app\tem\projects.html:35
+#: .\templates\app\tem\projects.html:38
 msgid "Newest"
 msgstr "Mới nhất"
 
 #: .\templates\app\tem\course.html:62 .\templates\app\tem\course.html:67
-#: .\templates\app\tem\course.html:68 .\templates\app\tem\projects.html:33
-#: .\templates\app\tem\projects.html:36 .\templates\app\tem\projects.html:39
+#: .\templates\app\tem\course.html:68 .\templates\app\tem\news.html:65
+#: .\templates\app\tem\news.html:68 .\templates\app\tem\news.html:71
+#: .\templates\app\tem\projects.html:33 .\templates\app\tem\projects.html:36
+#: .\templates\app\tem\projects.html:39
 msgid "Oldest"
 msgstr "Cũ nhất"
 
@@ -206,7 +223,6 @@ msgid "Most Recent"
 msgstr "Nổi bật"
 
 #: .\templates\app\tem\course.html:84
-#| msgid "courses"
 msgid "No courses found"
 msgstr "Không có khóa học nào được tìm thấy"
 
@@ -214,24 +230,29 @@ msgstr "Không có khóa học nào được tìm thấy"
 msgid "Date:"
 msgstr "Thời gian:"
 
-#: .\templates\app\tem\course.html:97 .\templates\app\tem\projects.html:80
+#: .\templates\app\tem\course.html:97 .\templates\app\tem\news.html:112
+#: .\templates\app\tem\projects.html:80
 msgid "Author:"
 msgstr "Tác giả:"
 
 #: .\templates\app\tem\course.html:118 .\templates\app\tem\course.html:121
+#: .\templates\app\tem\news.html:137 .\templates\app\tem\news.html:140
 #: .\templates\app\tem\projects.html:102 .\templates\app\tem\projects.html:105
 msgid "Previous"
 msgstr "Trang trước"
 
-#: .\templates\app\tem\course.html:123 .\templates\app\tem\projects.html:108
+#: .\templates\app\tem\course.html:123 .\templates\app\tem\news.html:143
+#: .\templates\app\tem\projects.html:108
 msgid "Page"
 msgstr "Trang"
 
-#: .\templates\app\tem\course.html:146 .\templates\app\tem\projects.html:122
+#: .\templates\app\tem\course.html:146 .\templates\app\tem\news.html:160
+#: .\templates\app\tem\projects.html:122
 msgid "of"
 msgstr "của"
 
 #: .\templates\app\tem\course.html:159 .\templates\app\tem\course.html:162
+#: .\templates\app\tem\news.html:169 .\templates\app\tem\news.html:172
 #: .\templates\app\tem\projects.html:131 .\templates\app\tem\projects.html:134
 msgid "Next"
 msgstr "Trang tiếp theo"
@@ -247,146 +268,128 @@ msgid "about_description"
 msgstr "Về chúng tôi"
 
 #: .\templates\app\tem\index.html:26
-msgid "projects_description"
-msgstr "Khám phá các dự án mới nhất của chúng tôi."
+msgid "Explore our latest projects and innovations."
+msgstr ""
 
-#: .\templates\app\tem\index.html:31
-msgid "courses_description"
-msgstr "Học các kỹ năng mới với các khóa học của chúng tôi."
+#: .\templates\app\tem\index.html:32
+msgid "Learn CSE courses easier with our study notes."
+msgstr ""
 
-#: .\templates\app\tem\index.html:34
-msgid "news"
-msgstr "Tin tức"
+#: .\templates\app\tem\index.html:40
+#, fuzzy
+#| msgid ""
+#| "Stay updated with the latest trends and innovations in the tech industry."
+msgid "Explore the latest trends and discoveries in tech and science."
+msgstr "Cập nhật những xu hướng mới nhất trong ngành công nghệ."
 
-#: .\templates\app\tem\index.html:35
-msgid "news_description"
-msgstr "Cập nhật những tin tức mới nhất."
+#: .\templates\app\tem\index.html:47
+msgid "Get in touch with us for more information."
+msgstr ""
 
-#: .\templates\app\tem\index.html:39
-msgid "contact_description"
-msgstr "Liên hệ với chúng tôi để biết thêm thông tin."
-
-#: .\templates\app\tem\index.html:44
+#: .\templates\app\tem\index.html:53
 msgid "Welcome to Algorka Tech Club"
 msgstr "Chào mừng đến với Algorka Tech Club"
 
-#: .\templates\app\tem\index.html:53
+#: .\templates\app\tem\index.html:61
+#, fuzzy
+#| msgid "What We Do"
+msgid "Who We Are"
+msgstr "Chúng tôi làm gì ?"
+
+#: .\templates\app\tem\index.html:63
 msgid "Welcome to"
 msgstr "Chào mừng đến với "
 
-#: .\templates\app\tem\index.html:54
-msgid "where innovation meets inspiration!"
-msgstr "Nơi sáng tạo hòa quyện với cảm hứng!"
-
-#: .\templates\app\tem\index.html:58
-msgid ""
-" We are a passionate community of tech enthusiasts, innovators, and problem-"
-"solvers who come together to explore the cutting edge of technology. Whether"
-" you're a coder, designer, builder, or simply curious about tech, our club "
-"offers a platform to learn, grow, and make a difference."
-msgstr ""
-"Chúng tôi là một cộng đồng đam mê công nghệ, những người sáng tạo và giải "
-"quyết vấn đề, cùng nhau khám phá những công nghệ tiên tiến nhất. Dù bạn là "
-"lập trình viên, nhà thiết kế, người xây dựng, hay chỉ đơn giản là người tò "
-"mò về công nghệ, câu lạc bộ của chúng tôi mang đến một nền tảng để học hỏi, "
-"phát triển và tạo ra sự khác biệt."
-
-#: .\templates\app\tem\index.html:61
-msgid "Our Mission"
-msgstr "Sứ mệnh của chúng tôi"
-
 #: .\templates\app\tem\index.html:64
 msgid ""
-"Our mission is to foster creativity, collaboration, and technological "
-"excellence by empowering our members to innovate, experiment, and thrive in "
-"the rapidly evolving world of technology."
+", a technology club founded by students from the Faculty of Advanced "
+"Technology and Engineering at Japan University."
 msgstr ""
-"Sứ mệnh của chúng tôi là thúc đẩy sự sáng tạo, hợp tác và xuất sắc công nghệ"
-" bằng cách trao quyền cho các thành viên của mình để đổi mới, thử nghiệm và "
+
+#: .\templates\app\tem\index.html:68
+#, fuzzy
+#| msgid ""
+#| "Our mission is to foster creativity, collaboration, and technological "
+#| "excellence by empowering our members to innovate, experiment, and thrive "
+#| "in the rapidly evolving world of technology."
+msgid ""
+"Our objective is to foster creativity, collaboration, and a technological "
+"community where members can learn from one another and grow together."
+msgstr ""
+"Sứ mệnh của chúng tôi là thúc đẩy sự sáng tạo, hợp tác và xuất sắc công nghệ "
+"bằng cách trao quyền cho các thành viên của mình để đổi mới, thử nghiệm và "
 "phát triển trong thế giới công nghệ đang thay đổi nhanh chóng."
 
-#: .\templates\app\tem\index.html:67
+#: .\templates\app\tem\index.html:71
 msgid "What We Do"
 msgstr "Chúng tôi làm gì ?"
 
-#: .\templates\app\tem\index.html:71
-msgid "Workshops & Hackathons:"
-msgstr "Những buổi hội thảo và cuộc thi Hackathon:"
-
-#: .\templates\app\tem\index.html:71
-msgid "Hands-on events to master new skills and tackle real-world challenges."
-msgstr ""
-"Những hoạt động thực tế trau dồi kỹ năng và giải quyết các vấn đề phức tạp."
-
-#: .\templates\app\tem\index.html:75
-msgid "Tech Talks & Seminars:"
-msgstr "Các buổi tọa đàm và hội thảo công nghệ:"
-
-#: .\templates\app\tem\index.html:75
+#: .\templates\app\tem\index.html:74
 msgid ""
-"Stay updated with the latest trends and innovations in the tech industry."
-msgstr "Cập nhật những xu hướng mới nhất trong ngành công nghệ."
+"We currently have two core teams, and as we grow, more teams will be formed "
+"to cover additional fields."
+msgstr ""
 
 #: .\templates\app\tem\index.html:79
-msgid "Projects & Collaborations:"
-msgstr "Dự án & Hợp tác:"
+msgid "Team A:"
+msgstr ""
 
 #: .\templates\app\tem\index.html:79
-msgid ""
-"Work on exciting team projects to build cutting-edge solutions and practical"
-" experience."
-msgstr "Tham gia các dự án thú vị và tích lũy kinh nghiệm thực tế."
-
-#: .\templates\app\tem\index.html:83
-msgid "Competitions:"
-msgstr "Cuộc thi:"
-
-#: .\templates\app\tem\index.html:83
-msgid ""
-"Showcase your skills in local, national, and international tech "
-"competitions."
-msgstr "Nâng cao kỹ năng của bạn tại các cuộc thi công nghệ."
-
-#: .\templates\app\tem\index.html:87
-msgid "Mentorship & Networking:"
-msgstr "Định hướng & Kết nối:"
-
-#: .\templates\app\tem\index.html:87
-msgid ""
-"Learn from experienced professionals and connect with like-minded peers."
+msgid "Focused on Artificial Intelligence, Embedded Devices, and Robotics."
 msgstr ""
-"Học hỏi từ các chuyên gia giàu kinh nghiệm và kết nối với những người cùng "
-"chí hướng."
+
+#: .\templates\app\tem\index.html:83
+msgid "Team B:"
+msgstr ""
+
+#: .\templates\app\tem\index.html:83
+msgid "Specializing in Software Applications."
+msgstr ""
+
+#: .\templates\app\tem\index.html:89
+msgid ""
+"Algorka offers a platform for members to develop skills, collaborate, and "
+"turn ideas into reality. With structured online training, members gain "
+"expertise while working on real-world projects and connecting with like-"
+"minded peers."
+msgstr ""
 
 #: .\templates\app\tem\index.html:91
-msgid "Why Join Us?"
-msgstr "Vì sao nên tham gia cùng chúng tôi?"
-
-#: .\templates\app\tem\index.html:93
-msgid "By joining"
-msgstr "Tham gia cùng chúng tôi"
-
-#: .\templates\app\tem\index.html:93
-msgid "you’ll gain:"
-msgstr "Bạn sẽ nhận được:"
-
-#: .\templates\app\tem\index.html:96
-msgid "A platform to sharpen your technical and creative skills."
-msgstr "Một nền tảng để rèn luyện kỹ năng và sự sáng tạo của bạn."
-
-#: .\templates\app\tem\index.html:98
-msgid "Access to a supportive community of peers and mentors."
+msgid ""
+"At Algorka, members can initiate their own projects with full support or "
+"join existing ones to gain experience. Whether leading or collaborating, "
+"everyone has the opportunity to learn, contribute, and build meaningful "
+"solutions, regardless of their skill level."
 msgstr ""
-"Cơ hội kết nối với một cộng đồng gắn kết cùng với những người cố đầy tài "
-"năng."
 
-#: .\templates\app\tem\index.html:100
-msgid "Opportunities to showcase your talent and gain recognition."
-msgstr "Cơ hội thể hiện tài năng của bạn và có được sự công nhận."
+#: .\templates\app\tem\index.html:93
+msgid ""
+"Members work within their teams, but many projects involve collaboration "
+"across different fields. While members work in their own teams, "
+"collaboration across fields is essential to meet the growing need for "
+"interdisciplinary teamwork in solving real-world problems."
+msgstr ""
 
-#: .\templates\app\tem\index.html:102
-msgid "Resources and guidance to turn your ideas into reality."
-msgstr "Tài nguyên và định hướng để biến ý tưởng của bạn thành hiện thực."
+#: .\templates\app\tem\index.html:97
+msgid ""
+"We offer a collection of documents and materials covering the core subjects "
+"of Computer Science and Engineering (CSE), divided into five main modules."
+msgstr ""
+
+#: .\templates\app\tem\index.html:99
+msgid ""
+"Our resources are sourced from faculty-provided lecture notes at Vietnam "
+"Japan University and other reputable sources, with clear citations. All "
+"content is provided in editable formats, allowing you to customize and take "
+"notes based on your learning needs."
+msgstr ""
+
+#: .\templates\app\tem\index.html:103
+msgid ""
+"Stay informed about the latest trends and innovations in technology and "
+"science. All news articles are written by our members, helping them build "
+"skills in research, information synthesis, and technical writing."
+msgstr ""
 
 #: .\templates\app\tem\index.html:105
 msgid "Get Involved"
@@ -394,33 +397,29 @@ msgstr "Tham gia ngay"
 
 #: .\templates\app\tem\index.html:108
 msgid ""
-"Ready to join the tech revolution? We welcome members from all skill levels "
-"and backgrounds."
+"We welcome members from all skill levels and backgrounds to join our "
+"community. Are you interested in our projects or want to collaborate? Visit "
+"our"
 msgstr ""
-"Sẵn sàng trở thành một phần của cuộc cách mạng công nghệ? Chúng tôi chào đón"
-" mọi thành viên ở mọi trình độ và lĩnh vực."
+
+#: .\templates\app\tem\index.html:108
+msgid "page to get in touch."
+msgstr ""
 
 #: .\templates\app\tem\index.html:112
-msgid "Follow us on"
-msgstr "Theo dõi chúng tôi trên"
-
-#: .\templates\app\tem\index.html:112
-msgid "or reach out at"
-msgstr "Hoặc liên hệ với chúng tôi tại"
+msgid "Follow us on social media or visit"
+msgstr ""
 
 #: .\templates\app\tem\index.html:112
 msgid "to learn more and get started."
 msgstr "Để khám phá thêm và bắt đầu hành trình của bạn."
 
-#: .\templates\app\tem\index.html:114
-msgid "Together, let’s shape the future of technology! 🚀"
-msgstr "Cùng nhau tạo kiến tạo tương lai! 🚀"
-
 #: .\templates\app\tem\login.html:7 .\templates\app\tem\login.html:18
 msgid "Sign In"
 msgstr "Đăng nhập"
 
-#: .\templates\app\tem\login.html:11 .\templates\app\tem\register.html:38
+#: .\templates\app\tem\login.html:11 .\templates\app\tem\profile.html:38
+#: .\templates\app\tem\register.html:38
 msgid "Username"
 msgstr "Tên người dùng"
 
@@ -436,43 +435,60 @@ msgstr "Chưa có tài khoản?"
 msgid "Sign up"
 msgstr "Đăng ký"
 
-#: .\templates\app\tem\new.html:7 .\templates\app\tem\news.html:6
-msgid "This is the news page. It will be developed in the future."
-msgstr "Đây là trang tin tức. Trang sẽ được phát triển trong tương lai."
-
-#: .\templates\app\tem\project.html:13
+#: .\templates\app\tem\new.html:13 .\templates\app\tem\project.html:13
 msgid "By:"
 msgstr "Bởi"
 
+#: .\templates\app\tem\news.html:83
+#, fuzzy
+#| msgid "No courses found"
+msgid "No news found"
+msgstr "Không có khóa học nào được tìm thấy"
+
+#: .\templates\app\tem\profile.html:7
+#, fuzzy
+#| msgid "profile"
+msgid "Profile"
+msgstr "Hồ sơ"
+
+#: .\templates\app\tem\profile.html:13 .\templates\app\tem\register.html:13
+msgid "First Name"
+msgstr "Tên "
+
+#: .\templates\app\tem\profile.html:25 .\templates\app\tem\register.html:25
+msgid "Last Name"
+msgstr "Họ"
+
+#: .\templates\app\tem\profile.html:51 .\templates\app\tem\register.html:51
+msgid "Email"
+msgstr "Email"
+
+#: .\templates\app\tem\profile.html:63 .\templates\app\tem\register.html:88
+#: .\templates\app\tem\register.html:90
+msgid "Upload Avatar"
+msgstr " Ảnh đại diện"
+
+#: .\templates\app\tem\profile.html:73
+#, fuzzy
+#| msgid "Upload Avatar"
+msgid "Change Avatar"
+msgstr " Ảnh đại diện"
+
+#: .\templates\app\tem\profile.html:84
+msgid "Update"
+msgstr ""
+
 #: .\templates\app\tem\projects.html:51
-#| msgid "projects"
 msgid "No projects found"
 msgstr "Không có dự án nào được tìm thấy"
 
 #: .\templates\app\tem\register.html:7 .\templates\app\tem\register.html:100
-#| msgid "register"
 msgid "Register"
 msgstr "Đăng ký"
-
-#: .\templates\app\tem\register.html:13
-msgid "First Name"
-msgstr "Tên "
-
-#: .\templates\app\tem\register.html:25
-msgid "Last Name"
-msgstr "Họ"
-
-#: .\templates\app\tem\register.html:51
-msgid "Email"
-msgstr "Email"
 
 #: .\templates\app\tem\register.html:77
 msgid "Confirm Password"
 msgstr "Nhập lại mật khẩu"
-
-#: .\templates\app\tem\register.html:88 .\templates\app\tem\register.html:90
-msgid "Upload Avatar"
-msgstr " Ảnh đại diện"
 
 #: .\templates\app\tem\register.html:103
 msgid "Already have an account?"
@@ -493,6 +509,122 @@ msgstr "Tiếng Anh"
 #: .\website\settings.py:154
 msgid "Japanese"
 msgstr "Tiếng Nhật"
+
+#~ msgid "You must login to view this page"
+#~ msgstr "Bạn phải đăng nhập để truy cập vào trang này"
+
+#~ msgid "projects_description"
+#~ msgstr "Khám phá các dự án mới nhất của chúng tôi."
+
+#~ msgid "courses_description"
+#~ msgstr "Học các kỹ năng mới với các khóa học của chúng tôi."
+
+#~ msgid "news"
+#~ msgstr "Tin tức"
+
+#~ msgid "news_description"
+#~ msgstr "Cập nhật những tin tức mới nhất."
+
+#~ msgid "contact_description"
+#~ msgstr "Liên hệ với chúng tôi để biết thêm thông tin."
+
+#~ msgid "where innovation meets inspiration!"
+#~ msgstr "Nơi sáng tạo hòa quyện với cảm hứng!"
+
+#~ msgid ""
+#~ " We are a passionate community of tech enthusiasts, innovators, and "
+#~ "problem-solvers who come together to explore the cutting edge of "
+#~ "technology. Whether you're a coder, designer, builder, or simply curious "
+#~ "about tech, our club offers a platform to learn, grow, and make a "
+#~ "difference."
+#~ msgstr ""
+#~ "Chúng tôi là một cộng đồng đam mê công nghệ, những người sáng tạo và giải "
+#~ "quyết vấn đề, cùng nhau khám phá những công nghệ tiên tiến nhất. Dù bạn "
+#~ "là lập trình viên, nhà thiết kế, người xây dựng, hay chỉ đơn giản là "
+#~ "người tò mò về công nghệ, câu lạc bộ của chúng tôi mang đến một nền tảng "
+#~ "để học hỏi, phát triển và tạo ra sự khác biệt."
+
+#~ msgid "Our Mission"
+#~ msgstr "Sứ mệnh của chúng tôi"
+
+#~ msgid "Workshops & Hackathons:"
+#~ msgstr "Những buổi hội thảo và cuộc thi Hackathon:"
+
+#~ msgid ""
+#~ "Hands-on events to master new skills and tackle real-world challenges."
+#~ msgstr ""
+#~ "Những hoạt động thực tế trau dồi kỹ năng và giải quyết các vấn đề phức "
+#~ "tạp."
+
+#~ msgid "Tech Talks & Seminars:"
+#~ msgstr "Các buổi tọa đàm và hội thảo công nghệ:"
+
+#~ msgid "Projects & Collaborations:"
+#~ msgstr "Dự án & Hợp tác:"
+
+#~ msgid ""
+#~ "Work on exciting team projects to build cutting-edge solutions and "
+#~ "practical experience."
+#~ msgstr "Tham gia các dự án thú vị và tích lũy kinh nghiệm thực tế."
+
+#~ msgid "Competitions:"
+#~ msgstr "Cuộc thi:"
+
+#~ msgid ""
+#~ "Showcase your skills in local, national, and international tech "
+#~ "competitions."
+#~ msgstr "Nâng cao kỹ năng của bạn tại các cuộc thi công nghệ."
+
+#~ msgid "Mentorship & Networking:"
+#~ msgstr "Định hướng & Kết nối:"
+
+#~ msgid ""
+#~ "Learn from experienced professionals and connect with like-minded peers."
+#~ msgstr ""
+#~ "Học hỏi từ các chuyên gia giàu kinh nghiệm và kết nối với những người "
+#~ "cùng chí hướng."
+
+#~ msgid "Why Join Us?"
+#~ msgstr "Vì sao nên tham gia cùng chúng tôi?"
+
+#~ msgid "By joining"
+#~ msgstr "Tham gia cùng chúng tôi"
+
+#~ msgid "you’ll gain:"
+#~ msgstr "Bạn sẽ nhận được:"
+
+#~ msgid "A platform to sharpen your technical and creative skills."
+#~ msgstr "Một nền tảng để rèn luyện kỹ năng và sự sáng tạo của bạn."
+
+#~ msgid "Access to a supportive community of peers and mentors."
+#~ msgstr ""
+#~ "Cơ hội kết nối với một cộng đồng gắn kết cùng với những người cố đầy tài "
+#~ "năng."
+
+#~ msgid "Opportunities to showcase your talent and gain recognition."
+#~ msgstr "Cơ hội thể hiện tài năng của bạn và có được sự công nhận."
+
+#~ msgid "Resources and guidance to turn your ideas into reality."
+#~ msgstr "Tài nguyên và định hướng để biến ý tưởng của bạn thành hiện thực."
+
+#~ msgid ""
+#~ "Ready to join the tech revolution? We welcome members from all skill "
+#~ "levels and backgrounds."
+#~ msgstr ""
+#~ "Sẵn sàng trở thành một phần của cuộc cách mạng công nghệ? Chúng tôi chào "
+#~ "đón mọi thành viên ở mọi trình độ và lĩnh vực."
+
+#~ msgid "Follow us on"
+#~ msgstr "Theo dõi chúng tôi trên"
+
+#~ msgid "or reach out at"
+#~ msgstr "Hoặc liên hệ với chúng tôi tại"
+
+#~ msgid "Together, let’s shape the future of technology! 🚀"
+#~ msgstr "Cùng nhau tạo kiến tạo tương lai! 🚀"
+
+#~ msgid "This is the news page. It will be developed in the future."
+#~ msgstr "Đây là trang tin tức. Trang sẽ được phát triển trong tương lai."
 
 #~ msgid "new"
 #~ msgstr "Tin tức mới"
