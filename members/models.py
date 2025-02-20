@@ -17,7 +17,7 @@ class CustomUser(AbstractUser):
     def save(self, *args, **kwargs):
         if self.pk is not None:
             orig = CustomUser.objects.get(pk=self.pk)
-            if orig.avatar != self.avatar and orig.avatar != '/media/user-avatars/default.jpg':
+            if orig.avatar != self.avatar and orig.avatar != 'user-avatars/default.jpg':
                 orig.avatar.delete(save=False)
         super().save(*args, **kwargs)
     def reset_avatar(self):
