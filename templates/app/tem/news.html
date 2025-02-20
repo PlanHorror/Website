@@ -89,7 +89,11 @@
     {% for ns in n %}
     <article class="post">
       <div class="post_thumbnail">
+        {% if ns.imagef %}
         <img src="{{MEDIA_URL}}{{ ns.imagef.url }}" />
+        {% else %}
+        <img src="{{MEDIA_URL}}/media/news-default.png" />
+        {% endif %}
       </div>
       <div class="post_info">
         {% for label in ns.label.all|slice:":3" %}

@@ -106,8 +106,12 @@ def news(request):
         messages.error(request, _('Page invalid'))
     news = paginator.get_page(page)
     for i in news:
-        i.imagef= NewsImage.objects.filter(news=i).order_by('num').first().image or None
+        try: 
+            i.imagef= NewsImage.objects.filter(news=i).order_by('num').first().image
+        except:
+            i.imagef = None
         i.contentf= NewsContent.objects.filter(news=i).order_by('num').first() or None
+        i.title_en = i.get_translation('en').title
     return render(request, 'app/tem/news.html', {'n': news, 'labels': labels, 'sort': sort, 'search': search, 'topic': label})
 def new(request, title ,news_id):
     news = News.objects.get(id=news_id)
@@ -170,6 +174,7 @@ def projects(request):
     project = Project.objects.all()
     if search:
         project = Project.objects.filter(Q(translation__title__icontains=search) | Q(translation__content__icontains=search))
+
     if sort == 'time2':
         project = project.order_by('created_at')
     else:
@@ -185,6 +190,8 @@ def projects(request):
     except PageNotAnInteger:
         page = 1
         messages.error(request, _('Page invalid'))
+    for i in project:
+        i.title_en = i.get_translation('en').title
     project = paginator.get_page(page)
 
     pLabels = ProjectLabel.objects.all()

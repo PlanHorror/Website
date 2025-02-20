@@ -2,14 +2,14 @@ asgiref==3.8.1
 certifi==2024.12.14
 charset-normalizer==3.4.1
 crispy-bootstrap5==2024.10
-Django==4.2.19
+Django==5.1.5
 django-crispy-forms==2.3
 django-parler==2.3
 django-rosetta==0.10.1
 idna==3.10
 pillow==11.1.0
 polib==1.2.0
-
+psycopg2-binarys
 python-dotenv==1.0.1
 requests==2.32.3
 sqlparse==0.5.3

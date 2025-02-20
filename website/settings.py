@@ -36,6 +36,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = ['http://algorka.work.gd.','https://algorka.work.gd.']
 
 # Application definition
 

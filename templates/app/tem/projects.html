@@ -66,7 +66,7 @@
         >
         {% endfor %}
         <h3 class="post_title">
-          <a href="{% url 'project' p.title|slugify p.pk %}">{{ p.title }}</a>
+          <a href="{% url 'project' p.title_en|slugify p.pk %}">{{ p.title }}</a>
         </h3>
         <p class="post_body">
           <!-- prettier-ignore -->
