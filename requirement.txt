@@ -10,6 +10,7 @@ idna==3.10
 pillow==11.1.0
 polib==1.2.0
 psycopg2==2.9.10
+psycopg2-binarys
 python-dotenv==1.0.1
 requests==2.32.3
 sqlparse==0.5.3
