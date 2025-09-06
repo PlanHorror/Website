@@ -12,11 +12,24 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 # Add these at the top of your settings.py
 import os
 from dotenv import load_dotenv
-from urllib.parse import urlparse
-from django.utils.translation import gettext_lazy as _
+import dj_database_url
+
 load_dotenv()
 
-# Replace the DATABASES section of your settings.py with this
+# Debug setting from environment
+DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
+
+# Allowed hosts from environment
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+
+# Database configuration from DATABASE_URL
+if os.getenv('DATABASE_URL'):
+    DATABASES = {
+        'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
+    }
+
+from urllib.parse import urlparse
+from django.utils.translation import gettext_lazy as _
 tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 
 from pathlib import Path
@@ -32,7 +45,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-y=3mj8*y-5t(7-3$taev#em2%%@ym99%ne-7mp#l3gr0wn=#lz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -135,14 +148,22 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Add your static directories
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 
+# Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# For production - ensure proper static file handling
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -167,4 +188,3 @@ PARLER_LANGUAGES = {
         'hide_untranslated': False,
     }
 }
-# Add this at the end of your settings.py
